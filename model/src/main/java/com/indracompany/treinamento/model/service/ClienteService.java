@@ -34,6 +34,12 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	return clienteRepository.findByEmail(email);
     }
     
+    public void atualizarPropriedadeAtivo(Long id, Boolean ativo) {
+	Cliente cliente = super.buscar(id);
+	cliente.setAtivo(ativo);
+	clienteRepository.save(cliente);
+}
+    
     private boolean emailEhValido(String mail) {
 	return EmailValidator.isValidoEmail(mail);
     }
