@@ -2,7 +2,7 @@ package com.indracompany.treinamento.controller.rest;
 
 
 import java.util.List;
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,5 +41,14 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 
 	  
 	  }
+	
+	
+	@RequestMapping(value = "/buscar-por-email/{email}/", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Cliente>buscarClientePorEmail(final @PathVariable String email) {
+		
+		Cliente retorno = clienteService.buscarClientePorEmail(email);
+		return  new ResponseEntity<>(retorno, HttpStatus.OK);
+		
+	}
 		
 	}

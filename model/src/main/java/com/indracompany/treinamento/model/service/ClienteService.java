@@ -1,8 +1,7 @@
 package com.indracompany.treinamento.model.service;
 
 import java.util.List;
-
-
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -45,6 +44,23 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		return list;
 		
 	 }
+	
+	public Cliente buscarClientePorEmail(String  email) {
+		
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+          if( cliente != null) {
+        	  
+        	  return  cliente;
+		
+		}
+         
+  		
+			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
+			
+	}
+
+	
 	
 
 	
