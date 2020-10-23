@@ -1,4 +1,4 @@
-package com.indracompany.treinamento.controller.validator;
+package com.indracompany.treinamento.validator;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.component.UIComponent;

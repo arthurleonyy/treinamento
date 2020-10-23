@@ -1,4 +1,4 @@
-package com.indracompany.treinamento.util;
+package com.indracompany.treinamento.validator;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
