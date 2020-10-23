@@ -8,29 +8,38 @@ import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.repository.ClienteRepository;
 import com.indracompany.treinamento.util.CpfUtil;
+import com.indracompany.treinamento.util.EmailValidator;
 
 @Service
 public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRepository> {
-	
-	@Autowired
-	private ClienteRepository clienteRepository;
-	
-	public Cliente buscarClientePorCpf(String cpf) {
-		if (!cpfEhValido(cpf)){
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
-		}
-		return clienteRepository.findByCpf(cpf);
-	}
-	
-	private boolean cpfEhValido(String cpf) {
-		return CpfUtil.validaCPF(cpf);
-	}
-	
-	public Cliente buscarClientePorNome(String nome) {
 
-			//throw new AplicacaoException(ExceptionValidacoes.ERRO_NOME_INVALIDO);
-			return clienteRepository.findByNome(nome);
+    @Autowired
+    private ClienteRepository clienteRepository;
+
+    public Cliente buscarClientePorCpf(String cpf) {
+	if (!cpfEhValido(cpf)) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
 	}
-	
+	return clienteRepository.findByCpf(cpf);
+    }
+
+    public Cliente buscarClientePorNome(String nome) {
+	return clienteRepository.findByNome(nome);
+    }
+    
+    public Cliente buscarPorEmail(String email) {
+	if (!emailEhValido(email)) {
+	    throw new AplicacaoException(EmailValidator.EMAIL_INVALIDO);
+	}
+	return clienteRepository.findByEmail(email);
+    }
+    
+    private boolean emailEhValido(String mail) {
+	return EmailValidator.isValidoEmail(mail);
+    }
+    
+    private boolean cpfEhValido(String cpf) {
+	return CpfUtil.validaCPF(cpf);
+    }
 
 }
