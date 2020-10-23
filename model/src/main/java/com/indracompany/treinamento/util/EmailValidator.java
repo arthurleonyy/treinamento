@@ -1,4 +1,4 @@
-package com.indracompany.treinamento.controller.validator;
+package com.indracompany.treinamento.util;
 
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -12,7 +12,8 @@ import javax.faces.validator.ValidatorException;
 
 import org.springframework.stereotype.Component;
 
-@Component(value = "emailValidator")
+
+@Component(value = "cpfValidator")
 @FacesValidator
 public class EmailValidator implements Validator {
 
@@ -21,7 +22,7 @@ public class EmailValidator implements Validator {
     public static boolean isValidoEmail(String email) {
 	boolean isEmailValido = false;
 	if (email != null && email.length() > 0) {
-	    String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A+Z]{2,4}$";
+	    String expression = ".+@.+\\.[a-z]+";
 	    Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
 	    Matcher mt = pattern.matcher(email);
 	    if (mt.matches()) {
@@ -32,7 +33,7 @@ public class EmailValidator implements Validator {
     }
 
     @Override
-    public void validate(FacesContext context, UIComponent component, Object valor) throws ValidatorException {
+    public void validate(final FacesContext arg0, final UIComponent arg1, Object valor) {
 	if (!isValidoEmail(String.valueOf(valor))) {
 	    final FacesMessage message = new FacesMessage();
 	    message.setSeverity(FacesMessage.SEVERITY_ERROR);
