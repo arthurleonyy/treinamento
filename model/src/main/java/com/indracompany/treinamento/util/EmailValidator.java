@@ -13,7 +13,7 @@ import javax.faces.validator.ValidatorException;
 import org.springframework.stereotype.Component;
 
 
-@Component(value = "cpfValidator")
+@Component(value = "emailValidator")
 @FacesValidator
 public class EmailValidator implements Validator {
 
