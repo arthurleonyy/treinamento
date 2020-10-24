@@ -45,7 +45,6 @@ public class ContaRest {
 		return new ResponseEntity<List<Conta>>(contas, HttpStatus.OK);
 	}
 	
-	
 	@RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Void> saque(@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
@@ -66,8 +65,5 @@ public class ContaRest {
 		Conta contaDestino = contaService.carregarContaPorNumero(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
 		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
-	}
-	
-	
-	
+	}		
 }
