@@ -55,6 +55,8 @@ public abstract class GenericCrudRest<T extends GenericEntity<I>, I, S extends G
   @ApiOperation(value = "Atualiza uma entidade existente.", nickname = "alterar", notes = "")
   @ApiResponses(value = {@ApiResponse(code = 400, message = "ID inválido"), @ApiResponse(code = 404, message = "Entidade não encontrada"),
       @ApiResponse(code = 405, message = "Validation exception")})
+ 
+  
   @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
   public @ResponseBody ResponseEntity<T> alterar(@ApiParam(value = "Objeto entida a ser atualizada.", required = true) @Valid final @RequestBody T entity,
       final @PathVariable I id) throws AplicacaoException {
