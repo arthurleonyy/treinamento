@@ -33,6 +33,10 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		return clienteRepository.findByAtivo(ativo);
 	}
 	
+	public List<Cliente> buscarClientePorNome(String nome) {
+		return clienteRepository.findByNome(nome);
+	}
+	
 	/*public void deletarClientePorCpf(String cpf) {
 		if (!cpfEhValido(cpf)) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
