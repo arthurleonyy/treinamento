@@ -1,9 +1,8 @@
-========================================================================
 **SOBRE O QUE É O PROJETO?**
 ========================================================================
+
 O objetivo do projeto é servir de base para o treinamento de "Formação Java/Angular para novos profissionais", da Indra, unidade de João Pessoa, 
 ministrado por Eder Ferreira (efmendes@indracompany.com) e Arthur Leony (aldantas@indracompany.com)
-
 
 **Conteúdo do Treinamento**
 
@@ -19,6 +18,7 @@ ministrado por Eder Ferreira (efmendes@indracompany.com) e Arthur Leony (aldanta
 - MySQL
 
 ========================================================================
+
 **COMO CONSTRUIR O AMBIENTE**
 ========================================================================
 Baixar e instalar o Lombok na sua IDE em https://projectlombok.org/download.
@@ -51,12 +51,14 @@ Caso não consiga instalar através da interface, copiar o lombok.jar para o dir
 Para acesso à sua API desenvolvida, utilize o endereço: http://localhost:8080/treinamento
 
 ========================================================================
+
 Voce pode desenvolver utilizando os recursos abaixo:
 ========================================================================
 - Java 8
 - Maven
 
 ========================================================================
+
 Banco de dados
 ========================================================================
 Como acessar o client do MySQL:
