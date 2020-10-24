@@ -13,7 +13,4 @@ public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> 
 	@Transactional
 	void deleteByCpf(String cpf);
 
-	Cliente findByNome(String nome);
-	
-
 }
