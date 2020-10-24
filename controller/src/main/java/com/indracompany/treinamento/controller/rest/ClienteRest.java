@@ -1,6 +1,11 @@
 package com.indracompany.treinamento.controller.rest;
 
 
+<<<<<<< Updated upstream
+=======
+import java.util.List;
+
+>>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +29,7 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 	@Autowired
 	private ClienteService clienteService; 
 	
+<<<<<<< Updated upstream
 	@RequestMapping(value = "/buscar-por-cpf/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Cliente> buscarClientePorCpf(final @PathVariable String cpf) {
 		Cliente retorno = clienteService.buscarClientePorCpf(cpf);
@@ -34,6 +40,56 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 	public @ResponseBody ResponseEntity<Cliente> buscarClientePorNome(final @PathVariable String nome) {
 		Cliente retorno = clienteService.buscarClientePorNome(nome);
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
+=======
+	//Buscar clientes por CPF
+	@RequestMapping(value = "/buscar-por-cpf/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Cliente> buscarClientePorCpf(final @PathVariable String cpf) {
+		
+		Cliente retornoCpf = clienteService.buscarClientePorCpf(cpf);
+		return  new ResponseEntity<>(retornoCpf, HttpStatus.OK);
+	}
+	
+	//Buscar cliente por nome
+	@RequestMapping(value = "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Cliente> buscarClientePorNome(final @PathVariable String nome) {
+		
+		Cliente retornoNome = clienteService.buscarClientePorNome(nome);
+		return  new ResponseEntity<>(retornoNome, HttpStatus.OK);
+	}
+	
+	//Buscar lista de clientes por nome
+		@RequestMapping(value = "/buscar-lista-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+		public @ResponseBody ResponseEntity<List<Cliente>> buscarListaDeClientesPorNome(@PathVariable String nome) {
+			
+			String forLike = "%";
+			
+			nome = forLike+nome+forLike;
+			
+			List<Cliente> retornoListaPorNome = clienteService.buscarListaDeClientePorNome(nome);
+			if(retornoListaPorNome.isEmpty()) {
+				
+				return new ResponseEntity<List<Cliente>>(retornoListaPorNome, HttpStatus.NO_CONTENT);
+				
+			}else {
+			
+				return new ResponseEntity<List<Cliente>>(retornoListaPorNome, HttpStatus.OK);
+			}	
+	}
+	
+	//Buscar Lista de clientes ativos
+	@RequestMapping(value = "/buscar-ativos/{ativo}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<List<Cliente>> buscarClientePorAtivo(final @PathVariable boolean ativo) {
+		
+		List<Cliente> retornoListaAtivos = clienteService.buscarClientePorAtivo(ativo);
+		if(retornoListaAtivos.isEmpty()) {
+			
+			return new ResponseEntity<List<Cliente>>(retornoListaAtivos, HttpStatus.NO_CONTENT);
+			
+		}else {
+		
+			return new ResponseEntity<List<Cliente>>(retornoListaAtivos, HttpStatus.OK);
+		}	
+>>>>>>> Stashed changes
 	}
 
 }
