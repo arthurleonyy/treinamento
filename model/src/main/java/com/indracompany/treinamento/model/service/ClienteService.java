@@ -27,10 +27,11 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	}
 	
 	public Cliente buscarClientePorNome(String nome) {
-
-			//throw new AplicacaoException(ExceptionValidacoes.ERRO_NOME_INVALIDO);
-			return clienteRepository.findByNome(nome);
-	}
-	
+		Cliente cliente = clienteRepository.findByNome(nome);
+		if(cliente == null) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_NOME_NAO_ENCOTRADO);
+		}
+		return cliente;
+	}	
 
 }
