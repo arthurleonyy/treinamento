@@ -29,12 +29,5 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		Cliente retorno = clienteService.buscarClientePorCpf(cpf);
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente> buscarClientePorNome(final @PathVariable String nome) {
-		Cliente retorno = clienteService.buscarClientePorNome(nome);
-		return  new ResponseEntity<>(retorno, HttpStatus.OK);
-	}
-	
 
 }

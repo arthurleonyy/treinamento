@@ -35,6 +35,5 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		Cliente retorno = clienteService.buscarClientePorNome(nome);
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
-	
 
 }
