@@ -1,18 +1,14 @@
 package com.indracompany.treinamento.controller.rest;
 
 
-import javax.validation.Valid;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -34,38 +30,11 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente> buscarClientePorNome(final @PathVariable String nome){
+	@RequestMapping(value = "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Cliente> buscarClientePorNome(final @PathVariable String nome) {
 		Cliente retorno = clienteService.buscarClientePorNome(nome);
-		return new ResponseEntity<>(retorno, HttpStatus.OK);
+		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
 	
-	@RequestMapping(value = "/buscar-por-email/{email}", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente> buscarClientePorEmail(final @RequestParam String email){
-		Cliente retorno = clienteService.buscarClientePorEmail(email);
-		return new ResponseEntity<>(retorno, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/inserir-cliente", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente> inserirCliente(final @Valid Cliente cliente){
-		Cliente novo = clienteService.inserirCliente(cliente);
-		return new ResponseEntity<>(novo, HttpStatus.CREATED);
-	}
 
-	@RequestMapping(value = "atualizar-cliente/{id}", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Cliente> atualizarCliente(final @Valid @RequestBody Cliente cliente, @PathVariable Long id){
-		
-		Cliente cli = clienteService.atualizarCliente(cliente);
-		cli.setId(id);
-		return new ResponseEntity<>(cli, HttpStatus.NO_CONTENT);
-		
-	}
-	
-	@RequestMapping(value = "deletar-cliente/{id}", method = RequestMethod.DELETE, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public ResponseEntity<Void> deletarCliente(final @PathVariable Long id){
-		
-		clienteService.deletarCliente(id);
-		return new ResponseEntity<>(HttpStatus.OK);
-	}
-	
 }

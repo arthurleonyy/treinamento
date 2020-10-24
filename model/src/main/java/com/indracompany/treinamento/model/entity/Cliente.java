@@ -40,6 +40,5 @@ public class Cliente extends GenericEntity<Long> {
 	@Column(name = "observacoes")
 	private String observacoes;
 	
-	
 
 }
