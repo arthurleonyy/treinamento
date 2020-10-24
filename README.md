@@ -69,4 +69,7 @@ Como acessar o client do MySQL:
 	JDBC URL: jdbc:mysql://db4free.net:3306/treinamentoindra
     Usuário: treinamentoindra
 	Senha: treinamentoindra
+<<<<<<< HEAD
 
+=======
+>>>>>>> ce065ff95afefa915c983dc6ce34288838b1b36f
