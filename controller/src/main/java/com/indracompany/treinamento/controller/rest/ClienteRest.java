@@ -36,10 +36,13 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
 	
+<<<<<<< HEAD
 	@RequestMapping(value = "/remover-por-cpf/{cpf}", method = RequestMethod.DELETE)
 	public ResponseEntity<Void> removerClientePorCpf(final @PathVariable String cpf) {
 		clienteService.removerClientePorCpf(cpf);
 		return ResponseEntity.ok().build();
 	}
+=======
+>>>>>>> ce065ff95afefa915c983dc6ce34288838b1b36f
 
 }
