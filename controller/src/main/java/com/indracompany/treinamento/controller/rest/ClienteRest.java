@@ -41,17 +41,6 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		return new ResponseEntity<List<Cliente>>(retornoAtivo, HttpStatus.OK);
 	}
 	
-	// a busca aqui é por uma lista
-	@RequestMapping(value = "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<List<Cliente>> buscarClientePorNome(final @PathVariable String nome) {
-		List<Cliente> retornoNome = clienteService.buscarClientePorNome(nome);
-		if (retornoNome.get(0).getNome() == "") {
-			return new ResponseEntity<List<Cliente>>(retornoNome, HttpStatus.NO_CONTENT);
-		}
-		else {
-			return new ResponseEntity<List<Cliente>>(retornoNome, HttpStatus.OK);
-		}
-	}
 	
 	// busca o cpf informado e então deleta o cliente associado a este cpf
 	@RequestMapping(value = "deletar-por-cpf/{cpf}", method = RequestMethod.DELETE)
