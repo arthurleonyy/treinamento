@@ -10,7 +10,7 @@ spring:
   autoconfigure:
     exclude: org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration
   jpa:
-    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database-platform: org.hibernate.dialect.PostgreSQL9Dialect
     show-sql: ${SHOW_SQL:false}
     format-sql: ${FORMAT_SQL:false}
     hibernate:
@@ -31,10 +31,10 @@ spring:
             WRITE_DATES_AS_TIMESTAMPS: false      
 primary:
   datasource:
-    driverClassName: com.mysql.cj.jdbc.Driver
-    jdbcUrl: ${DB_TREINAMENTO_URL:jdbc:mysql://localhost:3306/treinamentoindra?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
-    username: ${DB_TREINAMENTO_USER:root}
-    password: ${DB_TREINAMENTO_PASSWORD:vertrigo}
+    driverClassName: org.postgresql.Driver
+    jdbcUrl: ${DB_TREINAMENTO_URL:jdbc:postgresql://localhost:5432/treinamento?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    username: ${DB_TREINAMENTO_USER:MateusPJorge}
+    password: ${DB_TREINAMENTO_PASSWORD:MateusPJorge}
 hibernate: 
   generate_statistics: true
 
