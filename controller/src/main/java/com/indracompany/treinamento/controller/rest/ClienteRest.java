@@ -7,6 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -29,5 +30,11 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		Cliente retorno = clienteService.buscarClientePorCpf(cpf);
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
+	
+//	@PutMapping("/")
+//	public @ResponseBody ResponseEntity<Cliente> atualizarCpf(final @PathVariable String attCpf) {
+//		Cliente retornoCpf = clienteService.atualizarCpf(attCpf);
+//		return new ResponseEntity<>(retornoCpf, HttpStatus.OK);
+//	}
 
 }
