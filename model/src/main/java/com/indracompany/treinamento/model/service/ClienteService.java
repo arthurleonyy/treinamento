@@ -49,14 +49,14 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		
 		Cliente cliente = clienteRepository.findByEmail(email);
 		
-          if( cliente != null) {
+        if( cliente != null) {
         	  
         	  return  cliente;
 		
 		}
          
   		
-			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
+			 throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
 			
 	}
 

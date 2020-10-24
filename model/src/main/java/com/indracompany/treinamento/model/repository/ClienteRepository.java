@@ -13,6 +13,7 @@ public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> 
 
 	Cliente findByEmail(String email);
 
+
 	
 
 	
