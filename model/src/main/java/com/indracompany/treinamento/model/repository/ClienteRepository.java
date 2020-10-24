@@ -10,4 +10,7 @@ public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> 
 	
 	List<Cliente> findByNomeContaining(String nome);	
 
+	Cliente findByNome(String nome);
+	
+
 }
