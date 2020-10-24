@@ -1,8 +1,6 @@
 package com.indracompany.treinamento.model.entity;
 
-<<<<<<< HEAD
-public class Conta {
-=======
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -38,6 +36,5 @@ public class Conta extends GenericEntity<Long>{
 	private Cliente cliente;
 	
 	private double saldo;
->>>>>>> ce065ff95afefa915c983dc6ce34288838b1b36f
 
 }
