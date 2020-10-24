@@ -20,27 +20,27 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	if (!CpfValidator.isValid(cpf)) {
 	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
 	}
-	
+
 	return clienteRepository.findByCpf(cpf);
     }
 
     public Cliente buscarClientePorNome(String nome) {
 	return clienteRepository.findByNome(nome);
     }
-    
+
     public Cliente buscarPorEmail(String email) {
 	if (!emailEhValido(email)) {
 	    throw new AplicacaoException(EmailValidator.EMAIL_INVALIDO);
 	}
 	return clienteRepository.findByEmail(email);
     }
-    
+
     public void atualizarPropriedadeAtivo(Long id, Boolean ativo) {
 	Cliente cliente = super.buscar(id);
 	cliente.setAtivo(ativo);
 	clienteRepository.save(cliente);
-}
-    
+    }
+
     private boolean emailEhValido(String mail) {
 	return EmailValidator.isValidoEmail(mail);
     }

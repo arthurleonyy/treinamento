@@ -21,7 +21,7 @@ public class Conta extends GenericEntity<Long> {
     private static final long serialVersionUID = 8911504777617021650L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "agencia", length = 10, nullable = false)
