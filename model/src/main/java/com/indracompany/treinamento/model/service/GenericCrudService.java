@@ -19,6 +19,7 @@ import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.exception.ValidacaoCampos;
 import com.indracompany.treinamento.model.entity.GenericEntity;
 import com.indracompany.treinamento.model.repository.GenericCrudRepository;
+import com.indracompany.treinamento.util.CpfUtil;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -46,11 +47,17 @@ public abstract class GenericCrudService<T extends GenericEntity<I>, I, R extend
       for (final Field f : campos) {
         f.setAccessible(true);
         final Object object = f.get(entidade);
+       
         if (object instanceof CharSequence) {
           object.toString().trim();
         }
+        
+//    	if(f.getName().equals("cpf")) {
+//    		if(!CpfUtil.validaCPF(object.toString())) {
+//    			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
+//    		}
+//    	}
       }
-
     } catch (final Exception e) {
       GenericCrudService.log.error(e.getMessage(), e);
     }

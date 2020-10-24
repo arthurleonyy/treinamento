@@ -46,7 +46,7 @@ public class Cliente extends GenericEntity<Long> {
 	private String email;
 	
 	@Column(name = "ativo")
-	private boolean ativo;
+	private Boolean ativo;
 	
 	@Column(name = "observacoes")
 	private String observacoes;
