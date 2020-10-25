@@ -15,7 +15,7 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	@Autowired
 	private ClienteRepository clienteRepository;
 	
-	public Cliente buscarClientePorCpf(String cpf) {
+	public Cliente buscarClienteCpf(String cpf) {
 		if (!cpfEhValido(cpf)){
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
 		}

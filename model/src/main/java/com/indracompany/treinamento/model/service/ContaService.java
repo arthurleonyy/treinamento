@@ -55,7 +55,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 	
 	public List<Conta> obterContasDoCliente(String cpf){
-		Cliente cli = clienteService.buscarClientePorCpf(cpf);
+		Cliente cli = clienteService.buscarClienteCpf(cpf);
 		if (cli != null) {
 			return contaRepository.findByCliente(cli);
 		}
