@@ -27,6 +27,11 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		return conta.getSaldo();
 	}
 	
+	public Conta consultarConta(String agencia, String numeroConta) {
+		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
+		return conta;
+	}
+	
 	public void saque(Conta conta, double valor) {
 		if (conta.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);

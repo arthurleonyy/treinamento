@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
+import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.service.ClienteService;
 import com.indracompany.treinamento.model.service.ContaService;
@@ -25,7 +26,7 @@ import io.swagger.annotations.ApiParam;
 @RestController()
 @CrossOrigin(origins = "*")
 @RequestMapping("rest/contas")
-public class ContaRest {
+public class ContaRest extends GenericCrudRest<Conta, Long, ContaService>{
 	
 	@Autowired
 	private ContaService contaService;
@@ -37,6 +38,12 @@ public class ContaRest {
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
 		Double saldo = contaService.consultarSaldo(agencia, numeroConta);
 		return new ResponseEntity<Double>(saldo, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/consultar-conta/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Conta> consultarConta(final @PathVariable String agencia, String numeroConta) {
+		Conta conta = contaService.consultarConta(agencia, numeroConta);
+		return new ResponseEntity<Conta>(conta, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/consultar-contas-cliente/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
