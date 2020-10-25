@@ -41,7 +41,7 @@ public class ContaRest extends GenericCrudRest<Conta, Long, ContaService>{
 	}
 	
 	@RequestMapping(value = "/consultar-conta/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Conta> consultarConta(final @PathVariable String agencia, String numeroConta) {
+	public @ResponseBody ResponseEntity<Conta> consultarConta(final @PathVariable String agencia, final @PathVariable String numeroConta) {
 		Conta conta = contaService.consultarConta(agencia, numeroConta);
 		return new ResponseEntity<Conta>(conta, HttpStatus.OK);
 	}
