@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.entity.Extrato;
 import com.indracompany.treinamento.model.enums.OperacaoExtrato;
 import com.indracompany.treinamento.model.service.ClienteService;
 import com.indracompany.treinamento.model.service.ContaService;
+import com.indracompany.treinamento.model.service.ExtratoService;
 
 import io.swagger.annotations.ApiParam;
 
@@ -68,6 +70,25 @@ public class ContaRest {
 		Conta contaDestino = contaService.carregarContaPorNumero(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
 		contaService.transferencia(contaOrigem, contaDestino, dto.getValor(),OperacaoExtrato.TRANSFERENCIA);
 		return new ResponseEntity<Void>(HttpStatus.OK);
+	}
+	
+	@Autowired
+	private ExtratoService extratoService;
+	
+	@RequestMapping(value = "/extrato/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<List<Extrato>> consultarExtratoConta(final @PathVariable String agencia, String numeroConta) {
+
+
+		List<Extrato> retornoExtratoConta = extratoService.carregarExtratosDaConta(agencia, numeroConta);
+		if(retornoExtratoConta.isEmpty()) {
+			
+			return new ResponseEntity<List<Extrato>>(retornoExtratoConta, HttpStatus.NO_CONTENT);
+			
+		}else {
+		
+			return new ResponseEntity<List<Extrato>>(retornoExtratoConta, HttpStatus.OK);
+		}
+		
 	}
 	
 	
