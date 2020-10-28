@@ -1,11 +1,7 @@
 package com.indracompany.treinamento.controller.rest;
 
-
-<<<<<<< Updated upstream
-=======
 import java.util.List;
 
->>>>>>> Stashed changes
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -29,18 +25,6 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 	@Autowired
 	private ClienteService clienteService; 
 	
-<<<<<<< Updated upstream
-	@RequestMapping(value = "/buscar-por-cpf/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente> buscarClientePorCpf(final @PathVariable String cpf) {
-		Cliente retorno = clienteService.buscarClientePorCpf(cpf);
-		return  new ResponseEntity<>(retorno, HttpStatus.OK);
-	}
-	
-	@RequestMapping(value = "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente> buscarClientePorNome(final @PathVariable String nome) {
-		Cliente retorno = clienteService.buscarClientePorNome(nome);
-		return  new ResponseEntity<>(retorno, HttpStatus.OK);
-=======
 	//Buscar clientes por CPF
 	@RequestMapping(value = "/buscar-por-cpf/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Cliente> buscarClientePorCpf(final @PathVariable String cpf) {
@@ -89,7 +73,7 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		
 			return new ResponseEntity<List<Cliente>>(retornoListaAtivos, HttpStatus.OK);
 		}	
->>>>>>> Stashed changes
+
 	}
 
 }

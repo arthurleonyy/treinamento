@@ -10,6 +10,7 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.enumeration.OperacaoExtrato;
 import com.indracompany.treinamento.model.repository.ContaRepository;
 
 @Service
@@ -21,29 +22,65 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private ExtratoService extratoService;
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
 		return conta.getSaldo();
 	}
 	
-	public void saque(Conta conta, double valor) {
+	@Transactional(rollbackFor = Exception.class)
+	public void saque(Conta conta, double valor, OperacaoExtrato operacao) {
+		
 		if (conta.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
+		
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);
-	}
-	
-	public void deposito(Conta conta, double valor) {
-		conta.setSaldo(conta.getSaldo() + valor);
-		this.salvar(conta);
+		
+		if(operacao.getDescricao().equals("Transferencia")) {
+			
+			extratoService.gerarExtrato(conta, operacao, (conta.getSaldo()+valor), valor, 
+					(conta.getSaldo()));
+			
+		}else if(operacao.getDescricao().equals("Saida")){
+			
+			extratoService.gerarExtrato(conta, operacao, (conta.getSaldo()+valor), valor, 
+					(conta.getSaldo()));
+			
+		}else {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_OPERACAO_EXTRATO);
+		}
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
-	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
-		this.saque(contaOrigem, valor);
-		this.deposito(contaDestino, valor);
+	public void deposito(Conta conta, double valor, OperacaoExtrato operacao) {
+		
+		conta.setSaldo(conta.getSaldo() + valor);
+		this.salvar(conta);
+		
+		if(operacao.getDescricao().equals("Transferencia")) {
+			
+			extratoService.gerarExtrato(conta, operacao, (conta.getSaldo()-valor), valor, 
+					(conta.getSaldo()));
+			
+		}else if(operacao.getDescricao().equals("Entrada")){
+			
+			extratoService.gerarExtrato(conta, operacao, (conta.getSaldo()-valor), valor, 
+					(conta.getSaldo()));
+			
+		}else {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_OPERACAO_EXTRATO);
+		}
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor, OperacaoExtrato operacao) {
+		
+		this.saque(contaOrigem, valor, operacao);
+		this.deposito(contaDestino, valor, operacao);
 	}
 	
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
