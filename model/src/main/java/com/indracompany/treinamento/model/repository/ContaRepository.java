@@ -23,9 +23,7 @@ public interface ContaRepository extends GenericCrudRepository<Conta, Long>{
 	Conta consultarContaJpql(@Param("agencia")  String agencia, @Param("numeroConta")  String numeroConta);
 	
 	
-	
-	
-	
+
 	@Query(value = "select con.* "
 			+ " from clientes cli, contas con "
 			+ " where cli.id = con.fk_cliente_id "

@@ -49,6 +49,7 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
 
     final ExceptionVO body = new ExceptionVO();
     body.setCodigo(ex.getCustomExceptionValue().getValidacao().getCodigoMsg());
+    body.setHttpStatus(status.value());
     final int severidade = ex.getCustomExceptionValue().getValidacao().getSeveridade();
 
     if (severidade == AplicacaoExceptionValidacoes.SEVERIDADE_ALERTA) {

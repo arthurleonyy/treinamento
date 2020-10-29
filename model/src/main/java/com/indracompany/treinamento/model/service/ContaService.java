@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,13 +11,19 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.entity.Extrato;
+import com.indracompany.treinamento.model.entity.enumeration.OperacaoEnum;
 import com.indracompany.treinamento.model.repository.ContaRepository;
+import com.indracompany.treinamento.model.repository.ExtratoRepository;
 
 @Service
 public class ContaService extends GenericCrudService<Conta, Long, ContaRepository>{
 
 	@Autowired
 	private ContaRepository contaRepository;
+	
+	@Autowired
+	private ExtratoRepository extratoRepository;
 	
 	@Autowired
 	private ClienteService clienteService;
@@ -27,7 +34,34 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		return conta.getSaldo();
 	}
 	
-	public void saque(Conta conta, double valor) {
+	public void saque(Conta conta, double valor ) {
+		if (conta.getSaldo() < valor) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
+		}
+		conta.setSaldo(conta.getSaldo() - valor);
+		this.salvar(conta);
+		
+		extratoRepository.save(preencherExtrato(conta, OperacaoEnum.SAQUE));
+	}
+	
+	public void deposito(Conta conta, double valor) {
+		conta.setSaldo(conta.getSaldo() + valor);
+		this.salvar(conta);
+	
+		extratoRepository.save(preencherExtrato(conta, OperacaoEnum.DEPOSITO));
+	}
+	
+	@Transactional(rollbackFor = Exception.class)
+	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
+		this.saqueTransferencia(contaOrigem, valor);
+		this.depositoTransferencia(contaDestino, valor);
+		
+		extratoRepository.save(preencherExtrato(contaOrigem, OperacaoEnum.TRANSFERENCIA));
+		
+		extratoRepository.save(preencherExtrato(contaDestino, OperacaoEnum.TRANSFERENCIA));
+	}
+	
+	public void saqueTransferencia(Conta conta, double valor ) {
 		if (conta.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
@@ -35,15 +69,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		this.salvar(conta);
 	}
 	
-	public void deposito(Conta conta, double valor) {
+	public void depositoTransferencia(Conta conta, double valor) {
 		conta.setSaldo(conta.getSaldo() + valor);
 		this.salvar(conta);
-	}
-	
-	@Transactional(rollbackFor = Exception.class)
-	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
-		this.saque(contaOrigem, valor);
-		this.deposito(contaDestino, valor);
 	}
 	
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
@@ -60,5 +88,14 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 			return contaRepository.findByCliente(cli);
 		}
 		return null;
+	}
+	
+	private  Extrato preencherExtrato(Conta conta, OperacaoEnum operacao) {
+		Extrato extrato = new Extrato();
+		extrato.setDataHora(LocalDateTime.now());
+		extrato.setOperacao(operacao);
+		extrato.setConta(conta);
+		
+		return extrato;
 	}
 }

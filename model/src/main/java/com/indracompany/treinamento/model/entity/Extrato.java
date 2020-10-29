@@ -1,47 +1,47 @@
 package com.indracompany.treinamento.model.entity;
 
-import java.util.List;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.indracompany.treinamento.model.entity.enumeration.OperacaoEnum;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
 @Data
 @Entity
-@Table(name = "contas")
+@Table(name = "extrato")
 @EqualsAndHashCode(callSuper = true)
-public class Conta extends GenericEntity<Long>{
-	
-	private static final long serialVersionUID = 1166911459976971581L;
+public class Extrato extends GenericEntity<Long> {
 
+	private static final long serialVersionUID = 3223066331897664518L;
+	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(length = 10, nullable = false)
-	private String agencia;
+	@Column(name = "operacao")
+	@Enumerated(EnumType.STRING)
+	private OperacaoEnum operacao;
 	
-	@Column(name = "num_conta", length = 15, nullable = false)
-	private String numeroConta;
 	
-	private double saldo;
+	@Column(name = "data_hora")
+	private LocalDateTime dataHora;
 	
 	@ManyToOne
-	@JoinColumn(name = "fk_cliente_id", nullable = false)
-	private Cliente cliente;
-	
-	@OneToMany(mappedBy="conta")
-	private List<Extrato> operacoes;
+    @JoinColumn(name="conta_id", nullable=false)
+	@JsonIgnore
+    private Conta conta;
 	
 }
