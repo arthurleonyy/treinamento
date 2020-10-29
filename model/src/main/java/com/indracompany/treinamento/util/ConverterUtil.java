@@ -1,4 +1,4 @@
-package com.indracompany.treinamento.model.service;
+package com.indracompany.treinamento.util;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
