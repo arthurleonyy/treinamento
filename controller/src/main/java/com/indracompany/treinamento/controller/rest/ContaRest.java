@@ -38,30 +38,27 @@ public class ContaRest {
 	    MediaType.APPLICATION_JSON_VALUE })
     public @ResponseBody ResponseEntity<List<Conta>> consultarContaCliente(final @PathVariable String cpf) {
 	List<Conta> contas = contaService.obterContasDoCliente(cpf);
-	return new ResponseEntity<List<Conta>>(contas, HttpStatus.OK);
+	return ResponseEntity.ok().body(contas);
     }
 
     @RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public @ResponseBody ResponseEntity<Void> saque(final @RequestBody SaqueDepositoTO saqueDepositoTO) {
+    public @ResponseBody void saque(final @RequestBody SaqueDepositoTO saqueDepositoTO) {
 	Conta conta = contaService.carregarPorNumero(saqueDepositoTO.getAgencia(), saqueDepositoTO.getNumeroConta());
 	contaService.saque(conta, saqueDepositoTO.getValor());
-	return new ResponseEntity<Void>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
-    public @ResponseBody ResponseEntity<Void> deposito(final @RequestBody SaqueDepositoTO saqueDepositoTO) {
+    public @ResponseBody void deposito(final @RequestBody SaqueDepositoTO saqueDepositoTO) {
 	Conta conta = contaService.carregarPorNumero(saqueDepositoTO.getAgencia(), saqueDepositoTO.getNumeroConta());
-	contaService.deposito(conta, saqueDepositoTO.getValor());
-	return new ResponseEntity<Void>(HttpStatus.OK);
+	contaService.deposito(conta.getId(), saqueDepositoTO.getValor());
     }
 
     @RequestMapping(value = "/transferencia", method = RequestMethod.POST, produces = {
 	    MediaType.APPLICATION_JSON_VALUE })
-    public @ResponseBody ResponseEntity<Void> transferencia(final @RequestBody TransferenciaBancariaTO transferenciaBancariaTO) {
+    public @ResponseBody void transferencia(final @RequestBody TransferenciaBancariaTO transferenciaBancariaTO) {
 	Conta contaOrigem = contaService.carregarPorNumero(transferenciaBancariaTO.getAgenciaOrigem(), transferenciaBancariaTO.getNumeroContaOrigem());
 	Conta contaDestino = contaService.carregarPorNumero(transferenciaBancariaTO.getAgenciaDestino(), transferenciaBancariaTO.getNumeroContaDestino());
-	contaService.transferencia(contaOrigem, contaDestino, transferenciaBancariaTO.getValor());
-	return new ResponseEntity<Void>(HttpStatus.OK);
+	contaService.transferencia(contaOrigem.getId(), contaDestino.getId(), transferenciaBancariaTO.getValor());
     }
 
 }
