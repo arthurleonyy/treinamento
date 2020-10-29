@@ -1,8 +1,10 @@
 package com.indracompany.treinamento.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -83,14 +85,14 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	    this.transacaoRepository.save(historicoTransacaoDestino);
 	    transacaoRepository.save(historicoTransacaoOrigem);
 	} catch (NoSuchElementException e) {
-	    throw new RuntimeException("Conta não existe!");
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
 	}
     }
 
     public Conta carregarPorNumero(String agencia, String numeroConta) {
 	Optional<Conta> conta = contaRepository.findByAgenciaAndNumeroConta(agencia, numeroConta);
 	if (!conta.isPresent()) {
-	    throw new AplicacaoException("Conta inexistente");
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
 	}
 
 	return conta.get();
@@ -98,10 +100,14 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
     public List<Conta> obterContasDoCliente(String cpf) {
 	Cliente cliente = clienteService.buscarClientePorCpf(cpf);
-	if (cliente != null) {
-	    return contaRepository.findByCliente(cliente);
+	List<Conta> contas = new ArrayList<>();
+	for (Conta conta : contaRepository.findByCliente(cliente)) {
+	    if (conta != null) {
+		contas.add(conta);
+	    }
 	}
-	return null;
+
+	return contas;
     }
 
 }
