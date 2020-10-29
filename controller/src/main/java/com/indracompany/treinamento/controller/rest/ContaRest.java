@@ -33,6 +33,10 @@ public class ContaRest {
 	@Autowired
 	private ClienteService clienteService;
 	
+	//@Autowired
+	//private TransacaoService transacaoService;
+	
+	
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
 		Double saldo = contaService.consultarSaldo(agencia, numeroConta);

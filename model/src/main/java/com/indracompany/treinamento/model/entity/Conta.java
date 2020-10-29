@@ -19,7 +19,7 @@ import lombok.EqualsAndHashCode;
 @EqualsAndHashCode(callSuper = true)
 public class Conta extends GenericEntity<Long>{
 	
-	private static final long serialVersionUID = 1166911459976971581L;
+	private static final long serialVersionUID = 7525931563943544634L;
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
