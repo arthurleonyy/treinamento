@@ -14,11 +14,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.indracompany.treinamento.model.dto.ExtratoDTO;
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Conta;
-import com.indracompany.treinamento.model.service.ClienteService;
+import com.indracompany.treinamento.model.entity.Extrato;
 import com.indracompany.treinamento.model.service.ContaService;
+import com.indracompany.treinamento.model.service.ExtratoService;
+import com.indracompany.treinamento.util.TipoTransacao;
 
 import io.swagger.annotations.ApiParam;
 
@@ -26,48 +29,60 @@ import io.swagger.annotations.ApiParam;
 @CrossOrigin(origins = "*")
 @RequestMapping("rest/contas")
 public class ContaRest {
-	
+
+	@Autowired
+	private ExtratoService extratoService;
+
 	@Autowired
 	private ContaService contaService;
-	
-	@Autowired
-	private ClienteService clienteService;
-	
-	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+
+	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
 		Double saldo = contaService.consultarSaldo(agencia, numeroConta);
 		return new ResponseEntity<Double>(saldo, HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/consultar-contas-cliente/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+
+	@RequestMapping(value = "/consultar-contas-cliente/{cpf}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<List<Conta>> consultarContaCliente(final @PathVariable String cpf) {
 		List<Conta> contas = contaService.obterContasDoCliente(cpf);
 		return new ResponseEntity<List<Conta>>(contas, HttpStatus.OK);
 	}
-	
-	
-	@RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Void> saque(@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto ) {
+
+	@RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<Void> saque(
+			@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
-		contaService.saque(conta, dto.getValor());
+		contaService.saque(conta, dto.getValor(), TipoTransacao.SAQUE);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto ) {
+
+	@RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<Void> deposito(
+			@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
-		contaService.deposito(conta, dto.getValor());
+		contaService.deposito(conta, dto.getValor(), TipoTransacao.DEPOSITO);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	@RequestMapping(value = "/transferencia", method = RequestMethod.POST, produces = {MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Void> transferencia(@ApiParam("JSON com dados necessarios para realizar Transferencia") final @RequestBody TransferenciaBancariaDTO dto){
+
+	@RequestMapping(value = "/transferencia", method = RequestMethod.POST, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<Void> transferencia(
+			@ApiParam("JSON com dados necessarios para realizar Transferencia") final @RequestBody TransferenciaBancariaDTO dto) {
 		Conta contaOrigem = contaService.carregarContaPorNumero(dto.getAgenciaOrigem(), dto.getNumeroContaOrigem());
 		Conta contaDestino = contaService.carregarContaPorNumero(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
-		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
+		contaService.transferencia(contaOrigem, contaDestino, dto.getValor(), TipoTransacao.TRANSFERENCIA);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	
-	
+
+	@RequestMapping(value = "/extrato/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<ExtratoDTO> buscarExtratoConta(final @PathVariable String agencia,
+			String numeroConta) {
+		Conta conta = contaService.carregarContaPorNumero(agencia, numeroConta);
+		List<Extrato> extrato = extratoService.buscarExtratoConta(conta.getId());
+		return new ResponseEntity<ExtratoDTO>(new ExtratoDTO(conta, extrato), HttpStatus.OK);
+	}
+
 }
