@@ -14,7 +14,7 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.indracompany.treinamento.model.listener.HistoricoTransacaoListener;
+import com.indracompany.treinamento.model.listener.ExtratoListener;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -23,10 +23,10 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @Entity
-@EntityListeners(HistoricoTransacaoListener.class)
+@EntityListeners(ExtratoListener.class)
 @EqualsAndHashCode(callSuper = true)
 @Table(name = "extrato")
-public class HistoricoTransacao extends GenericEntity<Long> {
+public class Extrato extends GenericEntity<Long> {
 
     private static final long serialVersionUID = -647957443392837290L;
     
@@ -48,7 +48,7 @@ public class HistoricoTransacao extends GenericEntity<Long> {
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDateTime onCreate;
     
-    public HistoricoTransacao(Conta conta, String tipo, String descricao, Double valor) {
+    public Extrato(Conta conta, String tipo, String descricao, Double valor) {
         this.conta = conta;
         this.tipo = tipo;
         this.descricao = descricao;

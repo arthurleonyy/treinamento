@@ -14,10 +14,10 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
-import com.indracompany.treinamento.model.entity.HistoricoTransacao;
+import com.indracompany.treinamento.model.entity.Extrato;
 import com.indracompany.treinamento.model.entity.enumeration.TipoTransacao;
 import com.indracompany.treinamento.model.repository.ContaRepository;
-import com.indracompany.treinamento.model.repository.HistoricoTransacaoRepository;
+import com.indracompany.treinamento.model.repository.ExtratoRepository;
 
 @Service
 public class ContaService extends GenericCrudService<Conta, Long, ContaRepository> {
@@ -26,7 +26,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
     private ContaRepository contaRepository;
     
     @Autowired
-    private HistoricoTransacaoRepository transacaoRepository;
+    private ExtratoRepository transacaoRepository;
 
     @Autowired
     private ClienteService clienteService;
@@ -42,8 +42,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	conta.setSaldo(conta.getSaldo() - valor);
 	String descricao = TipoTransacao.SAQUE + ": R$ " + valor + ". Novo Saldo: R$ " + conta.getSaldo();
 	this.salvar(conta);
-	HistoricoTransacao historicoTransacao = new HistoricoTransacao(conta, TipoTransacao.SAQUE.getTipo(), descricao, valor);
-        transacaoRepository.save(historicoTransacao);
+	Extrato extrato = new Extrato(conta, TipoTransacao.SAQUE.getTipo(), descricao, valor);
+        transacaoRepository.save(extrato);
     }
     
     public void deposito(Long id, Double valor) {
@@ -53,8 +53,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
         conta.setSaldo(conta.getSaldo() + valor);
         String descricao = TipoTransacao.DEPOSITO + ": R$ " + valor + ". Novo Saldo: R$ " + conta.getSaldo();
         this.contaRepository.save(conta);
-        HistoricoTransacao historicoTransacao = new HistoricoTransacao(conta, TipoTransacao.DEPOSITO.getTipo(), descricao, valor);
-        transacaoRepository.save(historicoTransacao);
+        Extrato extrato = new Extrato(conta, TipoTransacao.DEPOSITO.getTipo(), descricao, valor);
+        transacaoRepository.save(extrato);
     }
     
     @Transactional(rollbackFor = Exception.class)
@@ -62,21 +62,19 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	try {
 	    Conta contaOrigem = super.buscar(contaOrigemId);
 	    Conta contaDestino = super.buscar(contaDestinoId);
-	    String descricaoOrigem = null;
-	    String descricaoDestino = null;
 
 	    contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
 	    validaContaDestino(contaDestino.getId());
 	    contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 
-	    descricaoOrigem = String.format("%1$s: Transferido R$ %2$s para a conta %3$s. Novo Saldo: R$ %4$s",
+	    String descricaoOrigem = String.format("%1$s: Transferido R$ %2$s para a conta %3$s. Novo Saldo: R$ %4$s",
 		    TipoTransacao.TRANSFERENCIA, valor, contaDestino.getNumeroConta(), contaOrigem.getSaldo());
-	    descricaoDestino = String.format("%1$s: Recebido R$ %2$s da conta %3$s. Novo Saldo: R$ %4$s",
+	    String descricaoDestino = String.format("%1$s: Recebido R$ %2$s da conta %3$s. Novo Saldo: R$ %4$s",
 		    TipoTransacao.TRANSFERENCIA, valor, contaOrigem.getNumeroConta(), contaDestino.getSaldo());
 
-	    HistoricoTransacao historicoTransacaoOrigem = new HistoricoTransacao(contaOrigem,
+	    Extrato historicoTransacaoOrigem = new Extrato(contaOrigem,
 		    TipoTransacao.TRANSFERENCIA.getTipo(), descricaoOrigem, valor);
-	    HistoricoTransacao historicoTransacaoDestino = new HistoricoTransacao(contaDestino,
+	    Extrato historicoTransacaoDestino = new Extrato(contaDestino,
 		    TipoTransacao.TRANSFERENCIA.getTipo(), descricaoDestino, valor);
 
 	    this.transacaoRepository.save(historicoTransacaoDestino);
