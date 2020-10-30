@@ -4,13 +4,13 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -27,34 +27,31 @@ public class ContaRest {
     @Autowired
     private ContaService contaService;
 
-    @RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = {
-	    MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", produces = {"application/json"})
     public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
 	Double saldo = contaService.consultaSaldo(agencia, numeroConta);
-	return new ResponseEntity<Double>(saldo, HttpStatus.OK);
+	return new ResponseEntity<>(saldo, HttpStatus.OK);
     }
 
-    @RequestMapping(value = "/consultar-contas-cliente/{cpf}", method = RequestMethod.GET, produces = {
-	    MediaType.APPLICATION_JSON_VALUE })
+    @GetMapping(value = "/consultar-contas-cliente/{cpf}", produces = {"application/json"})
     public @ResponseBody ResponseEntity<List<Conta>> consultarContaCliente(final @PathVariable String cpf) {
 	List<Conta> contas = contaService.obterContasDoCliente(cpf);
 	return ResponseEntity.ok().body(contas);
     }
 
-    @RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/saque", produces = {"application/json"})
     public @ResponseBody void saque(final @RequestBody SaqueDepositoTO saqueDepositoTO) {
 	Conta conta = contaService.carregarPorNumero(saqueDepositoTO.getAgencia(), saqueDepositoTO.getNumeroConta());
 	contaService.saque(conta, saqueDepositoTO.getValor());
     }
 
-    @RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/deposito", produces = {"application/json"})
     public @ResponseBody void deposito(final @RequestBody SaqueDepositoTO saqueDepositoTO) {
 	Conta conta = contaService.carregarPorNumero(saqueDepositoTO.getAgencia(), saqueDepositoTO.getNumeroConta());
 	contaService.deposito(conta.getId(), saqueDepositoTO.getValor());
     }
 
-    @RequestMapping(value = "/transferencia", method = RequestMethod.POST, produces = {
-	    MediaType.APPLICATION_JSON_VALUE })
+    @PostMapping(value = "/transferencia", produces = {"application/json"})
     public @ResponseBody void transferencia(final @RequestBody TransferenciaBancariaTO transferenciaBancariaTO) {
 	Conta contaOrigem = contaService.carregarPorNumero(transferenciaBancariaTO.getAgenciaOrigem(), transferenciaBancariaTO.getNumeroContaOrigem());
 	Conta contaDestino = contaService.carregarPorNumero(transferenciaBancariaTO.getAgenciaDestino(), transferenciaBancariaTO.getNumeroContaDestino());
