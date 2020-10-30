@@ -33,7 +33,10 @@ public class ExtratoRest extends GenericCrudRest<Extrato, Long, ExtratoService>{
 	@Autowired
 	private ExtratoService extratoService;
 	
-	@Autowired
-	private ClienteService clienteService;
+	@RequestMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<List<Extrato>> buscarPorAgenciaConta(final @PathVariable String agencia, final @PathVariable String numeroConta) {
+		List<Extrato> extratos = extratoService.buscarPorAgenciaConta(agencia, numeroConta);
+		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
+	}
 		
 }

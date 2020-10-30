@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		this.salvar(extrato);
 	}
 
-	public void extratoTransferencia(Conta contaOrigem, Conta contaDestino, double valor) {
+	public void extratoTransferencia(Conta contaOrigem, Conta contaDestino, double valor) {				
 		Extrato extrato = new Extrato();		
 		extrato.setValor(valor);
 		extrato.setContaId(contaOrigem.getId());
@@ -63,6 +64,11 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		extratoDestino.setAgencia(contaDestino.getAgencia());
 		extratoDestino.setNumeroConta(contaDestino.getNumeroConta());
 		this.salvar(extratoDestino);
+	}
+	
+	public List<Extrato> buscarPorAgenciaConta (String agencia, String conta) {
+		List<Extrato> extrato = extratoRepository.findByAgenciaAndNumeroConta(agencia, conta);
+		return extrato;
 	}
 	
 }

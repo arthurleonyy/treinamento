@@ -13,6 +13,6 @@ public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long>{
 	
 	//List<Extrato> findByCliente(Cliente cli);
 	
-	//Conta findByAgenciaAndNumeroConta(String agencia, String numeroConta);
+	List<Extrato> findByAgenciaAndNumeroConta(String agencia, String numeroConta);
 	
 }
