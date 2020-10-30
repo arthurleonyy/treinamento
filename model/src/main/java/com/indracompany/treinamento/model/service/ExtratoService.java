@@ -27,14 +27,9 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		return extratoRepository.findByContaId(id);
 	}
 
-	public void salvarExtrato(double saldoAnterior, double valor,  TipoTransacao tipo, Conta conta) {
-		Extrato extrato = new Extrato(OffsetDateTime.now(),  saldoAnterior, valor, conta.getSaldo(), tipo,
-				conta);
+	public void salvarExtrato(double saldoAnterior, double valor, TipoTransacao tipo, Conta conta) {
+		Extrato extrato = new Extrato(OffsetDateTime.now(), saldoAnterior, valor, conta.getSaldo(), tipo, conta);
 		salvar(extrato);
 	}
 
-	/*
-	 * public static List<ExtratoDTO> converter(List<Extrato> extrato) { return
-	 * extrato.stream().map(ExtratoDTO::new).collect(Collectors.toList()); }
-	 */
 }
