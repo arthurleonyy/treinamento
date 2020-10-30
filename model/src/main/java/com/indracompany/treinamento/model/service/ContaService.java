@@ -38,11 +38,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
     public void saque(Conta conta, double valor) {
 	conta = super.buscar(conta.getId());
-	if (conta.getSaldo() < valor) {
-	    throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
-	}
+	validaConta(conta, valor);
 	conta.setSaldo(conta.getSaldo() - valor);
-	String descricao = TipoTransacao.SAQUE + ": R$ " + valor + ". Novo Saldo: R$" + conta.getSaldo();
+	String descricao = TipoTransacao.SAQUE + ": R$ " + valor + ". Novo Saldo: R$ " + conta.getSaldo();
 	this.salvar(conta);
 	HistoricoTransacao historicoTransacao = new HistoricoTransacao(conta, TipoTransacao.SAQUE.getTipo(), descricao, valor);
         transacaoRepository.save(historicoTransacao);
@@ -51,29 +49,29 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
     public void deposito(Long id, Double valor) {
         Conta conta = super.buscar(id);
         Assert.notNull(conta, "Conta não deve ser nula");
+        validaContaDestino(conta.getId());
         conta.setSaldo(conta.getSaldo() + valor);
-        String descricao = TipoTransacao.DEPOSITO + ": R$ " + valor + ". Novo Saldo: R$" + conta.getSaldo();
+        String descricao = TipoTransacao.DEPOSITO + ": R$ " + valor + ". Novo Saldo: R$ " + conta.getSaldo();
         this.contaRepository.save(conta);
         HistoricoTransacao historicoTransacao = new HistoricoTransacao(conta, TipoTransacao.DEPOSITO.getTipo(), descricao, valor);
         transacaoRepository.save(historicoTransacao);
     }
     
-
     @Transactional(rollbackFor = Exception.class)
     public void transferencia(Long contaOrigemId, Long contaDestinoId, double valor) {
 	try {
 	    Conta contaOrigem = super.buscar(contaOrigemId);
 	    Conta contaDestino = super.buscar(contaDestinoId);
 	    String descricaoOrigem = null;
-	    String descricaoDestino = TipoTransacao.TRANSFERENCIA + ": Recebido R$ " + valor + " da conta "
-		    + contaOrigem.getNumeroConta();
+	    String descricaoDestino = null;
 
 	    contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
+	    validaContaDestino(contaDestino.getId());
 	    contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 
-	    descricaoOrigem = String.format("%1$s: Transferido R$ %2$s para a conta %3$s. Novo Saldo: R$%4$s",
+	    descricaoOrigem = String.format("%1$s: Transferido R$ %2$s para a conta %3$s. Novo Saldo: R$ %4$s",
 		    TipoTransacao.TRANSFERENCIA, valor, contaDestino.getNumeroConta(), contaOrigem.getSaldo());
-	    descricaoDestino = String.format("%1$s: Recebido R$ %2$s da conta %3$s. Novo Saldo: R$%4$s",
+	    descricaoDestino = String.format("%1$s: Recebido R$ %2$s da conta %3$s. Novo Saldo: R$ %4$s",
 		    TipoTransacao.TRANSFERENCIA, valor, contaOrigem.getNumeroConta(), contaDestino.getSaldo());
 
 	    HistoricoTransacao historicoTransacaoOrigem = new HistoricoTransacao(contaOrigem,
@@ -107,6 +105,23 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 
 	return contas;
+    }
+    
+    private void validaConta(Conta conta, double valor) {
+	if (conta.getSaldo() < valor) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
+	}
+    }
+
+    private void validaContaDestino(Long contaDestinoId) {
+	Optional<Conta> conta = getRepository().findById(contaDestinoId);
+	if (!conta.isPresent()) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_DESTINO_NAO_EXISTE);
+	}
+
+	if (conta.get().getAgencia().isEmpty() && conta.get().getNumeroConta().isEmpty()) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_AGENCIA_OU_NUMERO_CONTA_NAO_INFORMADO_CORRETAMENTE);
+	}
     }
 
 }
