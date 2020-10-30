@@ -56,7 +56,7 @@ public class ContaRest {
 	@RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
-		contaService.deposito(conta, dto.getValor());
+		contaService.deposito(conta.getId(), dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	

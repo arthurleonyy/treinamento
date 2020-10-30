@@ -1,5 +1,7 @@
 package com.indracompany.treinamento.model.entity;
 
+import java.time.LocalDate;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -8,6 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+
+import org.springframework.format.annotation.DateTimeFormat;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -27,13 +33,21 @@ public class Conta extends GenericEntity<Long>{
 	@Column(length = 10, nullable = false)
 	private String agencia;
 	
-	@Column(name = "num_conta", length = 15, nullable = false)
+	@Column(length = 15, nullable = false)
 	private String numeroConta;
 	
 	@ManyToOne
 	@JoinColumn(name = "fk_cliente_id", nullable = false)
 	private Cliente cliente;
 	
+	@Column(nullable = false)
+	private String tipo;
+	
+	@JsonFormat(pattern = "dd-MM-yyyy")
+	@DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
+	private LocalDate datac;
+	
+	@Column(nullable = false)
 	private double saldo;
 
 }
