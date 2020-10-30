@@ -46,6 +46,6 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService> 
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public void atualizarPropriedadeAtivo(@PathVariable Long id, @RequestBody Boolean ativo) {
 	clienteService.atualizarPropriedadeAtivo(id, ativo);
-}
+    }
 
 }

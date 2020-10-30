@@ -19,5 +19,5 @@ public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long> 
 		+ " and c.agencia = :agencia"
 		+ " and c.numeroConta = :numeroConta ", nativeQuery = true )
     List<Extrato> findByAgenciaAndNumeroConta(String agencia, String numeroConta);
-    
+        
 }

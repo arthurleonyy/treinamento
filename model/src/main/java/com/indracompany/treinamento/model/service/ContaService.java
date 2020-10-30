@@ -14,10 +14,7 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
-import com.indracompany.treinamento.model.entity.Extrato;
-import com.indracompany.treinamento.model.entity.enumeration.TipoTransacao;
 import com.indracompany.treinamento.model.repository.ContaRepository;
-import com.indracompany.treinamento.model.repository.ExtratoRepository;
 
 @Service
 public class ContaService extends GenericCrudService<Conta, Long, ContaRepository> {
@@ -26,7 +23,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
     private ContaRepository contaRepository;
     
     @Autowired
-    private ExtratoRepository transacaoRepository;
+    private ExtratoService extratoService;
 
     @Autowired
     private ClienteService clienteService;
@@ -40,10 +37,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	conta = super.buscar(conta.getId());
 	validaConta(conta, valor);
 	conta.setSaldo(conta.getSaldo() - valor);
-	String descricao = TipoTransacao.SAQUE + ": R$ " + valor + ". Novo Saldo: R$ " + conta.getSaldo();
 	this.salvar(conta);
-	Extrato extrato = new Extrato(conta, TipoTransacao.SAQUE.getTipo(), descricao, valor);
-        transacaoRepository.save(extrato);
+	
+	this.extratoService.gerarExtratoParaSaque(conta, valor);
     }
     
     public void deposito(Long id, Double valor) {
@@ -51,10 +47,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
         Assert.notNull(conta, "Conta não deve ser nula");
         validaContaDestino(conta.getId());
         conta.setSaldo(conta.getSaldo() + valor);
-        String descricao = TipoTransacao.DEPOSITO + ": R$ " + valor + ". Novo Saldo: R$ " + conta.getSaldo();
         this.contaRepository.save(conta);
-        Extrato extrato = new Extrato(conta, TipoTransacao.DEPOSITO.getTipo(), descricao, valor);
-        transacaoRepository.save(extrato);
+        
+        this.extratoService.gerarExtratoParaDeposito(valor, conta);
     }
     
     @Transactional(rollbackFor = Exception.class)
@@ -66,19 +61,10 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	    contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
 	    validaContaDestino(contaDestino.getId());
 	    contaDestino.setSaldo(contaDestino.getSaldo() + valor);
-
-	    String descricaoOrigem = String.format("%1$s: Transferido R$ %2$s para a conta %3$s. Novo Saldo: R$ %4$s",
-		    TipoTransacao.TRANSFERENCIA, valor, contaDestino.getNumeroConta(), contaOrigem.getSaldo());
-	    String descricaoDestino = String.format("%1$s: Recebido R$ %2$s da conta %3$s. Novo Saldo: R$ %4$s",
-		    TipoTransacao.TRANSFERENCIA, valor, contaOrigem.getNumeroConta(), contaDestino.getSaldo());
-
-	    Extrato historicoTransacaoOrigem = new Extrato(contaOrigem,
-		    TipoTransacao.TRANSFERENCIA.getTipo(), descricaoOrigem, valor);
-	    Extrato historicoTransacaoDestino = new Extrato(contaDestino,
-		    TipoTransacao.TRANSFERENCIA.getTipo(), descricaoDestino, valor);
-
-	    this.transacaoRepository.save(historicoTransacaoDestino);
-	    transacaoRepository.save(historicoTransacaoOrigem);
+	    super.salvar(contaOrigem);
+	    super.salvar(contaDestino);
+	    
+	   this.extratoService.gerarExtratoParaTransferencia(valor, contaOrigem, contaDestino);
 	} catch (NoSuchElementException e) {
 	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
 	}
