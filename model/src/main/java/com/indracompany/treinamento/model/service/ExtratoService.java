@@ -22,5 +22,47 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	
 	@Autowired
 	private ClienteService clienteService;
+
+	public void extratoSaque(Conta conta, double valor) {
+		Extrato extrato = new Extrato();
+		extrato.setValor(valor);
+		extrato.setContaId(conta.getId());
+		extrato.setOperacao("SAQUE");
+		extrato.setData("20200101");
+		extrato.setAgencia(conta.getAgencia());
+		extrato.setNumeroConta(conta.getNumeroConta());
+		this.salvar(extrato);
+	}
+	
+	public void extratoDeposito(Conta conta, double valor) {
+		Extrato extrato = new Extrato();
+		extrato.setValor(valor);
+		extrato.setContaId(conta.getId());
+		extrato.setOperacao("DEPOSITO");
+		extrato.setData("20200101");
+		extrato.setAgencia(conta.getAgencia());
+		extrato.setNumeroConta(conta.getNumeroConta());
+		this.salvar(extrato);
+	}
+
+	public void extratoTransferencia(Conta contaOrigem, Conta contaDestino, double valor) {
+		Extrato extrato = new Extrato();		
+		extrato.setValor(valor);
+		extrato.setContaId(contaOrigem.getId());
+		extrato.setOperacao("TRANSFERENCIA_REALIZADA");
+		extrato.setData("20200101");
+		extrato.setAgencia(contaOrigem.getAgencia());
+		extrato.setNumeroConta(contaOrigem.getNumeroConta());
+		this.salvar(extrato);
+		
+		Extrato extratoDestino = new Extrato();
+		extratoDestino.setValor(valor);
+		extratoDestino.setContaId(contaDestino.getId());
+		extratoDestino.setOperacao("TRANSFERENCIA_RECEBIDA");
+		extratoDestino.setData("20200101");
+		extratoDestino.setAgencia(contaDestino.getAgencia());
+		extratoDestino.setNumeroConta(contaDestino.getNumeroConta());
+		this.salvar(extratoDestino);
+	}
 	
 }

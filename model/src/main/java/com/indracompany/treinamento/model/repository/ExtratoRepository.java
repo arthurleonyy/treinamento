@@ -11,8 +11,8 @@ import com.indracompany.treinamento.model.entity.Extrato;
 
 public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long>{
 	
-	List<Extrato> findByCliente(Cliente cli);
+	//List<Extrato> findByCliente(Cliente cli);
 	
-	Conta findByAgenciaAndNumeroConta(String agencia, String numeroConta);
+	//Conta findByAgenciaAndNumeroConta(String agencia, String numeroConta);
 	
 }

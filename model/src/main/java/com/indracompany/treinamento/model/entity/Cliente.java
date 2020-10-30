@@ -38,9 +38,6 @@ public class Cliente extends GenericEntity<Long> {
 	@Column(name = "ativo")
 	private boolean ativo;
 	
-	//@OneToMany(mappedBy = "cliente")
-	//private List<Conta> contas;
-	
 	@Column(name = "observacoes")
 	private String observacoes;
 	

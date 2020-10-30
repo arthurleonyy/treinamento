@@ -24,33 +24,22 @@ public class Extrato extends GenericEntity<Long>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
+	@Column(nullable = false)
+	private Long contaId;
+	
 	@Column(length = 10, nullable = false)
 	private String agencia;
 	
-	@Column(name = "num_conta", length = 15, nullable = false)
+	@Column(length = 10, nullable = false)
 	private String numeroConta;
 	
-	@ManyToOne
-	@JoinColumn(name = "fk_cliente_id", nullable = false)
-	private Cliente cliente;
-	
-	@Column(name = "saldo_anterior")
-	private double saldoAnterior;
-	
-	// Saque ou Depósito, transferência para quem ou de quem
-	@Column(name = "operacao")
+	@Column(name = "operacao", length = 100, nullable = false)
 	private String operacao;
 	
-	// crédito ou débido
-	@Column(name = "tipo")
-	private String tipo;
+	@Column(name = "valor", nullable = false)
+	private double valor;
 	
-	@Column(name = "valor")
-	private String valor;
+	@Column(name = "data", nullable = false)
+	private String data;
 	
-	// data
-	
-	@Column(name = "saldo_pos_movimentacao")
-	private double saldoPosMovimentacao;
-
 }
