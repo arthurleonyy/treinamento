@@ -32,7 +32,7 @@ spring:
 primary:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
-    jdbcUrl: jdbc:mysql://localhost:3306/treinamento?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    jdbcUrl: jdbc:mysql://localhost:3308/treinamentogisa?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
     username: root
     password: vertrigo
 hibernate: 

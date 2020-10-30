@@ -23,16 +23,16 @@ public class Cliente extends GenericEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome")
+	@Column(name = "nome" ,nullable = false)
 	private String nome;
 	
-	@Column(name = "cpf")
+	@Column(name = "cpf",nullable = false)
 	private String cpf;
 	
-	@Column(name = "email")
+	@Column(name = "email",nullable = false)
 	private String email;
 	
-	@Column(name = "ativo")
+	@Column(name = "ativo",nullable = false)
 	private boolean ativo;
 	
 	@Column(name = "observacoes")
