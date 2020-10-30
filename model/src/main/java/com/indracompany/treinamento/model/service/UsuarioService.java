@@ -14,9 +14,6 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class UsuarioService extends GenericCrudService<Usuario, Long, UsuarioRepository> {
 
-	
-	
-	
 	public UsuarioDTO login(String username, String password) {
 
 		if (username.equals("admin") && password.equals("1234")) {

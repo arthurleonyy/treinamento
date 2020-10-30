@@ -12,5 +12,6 @@ public class SaqueDepositoDTO implements Serializable{
 	private String agencia;
 	private String numeroConta;
 	private double valor;
+	private String tipoTransacao;
 
 }

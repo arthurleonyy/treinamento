@@ -2,6 +2,8 @@ package com.indracompany.treinamento.controller.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -33,9 +35,10 @@ public class ContaRest {
 	@Autowired
 	private ClienteService clienteService;
 	
+	
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
-		Double saldo = contaService.consultarSaldo(agencia, numeroConta);
+		double saldo = contaService.consultarSaldo(agencia, numeroConta);
 		return new ResponseEntity<Double>(saldo, HttpStatus.OK);
 	}
 	
@@ -45,16 +48,35 @@ public class ContaRest {
 		return new ResponseEntity<List<Conta>>(contas, HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/cadastrar-conta", method = RequestMethod.POST, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Conta> cadastrar(final @Valid @RequestBody Conta conta){
+		Conta novaConta = contaService.cadastrar(conta);
+		return new ResponseEntity<Conta>(novaConta, HttpStatus.CREATED);
+	}
+	
+	@RequestMapping(value = "/atualizar-conta/{id}", method = RequestMethod.PUT, produces = MediaType.APPLICATION_JSON_VALUE)
+	public @ResponseBody ResponseEntity<Conta> atualizar(final @Valid @RequestBody Conta conta, @PathVariable Long id){
+		Conta con = contaService.buscarContaPorId(id);
+		contaService.atualizar(con);
+		return new ResponseEntity<>(con, HttpStatus.OK);
+	}
+	
+	@RequestMapping(value = "/deletar-conta/{id}", method = RequestMethod.DELETE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public ResponseEntity<Void> deletar(@PathVariable Long id){
+		clienteService.deletar(id);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+	}
 	
 	@RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Void> saque(@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
+		
 		contaService.saque(conta, dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto ) {
+	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
 		contaService.deposito(conta, dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
@@ -67,7 +89,5 @@ public class ContaRest {
 		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
-	
-	
 	
 }
