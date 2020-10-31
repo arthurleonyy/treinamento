@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
 	@Autowired
 	private ClienteService clienteService;
+
+	
 
 	public double consultarSaldo(String agencia, String numeroConta) {
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
@@ -93,10 +96,14 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 
 	public List<Conta> obterContasDoCliente(String cpf) {
-		Cliente cli = clienteService.buscarClientePorCpf(cpf);
-		if (cli != null) {
-			return contaRepository.findByCliente(cli);
+		Cliente cliente = clienteService.buscarClientePorCpf(cpf);
+		ArrayList<Conta> contas = new ArrayList<>();
+		for(Conta conta : contaRepository.findByCliente(cliente)) {
+			if(conta != null) {
+				contas.add(conta);
+			}
 		}
-		return null;
+		return contas;
 	}
+	
 }
