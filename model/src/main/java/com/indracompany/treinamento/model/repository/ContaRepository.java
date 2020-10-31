@@ -11,7 +11,7 @@ import com.indracompany.treinamento.model.entity.Conta;
 public interface ContaRepository extends GenericCrudRepository<Conta, Long>{
 	
 	List<Conta> findByCliente(Cliente cli);
-	
+		
 	Conta findByAgenciaAndNumeroConta(String agencia, String numeroConta);
 	
 	

@@ -11,6 +11,8 @@ import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.entity.Extrato;
 
 public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long>{
+	
+	List<Extrato> findByCodOperacao(String codOperacao);
 		
 	@Query(value = "select * from extratos ext, contas c where c.agencia = :agencia "
 					+ "and c.num_conta = :numeroConta and ext.fk_conta_id = c.id", nativeQuery = true)
@@ -22,6 +24,8 @@ public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long>{
 	@Query(value = "select * from extratos ext, contas c where c.agencia = :agencia "
 			+ "and c.num_conta = :numeroConta and ext.fk_conta_id = c.id and ext.data BETWEEN :dataInicial and :dataFinal", nativeQuery = true)
 	List<Extrato> findByAccountAndIntervalDate(String agencia, String numeroConta, String dataInicial, String dataFinal);
+	
+	
 	
 	
 }

@@ -1,5 +1,7 @@
 package com.indracompany.treinamento.model.service;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +40,12 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void saque(Conta conta, double valor, boolean isTransfer) {
+		LocalDateTime dataHora = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		String formattedDateTime = dataHora.format(formatter);
+		
+		String sha1 = org.apache.commons.codec.digest.DigestUtils.sha1Hex( formattedDateTime );
+		
 		OperacaoEnum operacao = OperacaoEnum.SAQUE;
 		if (conta.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
@@ -46,28 +54,40 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		this.salvar(conta);			
 		
 		if (!isTransfer)
-			extratoService.realizarOperacao(conta, valor * (-1), operacao);
+			extratoService.realizarOperacao(conta, valor * (-1), operacao, sha1, dataHora);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void deposito(Conta conta, double valor, boolean isTransfer) {
+		LocalDateTime dataHora = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		String formattedDateTime = dataHora.format(formatter);
+		
+		String sha1 = org.apache.commons.codec.digest.DigestUtils.sha1Hex( formattedDateTime );
+		
 		OperacaoEnum operacao = OperacaoEnum.DEPOSITO;
 		conta.setSaldo(conta.getSaldo() + valor);
 		this.salvar(conta);	
 		
 		if (!isTransfer)
-			extratoService.realizarOperacao(conta, valor, operacao);
+			extratoService.realizarOperacao(conta, valor, operacao, sha1, dataHora);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
+		LocalDateTime dataHora = LocalDateTime.now();
+		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
+		String formattedDateTime = dataHora.format(formatter);
+		
+		String sha1 = org.apache.commons.codec.digest.DigestUtils.sha1Hex( formattedDateTime );
+		
 		OperacaoEnum operacao = OperacaoEnum.TRANSFERENCIA;
 		this.saque(contaOrigem, valor, true);
 		this.deposito(contaDestino, valor, true);
 		
-		extratoService.realizarOperacao(contaOrigem, valor * (-1), operacao);
+		extratoService.realizarOperacao(contaOrigem, valor * (-1), operacao, sha1, dataHora);
 		
-		extratoService.realizarOperacao(contaDestino, valor, operacao);
+		extratoService.realizarOperacao(contaDestino, valor, operacao, sha1, dataHora);
 	}
 	
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {

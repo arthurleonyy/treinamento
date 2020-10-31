@@ -57,5 +57,13 @@ public class ExtratoRest extends GenericCrudRest<Extrato, Long, ExtratoService> 
 		List<Extrato> extratos = extratoService.buscarPorContaClienteEData(agencia, numeroConta, dataInicial, dataFinal);
 		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/consultar-por-codOperacao/{codOperacao}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<List<Extrato>> buscarExtratoPorCodOperacao(final @PathVariable String codOperacao) {
+		List<Extrato> extratos = extratoService.buscarExtratoPorCodOperacao(codOperacao);
+		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
+	}
+
 
 }

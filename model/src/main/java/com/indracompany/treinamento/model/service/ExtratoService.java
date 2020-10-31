@@ -3,6 +3,7 @@ package com.indracompany.treinamento.model.service;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,6 @@ import com.indracompany.treinamento.model.repository.ExtratoRepository;
 
 @Service
 public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRepository>{
-	LocalDateTime dataHora = LocalDateTime.now();
 	
 	@Autowired
 	private ExtratoRepository extratoRepository;
@@ -28,12 +28,13 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	@Autowired
 	private ClienteService clienteService;
 
-	public void realizarOperacao(Conta conta, double valor, OperacaoEnum operacao) {
+	public void realizarOperacao(Conta conta, double valor, OperacaoEnum operacao, String codOperacao, LocalDateTime dataHora) {
 		Extrato extrato = new Extrato();
 		extrato.setValor(valor);
 		extrato.setConta(conta);
 		extrato.setOperacao(operacao);
 		extrato.setData(dataHora);
+		extrato.setCodOperacao(codOperacao);
 		this.salvar(extrato);
 	}
 
@@ -50,6 +51,11 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	
 	public List<Extrato> buscarPorContaClienteEData (String agencia, String numeroConta, String dataInicial, String dataFinal) {
 		List<Extrato> extrato = extratoRepository.findByAccountAndIntervalDate(agencia, numeroConta, dataInicial, dataFinal);
+		return extrato;
+	}
+	
+	public List<Extrato> buscarExtratoPorCodOperacao (String codOperacao) {
+		List<Extrato> extrato = extratoRepository.findByCodOperacao(codOperacao);
 		return extrato;
 	}
 	
