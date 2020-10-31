@@ -35,7 +35,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
     public void saque(Conta conta, double valor) {
 	conta = super.buscar(conta.getId());
-	validaConta(conta, valor);
+	validaSaldoConta(conta, valor);
 	conta.setSaldo(conta.getSaldo() - valor);
 	this.salvar(conta);
 	
@@ -91,7 +91,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	return contas;
     }
     
-    private void validaConta(Conta conta, double valor) {
+    private void validaSaldoConta(Conta conta, double valor) {
 	if (conta.getSaldo() < valor) {
 	    throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 	}
