@@ -6,6 +6,4 @@ public interface UsuarioRepository extends GenericCrudRepository<Usuario, Long> 
 
 	Usuario findByNoLoginIgnoreCase(String user);
 
-
-
 }

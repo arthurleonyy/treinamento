@@ -1,10 +1,10 @@
 package com.indracompany.treinamento.model.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
@@ -21,32 +21,22 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	@Autowired
 	private ClienteService clienteService;
 	
+	public Conta criarConta(String cpfCliente) {
+		Cliente cliente = clienteService.buscarClientePorCpf(cpfCliente);
+		Conta conta = new Conta();
+		conta.setCliente(cliente);
+		conta.setAgencia(gerarNumeroRandomicoEmString(10));
+		conta.setNumeroConta(gerarNumeroRandomicoEmString(15));
+		conta = contaRepository.save(conta);
+		return conta;
+	}
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
-		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
+		Conta conta = this.carregarPorAgenciaENumeroConta(agencia, numeroConta);
 		return conta.getSaldo();
 	}
 	
-	public void saque(Conta conta, double valor) {
-		if (conta.getSaldo() < valor) {
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
-		}
-		conta.setSaldo(conta.getSaldo() - valor);
-		this.salvar(conta);
-	}
-	
-	public void deposito(Conta conta, double valor) {
-		conta.setSaldo(conta.getSaldo() + valor);
-		this.salvar(conta);
-	}
-	
-	@Transactional(rollbackFor = Exception.class)
-	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
-		this.saque(contaOrigem, valor);
-		this.deposito(contaDestino, valor);
-	}
-	
-	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
+	public Conta carregarPorAgenciaENumeroConta(String agencia, String numeroConta) {
 		Conta conta = repository.findByAgenciaAndNumeroConta(agencia, numeroConta);
 		if (conta == null) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
@@ -60,5 +50,14 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 			return contaRepository.findByCliente(cli);
 		}
 		return null;
+	}
+	
+	private String gerarNumeroRandomicoEmString(int tamanho) {
+		String numero = "";
+		while(tamanho > 0) {
+			numero = numero.concat(String.valueOf((new Random()).nextInt(9)));
+			tamanho--;
+		}
+		return numero;
 	}
 }

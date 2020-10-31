@@ -10,9 +10,9 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Data
 @Entity
 @Table(name = "clientes")
+@Data
 @EqualsAndHashCode(callSuper = true)
 public class Cliente extends GenericEntity<Long> {
 	
@@ -38,5 +38,4 @@ public class Cliente extends GenericEntity<Long> {
 	@Column(name = "observacoes")
 	private String observacoes;
 	
-
 }
