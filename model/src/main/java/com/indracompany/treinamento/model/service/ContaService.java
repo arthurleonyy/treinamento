@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,8 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.entity.Extrato;
+import com.indracompany.treinamento.model.enumeration.OperacaoEnum;
 import com.indracompany.treinamento.model.repository.ContaRepository;
 
 @Service
@@ -21,6 +24,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private ExtratoService extratoService;
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
@@ -33,17 +38,21 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		}
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);
+		extratoService.salvar(preencherExtrato(conta, OperacaoEnum.SAQUE));
 	}
 	
 	public void deposito(Conta conta, double valor) {
 		conta.setSaldo(conta.getSaldo() + valor);
 		this.salvar(conta);
+		extratoService.salvar(preencherExtrato(conta, OperacaoEnum.DEPOSITO));
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
-		this.saque(contaOrigem, valor);
-		this.deposito(contaDestino, valor);
+		this.saqueTransferencia(contaOrigem, valor);
+		this.depositoTransferencia(contaDestino, valor);
+		extratoService.salvar(preencherExtrato(contaOrigem, OperacaoEnum.TRANFERENCIA));
+		extratoService.salvar(preencherExtrato(contaDestino, OperacaoEnum.TRANFERENCIA));
 	}
 	
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
@@ -60,5 +69,27 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 			return contaRepository.findByCliente(cli);
 		}
 		return null;
+	}
+	
+	private  Extrato preencherExtrato(Conta conta, OperacaoEnum operacao) {
+		Extrato extrato = new Extrato();
+		extrato.setDataHora(LocalDateTime.now());
+		extrato.setOperacao(operacao);
+		extrato.setConta(conta);
+		
+		return extrato;
+	}
+	
+	public void saqueTransferencia(Conta conta, double valor ) {
+		if (conta.getSaldo() < valor) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
+		}
+		conta.setSaldo(conta.getSaldo() - valor);
+		this.salvar(conta);
+	}
+	
+	public void depositoTransferencia(Conta conta, double valor) {
+		conta.setSaldo(conta.getSaldo() + valor);
+		this.salvar(conta);
 	}
 }
