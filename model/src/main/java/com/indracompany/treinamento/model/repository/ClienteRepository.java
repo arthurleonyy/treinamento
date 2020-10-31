@@ -9,5 +9,7 @@ public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> 
     Cliente findByEmail(String email);
 
     Cliente findByNome(String nome);
+    
+    public boolean existsByCpf(String cpf);
 
 }

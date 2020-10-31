@@ -22,7 +22,7 @@ public class CpfValidator implements Validator {
 	return CpfUtil.validaCPF(cpf);
     }
 
-    private static String remove(String cpf) {
+    public static String remove(String cpf) {
 	cpf = cpf.replace(".", "");
 	cpf = cpf.replace("-", "");
 	return cpf;

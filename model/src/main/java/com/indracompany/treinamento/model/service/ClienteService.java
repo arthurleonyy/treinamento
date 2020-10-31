@@ -17,10 +17,7 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
     private ClienteRepository clienteRepository;
 
     public Cliente buscarClientePorCpf(String cpf) {
-	if (!CpfValidator.isValid(cpf)) {
-	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
-	}
-
+	hasCpfValido(cpf);
 	return clienteRepository.findByCpf(cpf);
     }
 
@@ -41,8 +38,29 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	clienteRepository.save(cliente);
     }
 
+    @Override
+    public Cliente salvar(Cliente cliente) {
+	cliente.setCpf(CpfValidator.remove(cliente.getCpf()));
+	hasCpfValido(cliente.getCpf());
+	cpfExiste(cliente);
+	return super.salvar(cliente);
+    }
+
     private boolean emailEhValido(String mail) {
 	return EmailValidator.isValidoEmail(mail);
+    }
+
+    private void hasCpfValido(String cpf) {
+	if (!CpfValidator.isValid(cpf)) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
+	}
+    }
+
+    private void cpfExiste(Cliente cliente) {
+	String cpf = cliente.getCpf();
+	if (clienteRepository.existsByCpf(cpf)) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_CLIENTE_JA_EXISTE);
+	}
     }
 
 }
