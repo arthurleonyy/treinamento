@@ -1,6 +1,9 @@
 package com.indracompany.treinamento.controller.rest;
 
+<<<<<<< HEAD
 import java.util.Date;
+=======
+>>>>>>> 22f78f795b4061ea60aa8ed20d09ab7fe78845cd
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,6 +43,7 @@ public class ExtratoRest {
 		}
 		
 	}
+<<<<<<< HEAD
 	
 	@RequestMapping(value = "/consultar-extrato-por-conta-e-periodo/{agencia}/{numeroConta}/{dataInicio}/{dataFim}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<List<Extrato>> consultarExtratoContaPeriodo(final @PathVariable String agencia, String numeroConta, String dataInicio, String dataFim) {
@@ -56,5 +60,7 @@ public class ExtratoRest {
 		}
 		
 	}
+=======
+>>>>>>> 22f78f795b4061ea60aa8ed20d09ab7fe78845cd
 
 }

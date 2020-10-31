@@ -21,7 +21,11 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	private ContaService contaService;
 	
 	public void gerarExtrato(Conta conta, OperacaoExtrato operacao, Double saldoAnterior, Double valorOperacao,
+<<<<<<< HEAD
 			Double saldoAtual, String detalheOperacao) {
+=======
+			Double saldoAtual) {
+>>>>>>> 22f78f795b4061ea60aa8ed20d09ab7fe78845cd
 
 		Extrato extrato = new Extrato();
 		
@@ -31,7 +35,10 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		extrato.setValorOperacao(valorOperacao);
 		extrato.setValorAtual(saldoAtual);
 		extrato.setDataOperacao(new Date(System.currentTimeMillis()));
+<<<<<<< HEAD
 		extrato.setDetalheOperacao(detalheOperacao);
+=======
+>>>>>>> 22f78f795b4061ea60aa8ed20d09ab7fe78845cd
 
 		this.salvar(extrato);
 	}
@@ -44,6 +51,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		return null;
 	}
 	
+<<<<<<< HEAD
 	public List<Extrato> carregarExtratosPorContaPeriodo(String agencia, String numeroConta, String inicio, String fim){
 		Conta conta = contaService.carregarContaPorNumero(agencia, numeroConta);
 		if (conta != null) {
@@ -52,5 +60,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		return null;
 	}
 	
+=======
+>>>>>>> 22f78f795b4061ea60aa8ed20d09ab7fe78845cd
 
 }
