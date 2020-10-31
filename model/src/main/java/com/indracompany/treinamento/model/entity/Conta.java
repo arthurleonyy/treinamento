@@ -12,10 +12,10 @@ import javax.persistence.Table;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-@Data
-@Entity
-@Table(name = "contas")
-@EqualsAndHashCode(callSuper = true)
+@Data //GETS E SETS
+@Entity //Notação entidade
+@Table(name = "contas") 
+@EqualsAndHashCode(callSuper = true) 
 public class Conta extends GenericEntity<Long>{
 	
 	private static final long serialVersionUID = 1166911459976971581L;

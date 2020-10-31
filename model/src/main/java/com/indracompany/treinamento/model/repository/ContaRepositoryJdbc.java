@@ -13,7 +13,7 @@ import com.indracompany.treinamento.model.entity.Conta;
 
 @Repository
 public class ContaRepositoryJdbc {
-	
+	// fazer uma querry usando sintax nativa jdbc
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
 	

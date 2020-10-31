@@ -39,6 +39,7 @@ public class ContaRest {
 		return new ResponseEntity<Double>(saldo, HttpStatus.OK);
 	}
 	
+	
 	@RequestMapping(value = "/consultar-contas-cliente/{cpf}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<List<Conta>> consultarContaCliente(final @PathVariable String cpf) {
 		List<Conta> contas = contaService.obterContasDoCliente(cpf);

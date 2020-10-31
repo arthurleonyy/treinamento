@@ -34,7 +34,7 @@ primary:
     driverClassName: com.mysql.cj.jdbc.Driver
     jdbcUrl: ${DB_TREINAMENTO_URL:jdbc:mysql://db4free.net:3306/sergiotreinament?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
     username: ${DB_TREINAMENTO_USER:sergiotreinament}
-    password: ${DB_TREINAMENTO_PASSWORD:treinamentoindra}
+    password: ${DB_TREINAMENTO_PASSWORD:dxvki093}
 hibernate: 
   generate_statistics: true
 

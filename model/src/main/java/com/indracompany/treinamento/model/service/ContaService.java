@@ -21,6 +21,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private TransacaoService transacaoService;
+	
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
@@ -33,11 +36,13 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		}
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);
+		transacaoService.registroTransacoes("Retirou da conta: ", conta, valor);
 	}
 	
 	public void deposito(Conta conta, double valor) {
 		conta.setSaldo(conta.getSaldo() + valor);
 		this.salvar(conta);
+		transacaoService.registroTransacoes("Entrou na conta: ", conta, valor);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
