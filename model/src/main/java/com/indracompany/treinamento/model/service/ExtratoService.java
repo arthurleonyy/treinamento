@@ -1,6 +1,8 @@
 package com.indracompany.treinamento.model.service;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +19,8 @@ import com.indracompany.treinamento.model.repository.ExtratoRepository;
 
 @Service
 public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRepository>{
-
+	LocalDateTime dataHora = LocalDateTime.now();
+	
 	@Autowired
 	private ExtratoRepository extratoRepository;
 	
@@ -29,7 +32,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		extrato.setValor(valor);
 		extrato.setContaId(conta.getId());
 		extrato.setOperacao("SAQUE");
-		extrato.setData("20200101");
+		extrato.setData(dataHora);
 		extrato.setAgencia(conta.getAgencia());
 		extrato.setNumeroConta(conta.getNumeroConta());
 		this.salvar(extrato);
@@ -40,7 +43,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		extrato.setValor(valor);
 		extrato.setContaId(conta.getId());
 		extrato.setOperacao("DEPOSITO");
-		extrato.setData("20200101");
+		extrato.setData(dataHora);
 		extrato.setAgencia(conta.getAgencia());
 		extrato.setNumeroConta(conta.getNumeroConta());
 		this.salvar(extrato);
@@ -51,16 +54,16 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		extrato.setValor(valor);
 		extrato.setContaId(contaOrigem.getId());
 		extrato.setOperacao("TRANSFERENCIA_REALIZADA");
-		extrato.setData("20200101");
+		extrato.setData(dataHora);
 		extrato.setAgencia(contaOrigem.getAgencia());
 		extrato.setNumeroConta(contaOrigem.getNumeroConta());
-		this.salvar(extrato);
+		this.salvar(extrato);	
 		
 		Extrato extratoDestino = new Extrato();
 		extratoDestino.setValor(valor);
 		extratoDestino.setContaId(contaDestino.getId());
 		extratoDestino.setOperacao("TRANSFERENCIA_RECEBIDA");
-		extratoDestino.setData("20200101");
+		extratoDestino.setData(dataHora);
 		extratoDestino.setAgencia(contaDestino.getAgencia());
 		extratoDestino.setNumeroConta(contaDestino.getNumeroConta());
 		this.salvar(extratoDestino);

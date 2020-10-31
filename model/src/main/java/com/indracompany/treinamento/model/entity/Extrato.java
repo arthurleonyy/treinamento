@@ -1,5 +1,7 @@
 package com.indracompany.treinamento.model.entity;
 
+import java.time.LocalDateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -36,10 +38,13 @@ public class Extrato extends GenericEntity<Long>{
 	@Column(name = "operacao", length = 100, nullable = false)
 	private String operacao;
 	
+	//@Column(name = "cod_operacao", length = 20, nullable = false)
+	//private Long cod_operacao;	
+	
 	@Column(name = "valor", nullable = false)
 	private double valor;
 	
 	@Column(name = "data", nullable = false)
-	private String data;
+	private LocalDateTime data;
 	
 }
