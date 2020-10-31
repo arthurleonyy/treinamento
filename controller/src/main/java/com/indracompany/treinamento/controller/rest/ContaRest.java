@@ -1,6 +1,7 @@
 package com.indracompany.treinamento.controller.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -17,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.entity.Transacao;
 import com.indracompany.treinamento.model.service.ClienteService;
 import com.indracompany.treinamento.model.service.ContaService;
+import com.indracompany.treinamento.model.service.TransacaoService;
 
 import io.swagger.annotations.ApiParam;
 
@@ -32,6 +35,9 @@ public class ContaRest {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired 
+	private TransacaoService transacaoService;
 	
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
@@ -67,7 +73,29 @@ public class ContaRest {
 		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
+
+	public ClienteService getClienteService() {
+		return clienteService;
+	}
+
+	public void setClienteService(ClienteService clienteService) {
+		this.clienteService = clienteService;
+	}
 	
+	//@RequestMapping(value = "/get-extrato", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	//public @ResponseBody ResponseEntity<Transacao> consultarExtrato(Conta conta) {
+	//	List <Transacao> retornoTransacaoConta = TransacaoService.gerarTransacao(conta);
+	//	if(retornoTransacaoConta.isEmpty()) {
+	//		return new ResponseEntity<Transacao>(gerarTransacao, HttpStatus.NO_CONTENT);
+	//	} else {
+	//		return new ResponseEntity<Transacao>(gerarTransacao, HttpStatus.OK);
+	//	}
+		
+	//}
 	
+	@RequestMapping(value = "/transacoes/{agencia}/{numeroConta}", method = RequestMethod.GET)
+	  public @ResponseBody ResponseEntity<List<Transacao>> listarSistemasDoCliente(@PathVariable String agencia, String numeroConta){
+		  return new ResponseEntity<>(transacaoService.getTransacoesByConta(agencia, numeroConta), HttpStatus.OK);
+	}
 	
 }

@@ -1,6 +1,11 @@
 server:
   servlet:
     contextPath: /treinamento
+    encoding:      charset: UTF-8
+      enabled: true
+      force: true
+      force-request: true
+      force-response: true
   messages:
     encoding: UTF-8
   tomcat:

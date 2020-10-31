@@ -1,4 +1,4 @@
-package com.indracompany.treinamento.model.repository;
+ package com.indracompany.treinamento.model.repository;
 
 import java.util.List;
 
@@ -21,10 +21,6 @@ public interface ContaRepository extends GenericCrudRepository<Conta, Long>{
 	
 	@Query("select c from Conta c where c.agencia = :agencia and c.numeroConta = :numeroConta")
 	Conta consultarContaJpql(@Param("agencia")  String agencia, @Param("numeroConta")  String numeroConta);
-	
-	
-	
-	
 	
 	@Query(value = "select con.* "
 			+ " from clientes cli, contas con "
