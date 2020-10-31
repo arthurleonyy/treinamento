@@ -41,6 +41,8 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	cliente.setCpf(CpfValidator.remove(cliente.getCpf()));
 	hasCpfValido(cliente.getCpf());
 	cpfExiste(cliente);
+	hasEmailValido(cliente.getEmail());
+	emailExiste(cliente);
 	return super.salvar(cliente);
     }
 
@@ -51,6 +53,13 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
     private void hasEmailValido(String email) {
 	if (!emailEhValido(email)) {
 	    throw new AplicacaoException(EmailValidator.EMAIL_INVALIDO);
+	}
+    }
+    
+    private void emailExiste(Cliente cliente) {
+	String email = cliente.getEmail();
+	if (clienteRepository.existsByEmail(email) && emailEhValido(email)) {
+	    throw new AplicacaoException(ExceptionValidacoes.ERRO_EMAIL_JA_EXISTE);
 	}
     }
 
