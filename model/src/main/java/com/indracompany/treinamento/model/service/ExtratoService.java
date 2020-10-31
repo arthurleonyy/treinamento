@@ -43,4 +43,9 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		return extrato;
 	}
 	
+	public List<Extrato> buscarPorIntervaloData (String dataInicial, String dataFinal) {
+		List<Extrato> extrato = extratoRepository.findByIntervalDate(dataInicial, dataFinal);
+		return extrato;
+	}
+	
 }

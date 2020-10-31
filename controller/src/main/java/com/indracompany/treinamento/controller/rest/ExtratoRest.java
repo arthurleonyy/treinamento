@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.controller.rest;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,15 +29,25 @@ import io.swagger.annotations.ApiParam;
 @RestController()
 @CrossOrigin(origins = "*")
 @RequestMapping("rest/extratos")
-public class ExtratoRest extends GenericCrudRest<Extrato, Long, ExtratoService>{
-	
+public class ExtratoRest extends GenericCrudRest<Extrato, Long, ExtratoService> {
+
 	@Autowired
 	private ExtratoService extratoService;
-	
-	@RequestMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<List<Extrato>> buscarPorAgenciaConta(final @PathVariable String agencia, final @PathVariable String numeroConta) {
+
+	@RequestMapping(value = "/consultar-extrato/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<List<Extrato>> buscarPorAgenciaConta(final @PathVariable String agencia,
+			final @PathVariable String numeroConta) {
 		List<Extrato> extratos = extratoService.buscarPorAgenciaConta(agencia, numeroConta);
 		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
 	}
-		
+
+	@RequestMapping(value = "/consultar-por-data/{dataInicial}/{dataFinal}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<List<Extrato>> buscarPorIntervaloData(@ApiParam(value = "Informe a data no formato 2020-10-11, para buscar por 11/10/2020", required = true) final @PathVariable String dataInicial,
+			@ApiParam(value = "Informe a data no formato 2020-10-12, para buscar por 12/10/2020", required = true) final @PathVariable String dataFinal) {
+		List<Extrato> extratos = extratoService.buscarPorIntervaloData(dataInicial, dataFinal);
+		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
+	}
+
 }
