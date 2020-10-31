@@ -19,5 +19,9 @@ public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long>{
 	@Query(value = "select * from extratos ext where ext.data BETWEEN :dataInicial and :dataFinal", nativeQuery = true)
 	List<Extrato> findByIntervalDate(String dataInicial, String dataFinal);
 	
+	@Query(value = "select * from extratos ext, contas c where c.agencia = :agencia "
+			+ "and c.num_conta = :numeroConta and ext.fk_conta_id = c.id and ext.data BETWEEN :dataInicial and :dataFinal", nativeQuery = true)
+	List<Extrato> findByAccountAndIntervalDate(String agencia, String numeroConta, String dataInicial, String dataFinal);
+	
 	
 }

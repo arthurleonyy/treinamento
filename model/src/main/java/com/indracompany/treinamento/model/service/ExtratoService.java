@@ -48,4 +48,10 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		return extrato;
 	}
 	
+	public List<Extrato> buscarPorContaClienteEData (String agencia, String numeroConta, String dataInicial, String dataFinal) {
+		List<Extrato> extrato = extratoRepository.findByAccountAndIntervalDate(agencia, numeroConta, dataInicial, dataFinal);
+		return extrato;
+	}
+	
+	
 }

@@ -49,5 +49,13 @@ public class ExtratoRest extends GenericCrudRest<Extrato, Long, ExtratoService> 
 		List<Extrato> extratos = extratoService.buscarPorIntervaloData(dataInicial, dataFinal);
 		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
 	}
+	
+	@RequestMapping(value = "/consultar-por-data/{agencia}/{numeroConta}/{dataInicial}/{dataFinal}", method = RequestMethod.GET, produces = {
+			MediaType.APPLICATION_JSON_VALUE })
+	public @ResponseBody ResponseEntity<List<Extrato>> buscarPorContaClienteEData(final @PathVariable String agencia, final @PathVariable String numeroConta,
+			final @PathVariable String dataInicial, final @PathVariable String dataFinal) {
+		List<Extrato> extratos = extratoService.buscarPorContaClienteEData(agencia, numeroConta, dataInicial, dataFinal);
+		return new ResponseEntity<List<Extrato>>(extratos, HttpStatus.OK);
+	}
 
 }
