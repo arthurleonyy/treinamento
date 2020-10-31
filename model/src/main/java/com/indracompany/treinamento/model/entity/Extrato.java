@@ -14,7 +14,6 @@ import javax.persistence.Table;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import com.fasterxml.jackson.annotation.JsonFormat;
-import com.indracompany.treinamento.model.enumeration.TipoTransacao;
 import com.indracompany.treinamento.model.listener.ExtratoListener;
 
 import lombok.AllArgsConstructor;
