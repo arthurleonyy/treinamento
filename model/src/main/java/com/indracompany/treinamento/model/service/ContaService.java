@@ -45,7 +45,6 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
     public void deposito(Long id, Double valor) {
         Conta conta = super.buscar(id);
         Assert.notNull(conta, "Conta não deve ser nula");
-        validaContaDestino(conta.getId());
         conta.setSaldo(conta.getSaldo() + valor);
         this.contaRepository.save(conta);
         
@@ -59,7 +58,6 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	    Conta contaDestino = super.buscar(contaDestinoId);
 
 	    contaOrigem.setSaldo(contaOrigem.getSaldo() - valor);
-	    validaContaDestino(contaDestino.getId());
 	    contaDestino.setSaldo(contaDestino.getSaldo() + valor);
 	    super.salvar(contaOrigem);
 	    super.salvar(contaDestino);
@@ -94,17 +92,6 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
     private void validaSaldoConta(Conta conta, double valor) {
 	if (conta.getSaldo() < valor) {
 	    throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
-	}
-    }
-
-    private void validaContaDestino(Long contaDestinoId) {
-	Optional<Conta> conta = getRepository().findById(contaDestinoId);
-	if (!conta.isPresent()) {
-	    throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_DESTINO_NAO_EXISTE);
-	}
-
-	if (conta.get().getAgencia().isEmpty() && conta.get().getNumeroConta().isEmpty()) {
-	    throw new AplicacaoException(ExceptionValidacoes.ERRO_AGENCIA_OU_NUMERO_CONTA_NAO_INFORMADO_CORRETAMENTE);
 	}
     }
 
