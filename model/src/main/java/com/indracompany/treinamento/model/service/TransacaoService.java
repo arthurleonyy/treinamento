@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class TransacaoService extends GenericCrudService<Transacao, Long, Transa
 	}
 	
 	public void registroTransacoes(String descriçao, Conta conta, Double valor) {
-		Date data = new Date();
+		Calendar data = Calendar.getInstance();
 		transacaoRepository.registarSql(data, descriçao, conta, valor);
 	}
 	

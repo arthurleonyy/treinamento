@@ -4,6 +4,7 @@ package com.indracompany.treinamento.model.entity;
 
 
 
+import java.util.Calendar;
 import java.util.Date;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Transacao extends GenericEntity<Long> {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
-	private Date data;
+	private Calendar data;
 	
 	@Column(nullable = false)
 	private String descricao;
