@@ -32,9 +32,15 @@ spring:
 primary:
   datasource:
     driverClassName: com.mysql.cj.jdbc.Driver
+<<<<<<< HEAD
     jdbcUrl: ${DB_TREINAMENTO_URL:jdbc:mysql://localhost:3306/treinamentorenat?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC&useTimezone=true&serverTimezone=America/Sao_Paulo}
     username: ${DB_TREINAMENTO_USER:root}
     password: ${DB_TREINAMENTO_PASSWORD:root}
+=======
+    jdbcUrl: jdbc:mysql://localhost:3308/treinamentogisa?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC
+    username: root
+    password: vertrigo
+>>>>>>> 4cbd62a0c547da997a8471a2203bf6043970123a
 hibernate: 
   generate_statistics: true
 
