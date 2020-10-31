@@ -6,10 +6,6 @@ import com.indracompany.treinamento.model.entity.Cliente;
 
 public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> {
 
-<<<<<<< Updated upstream
-	Cliente findByCpf(String cpf);
-	Cliente findByNome(String nome);
-=======
 	//retorna um cliente com base no cpf
 	Cliente findByCpf(String cpf);
 
@@ -21,7 +17,5 @@ public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> 
 	
 	//retorna uma lista de clientes onde o nome contem os carecteres informados
 	List<Cliente> findByNomeLike(String nome);
-	
->>>>>>> Stashed changes
 
 }

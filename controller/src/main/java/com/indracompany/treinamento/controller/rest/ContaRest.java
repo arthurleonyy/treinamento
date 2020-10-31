@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.enumeration.OperacaoExtrato;
 import com.indracompany.treinamento.model.service.ClienteService;
 import com.indracompany.treinamento.model.service.ContaService;
 
@@ -30,6 +31,7 @@ public class ContaRest {
 	@Autowired
 	private ContaService contaService;
 	
+	@SuppressWarnings("unused")
 	@Autowired
 	private ClienteService clienteService;
 	
@@ -49,14 +51,14 @@ public class ContaRest {
 	@RequestMapping(value = "/saque", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Void> saque(@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
-		contaService.saque(conta, dto.getValor());
+		contaService.saque(conta, dto.getValor(),OperacaoExtrato.SAIDA);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/deposito", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
-		contaService.deposito(conta, dto.getValor());
+		contaService.deposito(conta, dto.getValor(),OperacaoExtrato.ENTRADA);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -64,7 +66,7 @@ public class ContaRest {
 	public @ResponseBody ResponseEntity<Void> transferencia(@ApiParam("JSON com dados necessarios para realizar Transferencia") final @RequestBody TransferenciaBancariaDTO dto){
 		Conta contaOrigem = contaService.carregarContaPorNumero(dto.getAgenciaOrigem(), dto.getNumeroContaOrigem());
 		Conta contaDestino = contaService.carregarContaPorNumero(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
-		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
+		contaService.transferencia(contaOrigem, contaDestino, dto.getValor(), OperacaoExtrato.TRANSFERENCIA);
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
