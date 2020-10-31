@@ -51,7 +51,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
 		this.salvar(conta);
 		extratoService.gerarExtratoSaque(conta.getSaldo() + valor, conta.getSaldo(), TipoTransacao.SAQUE,
-				LocalDateTime.now(), valor);
+				LocalDateTime.now(), valor, conta);
 
 	}
 
@@ -64,7 +64,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		this.salvar(conta);
 
 		extratoService.gerarExtratoDeposito(conta.getSaldo() - valor, conta.getSaldo(), TipoTransacao.DEPOSITO,
-				LocalDateTime.now(), valor);
+				LocalDateTime.now(), valor, conta);
 	}
 
 	@Transactional(rollbackFor = Exception.class)
@@ -74,9 +74,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		this.deposito(contaDestino, valor);
 
 		extratoService.gerarExtratoTransferencia(contaOrigem.getSaldo() + valor, contaOrigem.getSaldo(),
-				TipoTransacao.TRANSFERENCIA, LocalDateTime.now(), valor);
+				TipoTransacao.TRANSFERENCIA, LocalDateTime.now(), valor, contaOrigem);
 		extratoService.gerarExtratoTransferencia(contaDestino.getSaldo() - valor, contaDestino.getSaldo(),
-				TipoTransacao.TRANSFERENCIA, LocalDateTime.now(), valor);
+				TipoTransacao.TRANSFERENCIA, LocalDateTime.now(), valor, contaDestino);
 	}
 
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
