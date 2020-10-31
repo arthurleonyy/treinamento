@@ -10,9 +10,10 @@ import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.entity.Extrato;
 
 public interface ExtratoRepository extends GenericCrudRepository<Extrato, Long>{
-	
-	//List<Extrato> findByCliente(Cliente cli);
-	
+		
+	@Query(value = "select * from extratos ext, contas c where c.agencia = :agencia "
+					+ "and c.num_conta = :numeroConta and ext.fk_conta_id = c.id", nativeQuery = true)
 	List<Extrato> findByAgenciaAndNumeroConta(String agencia, String numeroConta);
+	
 	
 }

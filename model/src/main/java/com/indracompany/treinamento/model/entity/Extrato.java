@@ -4,6 +4,8 @@ import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -26,20 +28,13 @@ public class Extrato extends GenericEntity<Long>{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(nullable = false)
-	private Long contaId;
-	
-	@Column(length = 10, nullable = false)
-	private String agencia;
-	
-	@Column(length = 10, nullable = false)
-	private String numeroConta;
+	@ManyToOne
+	@JoinColumn(name = "fk_conta_id")
+	private Conta conta;
 	
 	@Column(name = "operacao", length = 100, nullable = false)
-	private String operacao;
-	
-	//@Column(name = "cod_operacao", length = 20, nullable = false)
-	//private Long cod_operacao;	
+	@Enumerated(EnumType.STRING)
+	private OperacaoEnum operacao;
 	
 	@Column(name = "valor", nullable = false)
 	private double valor;

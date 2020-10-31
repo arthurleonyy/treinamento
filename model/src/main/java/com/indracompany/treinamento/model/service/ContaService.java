@@ -10,6 +10,7 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.entity.OperacaoEnum;
 import com.indracompany.treinamento.model.repository.ContaRepository;
 
 @Service
@@ -37,28 +38,36 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void saque(Conta conta, double valor, boolean isTransfer) {
+		OperacaoEnum operacao = OperacaoEnum.SAQUE;
 		if (conta.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);			
+		
 		if (!isTransfer)
-			extratoService.extratoSaque(conta, valor);
+			extratoService.realizarOperacao(conta, valor * (-1), operacao);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void deposito(Conta conta, double valor, boolean isTransfer) {
+		OperacaoEnum operacao = OperacaoEnum.DEPOSITO;
 		conta.setSaldo(conta.getSaldo() + valor);
-		this.salvar(conta);		
+		this.salvar(conta);	
+		
 		if (!isTransfer)
-			extratoService.extratoDeposito(conta, valor);
+			extratoService.realizarOperacao(conta, valor, operacao);
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
+		OperacaoEnum operacao = OperacaoEnum.TRANSFERENCIA;
 		this.saque(contaOrigem, valor, true);
 		this.deposito(contaDestino, valor, true);
-		extratoService.extratoTransferencia(contaOrigem, contaDestino, valor);
+		
+		extratoService.realizarOperacao(contaOrigem, valor * (-1), operacao);
+		
+		extratoService.realizarOperacao(contaDestino, valor, operacao);
 	}
 	
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
