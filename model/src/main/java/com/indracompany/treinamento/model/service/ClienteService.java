@@ -26,9 +26,7 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
     }
 
     public Cliente buscarPorEmail(String email) {
-	if (!emailEhValido(email)) {
-	    throw new AplicacaoException(EmailValidator.EMAIL_INVALIDO);
-	}
+	hasEmailValido(email);
 	return clienteRepository.findByEmail(email);
     }
 
@@ -48,6 +46,12 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 
     private boolean emailEhValido(String mail) {
 	return EmailValidator.isValidoEmail(mail);
+    }
+
+    private void hasEmailValido(String email) {
+	if (!emailEhValido(email)) {
+	    throw new AplicacaoException(EmailValidator.EMAIL_INVALIDO);
+	}
     }
 
     private void hasCpfValido(String cpf) {
