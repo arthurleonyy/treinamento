@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.controller.rest;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 import javax.validation.Valid;
@@ -43,9 +44,9 @@ public class ContaRest extends GenericCrudRest<Conta, Long, ContaService>{
 	}
 	
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
-		Double saldo = contaService.consultarSaldo(agencia, numeroConta);
-		return new ResponseEntity<Double>(saldo, HttpStatus.OK);
+	public @ResponseBody ResponseEntity<BigDecimal> consultarSaldo(final @PathVariable String agencia, final @PathVariable String numeroConta) {
+		BigDecimal saldo = contaService.consultarSaldo(agencia, numeroConta);
+		return new ResponseEntity<BigDecimal>(saldo, HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/consultar-conta/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})

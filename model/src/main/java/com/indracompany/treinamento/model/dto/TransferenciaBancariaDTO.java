@@ -1,6 +1,7 @@
 package com.indracompany.treinamento.model.dto;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import lombok.Data;
 
@@ -14,6 +15,6 @@ public class TransferenciaBancariaDTO implements Serializable{
 	private String numeroContaOrigem;
 	private String agenciaDestino;
 	private String numeroContaDestino;
-	private double valor;
+	private BigDecimal valor;
 
 }

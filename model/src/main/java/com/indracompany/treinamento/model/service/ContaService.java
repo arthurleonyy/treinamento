@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
@@ -38,7 +39,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		return super.salvar(conta);
 	}
 
-	public double consultarSaldo(String agencia, String numeroConta) {
+	public BigDecimal consultarSaldo(String agencia, String numeroConta) {
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
 		return conta.getSaldo();
 	}
@@ -49,7 +50,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void saque(Conta conta, double valor, boolean isTransfer) {
+	public void saque(Conta conta, BigDecimal valor, boolean isTransfer) {
 		LocalDateTime dataHora = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		String formattedDateTime = dataHora.format(formatter);
@@ -57,20 +58,20 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		String sha1 = org.apache.commons.codec.digest.DigestUtils.sha1Hex(formattedDateTime);
 
 		OperacaoEnum operacao = OperacaoEnum.SAQUE;
-		if (conta.getSaldo() < valor) {
+		if ((valor.compareTo(conta.getSaldo()) == 1)) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
-		conta.setSaldo(conta.getSaldo() - valor);
+		conta.setSaldo(conta.getSaldo().subtract(valor));
 		this.salvar(conta);
 
 		if (!isTransfer) {
 			String descricao = "Saque bem sucedido.";
-			extratoService.realizarOperacao(conta, valor * (-1), operacao, sha1, dataHora, descricao);
+			extratoService.realizarOperacao(conta, valor.multiply(new BigDecimal(-1)), operacao, sha1, dataHora, descricao);
 		}
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void deposito(Conta conta, double valor, boolean isTransfer) {
+	public void deposito(Conta conta, BigDecimal valor, boolean isTransfer) {
 		LocalDateTime dataHora = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		String formattedDateTime = dataHora.format(formatter);
@@ -78,7 +79,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		String sha1 = org.apache.commons.codec.digest.DigestUtils.sha1Hex(formattedDateTime);
 
 		OperacaoEnum operacao = OperacaoEnum.DEPOSITO;
-		conta.setSaldo(conta.getSaldo() + valor);
+		conta.setSaldo(conta.getSaldo().add(valor));
 		this.salvar(conta);
 
 		if (!isTransfer) {
@@ -88,7 +89,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 
 	@Transactional(rollbackFor = Exception.class)
-	public void transferencia(Conta contaOrigem, Conta contaDestino, double valor) {
+	public void transferencia(Conta contaOrigem, Conta contaDestino, BigDecimal valor) {
 		LocalDateTime dataHora = LocalDateTime.now();
 		DateTimeFormatter formatter = DateTimeFormatter.ISO_DATE_TIME;
 		String formattedDateTime = dataHora.format(formatter);
@@ -101,7 +102,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
 		String descricao = "Transferência realizada para " + contaDestino.getCliente().getNome() + " agência: "
 				+ contaDestino.getAgencia() + " conta nº: " + contaDestino.getNumeroConta() + ".";
-		extratoService.realizarOperacao(contaOrigem, valor * (-1), operacao, sha1, dataHora, descricao);
+		extratoService.realizarOperacao(contaOrigem, valor.multiply(new BigDecimal(-1)), operacao, sha1, dataHora, descricao);
 
 		descricao = "Transferência recebida de " + contaOrigem.getCliente().getNome() + " agência: "
 				+ contaOrigem.getAgencia() + " conta nº: " + contaOrigem.getNumeroConta() + ".";

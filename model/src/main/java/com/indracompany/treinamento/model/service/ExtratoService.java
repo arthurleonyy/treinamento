@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
+import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
@@ -28,7 +29,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	@Autowired
 	private ClienteService clienteService;
 
-	public void realizarOperacao(Conta conta, double valor, OperacaoEnum operacao, String codOperacao, LocalDateTime dataHora, String descricao) {
+	public void realizarOperacao(Conta conta, BigDecimal valor, OperacaoEnum operacao, String codOperacao, LocalDateTime dataHora, String descricao) {
 		Extrato extrato = new Extrato();
 		extrato.setValor(valor);
 		extrato.setConta(conta);
@@ -46,11 +47,27 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	}
 	
 	public List<Extrato> buscarPorIntervaloData (String dataInicial, String dataFinal) {
+		dataInicial = dataInicial + "T" + "00:00:00";
+		dataFinal = dataFinal + "T" + "23:59:59";
+		LocalDateTime dataInicio = LocalDateTime.parse(dataInicial);
+		LocalDateTime dataFim = LocalDateTime.parse(dataFinal);
+		
+		if (dataInicio.isAfter(dataFim)) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_DATA_INICIAL_NAO_PODE_SER_DEPOIS_DA_DATA_FINAL);
+		}
 		List<Extrato> extrato = extratoRepository.findByIntervalDate(dataInicial, dataFinal);
 		return extrato;
 	}
 	
 	public List<Extrato> buscarPorContaClienteEData (String agencia, String numeroConta, String dataInicial, String dataFinal) {
+		dataInicial = dataInicial + "T" + "00:00:00";
+		dataFinal = dataFinal + "T" + "23:59:59";
+		LocalDateTime dataInicio = LocalDateTime.parse(dataInicial);
+		LocalDateTime dataFim = LocalDateTime.parse(dataFinal);
+		
+		if (dataInicio.isAfter(dataFim)) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_DATA_INICIAL_NAO_PODE_SER_DEPOIS_DA_DATA_FINAL);
+		}
 		List<Extrato> extrato = extratoRepository.findByAccountAndIntervalDate(agencia, numeroConta, dataInicial, dataFinal);
 		return extrato;
 	}

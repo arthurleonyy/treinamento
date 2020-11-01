@@ -1,5 +1,6 @@
 package com.indracompany.treinamento.model.entity;
 
+import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -37,7 +38,7 @@ public class Extrato extends GenericEntity<Long>{
 	private OperacaoEnum operacao;
 	
 	@Column(name = "valor", nullable = false)
-	private double valor;
+	private BigDecimal valor;
 	
 	@Column(name = "cod_operacao", nullable = false)
 	private String codOperacao;

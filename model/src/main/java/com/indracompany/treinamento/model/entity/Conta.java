@@ -1,5 +1,7 @@
 package com.indracompany.treinamento.model.entity;
 
+import java.math.BigDecimal;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,8 +16,8 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.Setter;
 
-@Setter
 @Getter
+@Setter
 @Entity
 @Table(name = "contas")
 @EqualsAndHashCode(callSuper = true)
@@ -37,6 +39,6 @@ public class Conta extends GenericEntity<Long>{
 	@JoinColumn(name = "fk_cliente_id", nullable = false)
 	private Cliente cliente;
 	
-	private double saldo;
+	private BigDecimal saldo;
 
 }
