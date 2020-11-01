@@ -42,6 +42,9 @@ public class Extrato extends GenericEntity<Long>{
 	@Column(name = "cod_operacao", nullable = false)
 	private String codOperacao;
 	
+	@Column(name = "descricao", length = 200, nullable = false)
+	private String descricao;
+	
 	@Column(name = "data", nullable = false)
 	private LocalDateTime data;
 	

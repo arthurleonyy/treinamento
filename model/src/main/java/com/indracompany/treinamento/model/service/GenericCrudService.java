@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import javax.validation.ConstraintViolation;
 
+import org.apache.commons.lang3.RandomStringUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.glassfish.jersey.internal.guava.Lists;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +18,7 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.AplicacaoExceptionValue;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.exception.ValidacaoCampos;
+import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.entity.GenericEntity;
 import com.indracompany.treinamento.model.repository.GenericCrudRepository;
 
@@ -98,6 +100,7 @@ public abstract class GenericCrudService<T extends GenericEntity<I>, I, R extend
   public void removerTodos() {
     this.repository.deleteAll();
   }
+  
 
   @Transactional(rollbackFor = Throwable.class)
   public T salvar(T entidade) throws AplicacaoException {

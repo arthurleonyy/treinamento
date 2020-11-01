@@ -28,11 +28,12 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	@Autowired
 	private ClienteService clienteService;
 
-	public void realizarOperacao(Conta conta, double valor, OperacaoEnum operacao, String codOperacao, LocalDateTime dataHora) {
+	public void realizarOperacao(Conta conta, double valor, OperacaoEnum operacao, String codOperacao, LocalDateTime dataHora, String descricao) {
 		Extrato extrato = new Extrato();
 		extrato.setValor(valor);
 		extrato.setConta(conta);
 		extrato.setOperacao(operacao);
+		extrato.setDescricao(descricao);
 		extrato.setData(dataHora);
 		extrato.setCodOperacao(codOperacao);
 		this.salvar(extrato);

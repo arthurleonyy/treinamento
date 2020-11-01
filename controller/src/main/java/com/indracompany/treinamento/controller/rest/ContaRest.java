@@ -2,6 +2,8 @@ package com.indracompany.treinamento.controller.rest;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Cliente;
@@ -31,8 +34,13 @@ public class ContaRest extends GenericCrudRest<Conta, Long, ContaService>{
 	@Autowired
 	private ContaService contaService;
 	
-	@Autowired
-	private ClienteService clienteService;
+	
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	  public @ResponseBody ResponseEntity<Conta> salvar(@ApiParam(value = "Objeto entidade a ser cadastrado.", required = true) @Valid final @RequestBody Conta conta)
+	      throws AplicacaoException {
+		Conta novaConta = contaService.salvarNovaConta(conta);
+		return new ResponseEntity<>(novaConta, HttpStatus.OK);		
+	}
 	
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
