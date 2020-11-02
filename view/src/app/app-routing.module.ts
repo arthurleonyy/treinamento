@@ -9,12 +9,16 @@ const routes: Routes = [
     loadChildren: './modules/home/home.module#HomeModule'
   },
   {
-    path: '**',
-    component: PaginaNaoEncontradaComponent
+    path: 'conta',
+    loadChildren: './modules/conta/conta.module#ContaModule'
   },
   {
-    path: 'sem-permissao',
-    component: PaginaSemAutorizacaoComponent
+    path: 'conta',
+    loadChildren: './modules/conta/conta.module#ContaModule'
+  },
+  {
+    path: '**',
+    component: PaginaNaoEncontradaComponent
   },
 ];
 
