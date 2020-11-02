@@ -1,5 +1,8 @@
 package com.indracompany.treinamento.model.service;
 
+/**
+ * @author rhamon
+ */
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +43,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);
 
-		extratoService.imprimirExtrato(conta, (-valor), tipoOperacao);
+		extratoService.imprimirExtrato(conta, valor, tipoOperacao);
+
 	}
 
 	public void deposito(Conta conta, double valor) {
@@ -57,11 +61,11 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
 		if (contaOrigem.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
-		}	
-				
+		}
+
 		this.saque(contaOrigem, valor);
-		extratoService.imprimirExtrato(contaOrigem, (-valor), tipoOperacao);
-		
+		extratoService.imprimirExtrato(contaOrigem, valor, tipoOperacao);
+
 		this.deposito(contaDestino, valor);
 		extratoService.imprimirExtrato(contaOrigem, valor, tipoOperacao);
 	}
@@ -79,6 +83,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		if (cli != null) {
 			return contaRepository.findByCliente(cli);
 		}
+
 		return null;
 	}
+
 }

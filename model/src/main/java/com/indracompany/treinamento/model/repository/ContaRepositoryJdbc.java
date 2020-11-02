@@ -1,5 +1,8 @@
 package com.indracompany.treinamento.model.repository;
 
+/**
+ * @author Efmendes
+ */
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -13,24 +16,23 @@ import com.indracompany.treinamento.model.entity.Conta;
 
 @Repository
 public class ContaRepositoryJdbc {
-	
+
 	@Autowired
 	private JdbcTemplate jdbcTemplate;
-	
-	public List<Conta> buscarContas(String agencia, String numeroConta){
+
+	public List<Conta> buscarContas(String agencia, String numeroConta) {
 		StringBuilder sql = new StringBuilder("select c.* from Contas c where 1=1 ");
-		
+
 		if (agencia != null) {
-			sql.append(" and c.agencia = '"+agencia+"'");
+			sql.append(" and c.agencia = '" + agencia + "'");
 		}
-		
+
 		if (numeroConta != null) {
-			sql.append(" and c.num_conta = '"+numeroConta+"'");
+			sql.append(" and c.num_conta = '" + numeroConta + "'");
 		}
 		return jdbcTemplate.query(sql.toString(), new ContaRowMapper());
 	}
 
-	
 	private class ContaRowMapper implements RowMapper<Conta> {
 
 		@Override
@@ -44,5 +46,5 @@ public class ContaRepositoryJdbc {
 			return conta;
 		}
 	}
-		
+
 }

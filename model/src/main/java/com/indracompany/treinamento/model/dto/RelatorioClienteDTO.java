@@ -1,5 +1,8 @@
 package com.indracompany.treinamento.model.dto;
 
+/**
+ * @author Efmendes
+ */
 import java.util.List;
 
 import lombok.EqualsAndHashCode;
@@ -11,12 +14,11 @@ import lombok.extern.slf4j.Slf4j;
 @Setter
 @Slf4j
 public class RelatorioClienteDTO {
-	
+
 	private String nome;
 	private String cpf;
 	private List<String> contas;
-	
-	
+
 	public void teste() {
 		log.info("");
 	}

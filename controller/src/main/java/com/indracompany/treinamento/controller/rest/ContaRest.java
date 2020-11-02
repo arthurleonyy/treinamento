@@ -1,7 +1,9 @@
 package com.indracompany.treinamento.controller.rest;
-
+/**
+ * @author rhamon
+ * @author Efmendes
+ */
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -13,11 +15,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
-
 import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Conta;
-import com.indracompany.treinamento.model.service.ClienteService;
 import com.indracompany.treinamento.model.service.ContaService;
 
 import io.swagger.annotations.ApiParam;
@@ -30,9 +30,7 @@ public class ContaRest {
 	@Autowired
 	private ContaService contaService;
 	
-	@Autowired
-	private ClienteService clienteService;
-	
+
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
 		Double saldo = contaService.consultarSaldo(agencia, numeroConta);

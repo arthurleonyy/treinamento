@@ -1,11 +1,12 @@
 package com.indracompany.treinamento.model.service;
 
-import java.time.Instant;
+/**
+ * @author rhamon
+ */
+import java.time.LocalDateTime;
 import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.entity.Extrato;
 import com.indracompany.treinamento.model.entity.TipoOperacao;
@@ -27,9 +28,8 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		extr.setConta(conta);
 		extr.setTipoOperacao(tipoOperacao);
 		extr.setValor(valor);
-		extr.setData(Instant.now());
-		this.extratoRepository.save(extr);
-
+		extr.setData(LocalDateTime.now());
+		this.salvar(extr);
 	}
 
 	public List<Extrato> consultarExtratosDaConta(String agencia, String numeroConta) {
@@ -38,7 +38,7 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 			return extratoRepository.findByConta(conta);
 		}
 
-		return null;
+		return extratoRepository.findAll();
 	}
 
 }

@@ -39,146 +39,153 @@ import lombok.extern.slf4j.Slf4j;
 @RequestMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_UTF8_VALUE)
 public abstract class GenericCrudRest<T extends GenericEntity<I>, I, S extends GenericCrudService<T, I, ?>> {
 
-  private static final long serialVersionUID = -3853594377194808570L;
+	private static final long serialVersionUID = -3853594377194808570L;
 
-  @Autowired
-  protected GenericCrudService<T, I, ?> service;
+	@Autowired
+	protected GenericCrudService<T, I, ?> service;
 
-  @Getter
-  @Setter
-  private transient T entity;
+	@Getter
+	@Setter
+	private transient T entity;
 
-  @Getter
-  @Setter
-  private transient List<T> list;
+	@Getter
+	@Setter
+	private transient List<T> list;
 
-  @ApiOperation(value = "Atualiza uma entidade existente.", nickname = "alterar", notes = "")
-  @ApiResponses(value = {@ApiResponse(code = 400, message = "ID inválido"), @ApiResponse(code = 404, message = "Entidade não encontrada"),
-      @ApiResponse(code = 405, message = "Validation exception")})
-  @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-  public @ResponseBody ResponseEntity<T> alterar(@ApiParam(value = "Objeto entida a ser atualizada.", required = true) @Valid final @RequestBody T entity,
-      final @PathVariable I id) throws AplicacaoException {
+	@ApiOperation(value = "Atualiza uma entidade existente.", nickname = "alterar", notes = "")
+	@ApiResponses(value = { @ApiResponse(code = 400, message = "ID inválido"),
+			@ApiResponse(code = 404, message = "Entidade não encontrada"),
+			@ApiResponse(code = 405, message = "Validation exception") })
+	@RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+	public @ResponseBody ResponseEntity<T> alterar(
+			@ApiParam(value = "Objeto entida a ser atualizada.", required = true) @Valid final @RequestBody T entity,
+			final @PathVariable I id) throws AplicacaoException {
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-      GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".alterar( " + entity.getClass().getName()
-          + " , " + id + " ). Realizando a chamada do service: " + this.service.getClass().getName() + ".salvar( " + entity.getClass().getName() + " )");
-    }
+			GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".alterar( "
+					+ entity.getClass().getName() + " , " + id + " ). Realizando a chamada do service: "
+					+ this.service.getClass().getName() + ".salvar( " + entity.getClass().getName() + " )");
+		}
 
-    if (((Comparable<I>) id).compareTo(entity.getId()) != 0) {
+		if (((Comparable<I>) id).compareTo(entity.getId()) != 0) {
 
-      return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-    }
+			return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+		}
 
-    this.service.salvar(entity);
+		this.service.salvar(entity);
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-      GenericCrudRest.log
-          .debug("Chamada do controller: " + this.getClass().getName() + ".alterar( " + entity.getClass().getName() + " ) realizada com sucesso.");
-    }
+			GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".alterar( "
+					+ entity.getClass().getName() + " ) realizada com sucesso.");
+		}
 
-    return new ResponseEntity<>(entity, HttpStatus.OK);
-  }
+		return new ResponseEntity<>(entity, HttpStatus.OK);
+	}
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = {"application/json"})
-  public @ResponseBody ResponseEntity<T> buscar(final @PathVariable I id) throws AplicacaoException {
+	@RequestMapping(value = "/{id}", method = RequestMethod.GET, produces = { "application/json" })
+	public @ResponseBody ResponseEntity<T> buscar(final @PathVariable I id) throws AplicacaoException {
 
-	 	  
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-      GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".buscar( " + id
-          + " ). Realizando a chamada do service: " + this.service.getClass().getName() + ".obterUm( " + id + " )");
-    }
+			GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".buscar( "
+					+ id + " ). Realizando a chamada do service: " + this.service.getClass().getName() + ".obterUm( "
+					+ id + " )");
+		}
 
-    final T entity = this.service.buscar(id);
+		final T entity = this.service.buscar(id);
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-      GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".buscar( " + id + " ) realizada com sucesso.");
-    }
+			GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".buscar( " + id
+					+ " ) realizada com sucesso.");
+		}
 
-    return entity == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND) : new ResponseEntity<>(entity, HttpStatus.OK);
-  }
+		return entity == null ? new ResponseEntity<>(HttpStatus.NOT_FOUND)
+				: new ResponseEntity<>(entity, HttpStatus.OK);
+	}
 
+	@RequestMapping(value = "/", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<List<T>> listar() throws AplicacaoException {
 
-  @RequestMapping(value = "/", method = RequestMethod.GET)
-  public @ResponseBody ResponseEntity<List<T>> listar() throws AplicacaoException {
+		GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName()
+				+ ".listar(). Realizando a chamada do service: " + this.service.getClass().getName() + ".obterTodos()");
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-	  
-	  GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".listar(). Realizando a chamada do service: "
-	          + this.service.getClass().getName() + ".obterTodos()");
-    if (GenericCrudRest.log.isDebugEnabled()) {
+			GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName()
+					+ ".listar(). Realizando a chamada do service: " + this.service.getClass().getName()
+					+ ".obterTodos()");
+		}
 
-      GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".listar(). Realizando a chamada do service: "
-          + this.service.getClass().getName() + ".obterTodos()");
-    }
+		final List<T> result = this.service.listar();
 
-    final List<T> result = this.service.listar();
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+			GenericCrudRest.log
+					.debug("Chamada do controller: " + this.getClass().getName() + ".listar() realizada com sucesso.");
+		}
 
-      GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".listar() realizada com sucesso.");
-    }
+		return new ResponseEntity<>(result, HttpStatus.OK);
+	}
 
+	@RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+	public ResponseEntity<Void> remover(final @PathVariable I id) throws AplicacaoException {
 
-    return new ResponseEntity<>(result, HttpStatus.OK);
-  }
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-  @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-  public ResponseEntity<Void> remover(final @PathVariable I id) throws AplicacaoException {
+			GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".remover( "
+					+ id + " ). Realizando a chamada do service: " + this.service.getClass().getName() + ".remover( "
+					+ id + " )");
+		}
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		this.service.remover(id);
 
-      GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".remover( " + id
-          + " ). Realizando a chamada do service: " + this.service.getClass().getName() + ".remover( " + id + " )");
-    }
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-    this.service.remover(id);
+			GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".remover( " + id
+					+ " ) realizada com sucesso.");
+		}
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		return ResponseEntity.ok().build();
+	}
 
-      GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".remover( " + id + " ) realizada com sucesso.");
-    }
+	@SuppressWarnings("unchecked")
+	@PostConstruct
+	public void resetar() {
+		try {
+			this.entity = ((Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass())
+					.getActualTypeArguments()[0]).newInstance();
+			this.list = this.service.listar();
+		} catch (final Exception e) {
+			GenericCrudRest.log.error("erro ao resetar() " + this.getClass().getName(), e);
+		}
+	}
 
-    return ResponseEntity.ok().build();
-  }
+	@RequestMapping(value = "/", method = RequestMethod.POST)
+	public @ResponseBody ResponseEntity<T> salvar(
+			@ApiParam(value = "Objeto entidade a ser cadastrada.", required = true) @Valid final @RequestBody T entity)
+			throws AplicacaoException {
 
-  @SuppressWarnings("unchecked")
-  @PostConstruct
-  public void resetar() {
-    try {
-      this.entity = ((Class<T>) ((ParameterizedType) this.getClass().getGenericSuperclass()).getActualTypeArguments()[0]).newInstance();
-      this.list = this.service.listar();
-    } catch (final Exception e) {
-      GenericCrudRest.log.error("erro ao resetar() " + this.getClass().getName(), e);
-    }
-  }
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-  @RequestMapping(value = "/", method = RequestMethod.POST)
-  public @ResponseBody ResponseEntity<T> salvar(@ApiParam(value = "Objeto entidade a ser cadastrada.", required = true) @Valid final @RequestBody T entity)
-      throws AplicacaoException {
+			GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".salvar( "
+					+ entity.getClass().getName() + " ). Realizando a chamada do service: "
+					+ this.service.getClass().getName() + ".salvar( " + entity.getClass().getName() + " )");
+		}
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		final T newEntity = this.service.salvar(entity);
 
-      GenericCrudRest.log.debug("Realizando a chamada do controller: " + this.getClass().getName() + ".salvar( " + entity.getClass().getName()
-          + " ). Realizando a chamada do service: " + this.service.getClass().getName() + ".salvar( " + entity.getClass().getName() + " )");
-    }
+		if (GenericCrudRest.log.isDebugEnabled()) {
 
-    final T newEntity = this.service.salvar(entity);
+			GenericCrudRest.log.debug("Chamada do controller: " + this.getClass().getName() + ".salvar( "
+					+ entity.getClass().getName() + " ) realizada com sucesso.");
+		}
 
-    if (GenericCrudRest.log.isDebugEnabled()) {
+		return new ResponseEntity<>(newEntity, HttpStatus.OK);
+	}
 
-      GenericCrudRest.log
-          .debug("Chamada do controller: " + this.getClass().getName() + ".salvar( " + entity.getClass().getName() + " ) realizada com sucesso.");
-    }
-
-    return new ResponseEntity<>(newEntity, HttpStatus.OK);
-  }
-
-
-  public S getService() 
-  {
-	  return (S) this.service;
-  }
+	public S getService() {
+		return (S) this.service;
+	}
 }

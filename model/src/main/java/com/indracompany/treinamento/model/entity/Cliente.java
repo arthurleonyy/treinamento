@@ -1,5 +1,10 @@
 package com.indracompany.treinamento.model.entity;
 
+/**
+ * @author efmendes.
+ */
+
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

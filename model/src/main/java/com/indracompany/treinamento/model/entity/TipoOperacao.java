@@ -1,5 +1,9 @@
 package com.indracompany.treinamento.model.entity;
 
+/**
+ * @author rhamon
+ */
+
 public enum TipoOperacao {
 
 	SAQUE("saque"), TRANSFERENCIA("transferencia"), DEPOSITO("deposito");

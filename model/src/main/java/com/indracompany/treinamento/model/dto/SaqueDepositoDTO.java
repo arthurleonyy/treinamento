@@ -1,4 +1,7 @@
 package com.indracompany.treinamento.model.dto;
+/**
+ * @author Efmendes
+ */
 
 import java.io.Serializable;
 
