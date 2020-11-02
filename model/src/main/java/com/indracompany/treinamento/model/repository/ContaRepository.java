@@ -14,6 +14,9 @@ public interface ContaRepository extends GenericCrudRepository<Conta, Long>{
 	
 	Conta findByAgenciaAndNumeroConta(String agencia, String numeroConta);
 	
+	Conta findByAgencia(String agencia);
+	
+	Conta findByNumeroConta(String numeroConta);
 	
 	
 	@Query("select c from Conta c where c.cliente = :cli")

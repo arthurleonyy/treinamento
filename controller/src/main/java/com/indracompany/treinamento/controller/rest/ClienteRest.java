@@ -42,5 +42,7 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 		Cliente retorno = clienteService.ClientePorEmail(email);
 		return  new ResponseEntity<>(retorno, HttpStatus.OK);
 	}
+	
+	
 
 }

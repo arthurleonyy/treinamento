@@ -106,5 +106,13 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		return contas;
 	}
 	
+	public Conta buscaClientePelaAgencia(String agencia) {
+		return contaRepository.findByAgencia(agencia);
+	}
+	
+	public Conta buscarPeloNumeroDaConta(String numeroConta) {
+		return contaRepository.findByNumeroConta(numeroConta);
+	}
+	
 	
 }

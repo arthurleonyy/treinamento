@@ -68,6 +68,15 @@ public class ContaRest {
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
+	@RequestMapping(value = "/buscar-por-agencia/{agencia}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Conta> buscarClientePorAgencia( final @PathVariable String agencia){
+		Conta cliente = contaService.buscaClientePelaAgencia(agencia);
+		return new ResponseEntity<>(cliente , HttpStatus.OK);
+	}
 	
-	
+	@RequestMapping(value = "/buscar-por-numero-da-conta/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<Conta> buscarPeloNumeroDaConta( final @PathVariable String numeroConta){
+		Conta cliente = contaService.buscarPeloNumeroDaConta(numeroConta);
+		return new ResponseEntity<>(cliente , HttpStatus.OK);
+	}
 }
