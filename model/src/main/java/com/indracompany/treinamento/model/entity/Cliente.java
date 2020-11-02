@@ -1,25 +1,12 @@
 package com.indracompany.treinamento.model.entity;
 
-import java.util.Date;
-import java.util.List;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.ManyToMany;
-import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.ColumnDefault;
-import org.hibernate.annotations.CreationTimestamp;
-import org.hibernate.annotations.UpdateTimestamp;
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -36,21 +23,20 @@ public class Cliente extends GenericEntity<Long> {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column(name = "nome")
+	@Column(name = "nome" ,nullable = false)
 	private String nome;
 	
-	@Column(name = "cpf")
+	@Column(name = "cpf",nullable = false)
 	private String cpf;
 	
-	@Column(name = "email")
+	@Column(name = "email",nullable = false)
 	private String email;
 	
-	@Column(name = "ativo")
+	@Column(name = "ativo",nullable = false)
 	private boolean ativo;
 	
 	@Column(name = "observacoes")
 	private String observacoes;
-	
 	
 
 }

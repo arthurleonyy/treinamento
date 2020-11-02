@@ -1,5 +1,7 @@
 package com.indracompany.treinamento.model.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -14,6 +16,7 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	
 	@Autowired
 	private ClienteRepository clienteRepository;
+	private List<Cliente> list;
 	
 	public Cliente buscarClientePorCpf(String cpf) {
 		if (!cpfEhValido(cpf)){
@@ -22,16 +25,32 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		return clienteRepository.findByCpf(cpf);
 	}
 	
+	 public List<Cliente> buscarClientePorNome(String nome) {
+		
+		list = clienteRepository.findByNomeStartsWith(nome);		
+		if(list != null || list.isEmpty()) {		
+			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);	
+		}			
+		return list;		
+	 }
+	
+	public Cliente buscarClientePorEmail(String  email) {
+		
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+        if( cliente != null) {
+        	  
+        	  return  cliente;
+		
+		}
+         
+  		
+			 throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
+			
+	}
 	private boolean cpfEhValido(String cpf) {
 		return CpfUtil.validaCPF(cpf);
 	}
 	
-	public Cliente buscarClientePorNome(String nome) {
-		Cliente cliente = clienteRepository.findByNome(nome);
-		if(cliente == null) {
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_NOME_NAO_ENCOTRADO);
-		}
-		return cliente;
-	}	
 
 }
