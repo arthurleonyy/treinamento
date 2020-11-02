@@ -19,6 +19,7 @@ import com.indracompany.treinamento.model.dto.SaqueDepositoDTO;
 import com.indracompany.treinamento.model.dto.TransferenciaBancariaDTO;
 import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.entity.Transacao;
+import com.indracompany.treinamento.model.enums.OperacaoExtrato;
 import com.indracompany.treinamento.model.service.ClienteService;
 import com.indracompany.treinamento.model.service.ContaService;
 import com.indracompany.treinamento.model.service.TransacaoService;
@@ -56,6 +57,8 @@ public class ContaRest {
 	public @ResponseBody ResponseEntity<Void> saque(@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
 		contaService.saque(conta, dto.getValor());
+		double saldoConta = conta.getSaldo();
+		transacaoService.gerarTransacao(conta, OperacaoExtrato.SAQUE, saldoConta, dto.getValor(), saldoConta - dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -63,6 +66,8 @@ public class ContaRest {
 	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto ) {
 		Conta conta = contaService.carregarContaPorNumero(dto.getAgencia(), dto.getNumeroConta());
 		contaService.deposito(conta, dto.getValor());
+		double saldoConta = conta.getSaldo();
+		transacaoService.gerarTransacao(conta, OperacaoExtrato.DEPOSITO, saldoConta, dto.getValor(), saldoConta + dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 	
@@ -71,6 +76,8 @@ public class ContaRest {
 		Conta contaOrigem = contaService.carregarContaPorNumero(dto.getAgenciaOrigem(), dto.getNumeroContaOrigem());
 		Conta contaDestino = contaService.carregarContaPorNumero(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
 		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
+		double saldoConta = conta.getSaldo();
+		transacaoService.gerarTransacao(conta, OperacaoExtrato.TRANSFERENCIA, saldoConta, dto.getValor(),  saldoConta + dto.getValor());
 		return new ResponseEntity<Void>(HttpStatus.OK);
 	}
 
@@ -94,7 +101,7 @@ public class ContaRest {
 	//}
 	
 	@RequestMapping(value = "/transacoes/{agencia}/{numeroConta}", method = RequestMethod.GET)
-	  public @ResponseBody ResponseEntity<List<Transacao>> listarSistemasDoCliente(@PathVariable String agencia, String numeroConta){
+	  public @ResponseBody ResponseEntity<List<Transacao>> listarTransacoesPorConta(@PathVariable String agencia, String numeroConta){
 		  return new ResponseEntity<>(transacaoService.getTransacoesByConta(agencia, numeroConta), HttpStatus.OK);
 	}
 	
