@@ -76,9 +76,10 @@ public class ContaRest {
 		Conta contaOrigem = contaService.carregarContaPorNumero(dto.getAgenciaOrigem(), dto.getNumeroContaOrigem());
 		Conta contaDestino = contaService.carregarContaPorNumero(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
 		contaService.transferencia(contaOrigem, contaDestino, dto.getValor());
-		double saldoConta = conta.getSaldo();
-		transacaoService.gerarTransacao(conta, OperacaoExtrato.TRANSFERENCIA, saldoConta, dto.getValor(),  saldoConta + dto.getValor());
-		return new ResponseEntity<Void>(HttpStatus.OK);
+		double valor = contaOrigem.getSaldo();
+		transacaoService.gerarTransacao(contaOrigem, OperacaoExtrato.TRANSFERENCIA, contaOrigem.getSaldo(), dto.getValor(),   valor - dto.getValor());
+		return new ResponseEntity<Void>(HttpStatus.OK); 
+		
 	}
 
 	public ClienteService getClienteService() {
