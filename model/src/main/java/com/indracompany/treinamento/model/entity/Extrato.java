@@ -48,8 +48,17 @@ public class Extrato extends GenericEntity<Long> {
 	
 	@Column(nullable = false)
 	private Double valorAtual;
+<<<<<<< HEAD
 	
 	@Column(nullable = false)
 	private String detalheOperacao;
+=======
+<<<<<<< HEAD
+	
+	@Column(nullable = false)
+	private String detalheOperacao;
+=======
+>>>>>>> 22f78f795b4061ea60aa8ed20d09ab7fe78845cd
+>>>>>>> 7d797523e6ad2e027548fb5d2d633eaef170ca06
 
 }
