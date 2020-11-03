@@ -6,7 +6,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.validation.constraints.Email;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -29,13 +28,8 @@ public class Cliente extends GenericEntity<Long> {
 	
 	@Column(name = "cpf",nullable = false)
 	private String cpf;
-	
-<<<<<<< HEAD
-	@Column(name = "email")
-	@Email
-=======
+
 	@Column(name = "email",nullable = false)
->>>>>>> 4cbd62a0c547da997a8471a2203bf6043970123a
 	private String email;
 	
 	@Column(name = "ativo",nullable = false)

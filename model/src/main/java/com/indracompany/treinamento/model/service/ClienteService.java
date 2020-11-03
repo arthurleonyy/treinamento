@@ -1,10 +1,6 @@
 package com.indracompany.treinamento.model.service;
 
-<<<<<<< HEAD
 import java.util.Optional;
-=======
-import java.util.List;
->>>>>>> 4cbd62a0c547da997a8471a2203bf6043970123a
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -29,7 +25,7 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		return clienteRepository.findByCpf(cpf);
 	}
 	
-<<<<<<< HEAD
+
 	public Cliente buscarClientePorId(Long id) {
 		Optional<Cliente> cliente = clienteRepository.findById(id);
 		return cliente.orElseThrow(() -> new AplicacaoException(ExceptionValidacoes.ERRO_OBJETO_NAO_ENCONTRADO));
@@ -44,36 +40,8 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		Optional<Cliente> cliente = clienteRepository.findByEmail(email);
 		return cliente.orElseThrow(() -> new AplicacaoException(ExceptionValidacoes.ERRO_EMAIL_CLIENTE_NAO_ENCONTRADO));
 	}
-=======
-	 public List<Cliente> buscarClientePorNome(String nome) {
-		
-		List<Cliente> list = clienteRepository.findByNomeStartsWith(nome); 
-		
-		
-		if(list == null || list.isEmpty()) {
-			
-			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);	
-		}
-			
-		return list;
-		
-	 }
->>>>>>> 4cbd62a0c547da997a8471a2203bf6043970123a
 	
-	public Cliente buscarClientePorEmail(String  email) {
-		
-		Cliente cliente = clienteRepository.findByEmail(email);
-		
-        if( cliente != null) {
-        	  
-        	  return  cliente;
-		
-		}
-         
-  		
-			 throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
-			
-	}
+	
 	private boolean cpfEhValido(String cpf) {
 		return CpfUtil.validaCPF(cpf);
 	}

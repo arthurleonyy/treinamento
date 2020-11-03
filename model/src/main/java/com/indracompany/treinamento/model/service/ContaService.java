@@ -12,9 +12,7 @@ import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
-
 import com.indracompany.treinamento.model.entity.TipoTransacao;
-import com.indracompany.treinamento.model.entity.enums.TransacaoEnum;
 import com.indracompany.treinamento.model.repository.ContaRepository;
 
 @Service
@@ -22,7 +20,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
 	@Autowired
 	private ContaRepository contaRepository;
-
+	
 	@Autowired
 	private ClienteService clienteService;
 
@@ -33,25 +31,22 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		Optional<Conta> conta = contaRepository.findById(id);
 		return conta.orElseThrow(() -> new AplicacaoException(ExceptionValidacoes.ERRO_OBJETO_NAO_ENCONTRADO));
 	}
-		
+
 	public double consultarSaldo(String agencia, String numeroConta) {
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
 		return conta.getSaldo();
 	}
 
-	public void saque(Conta conta, double valor) {
-	
 	@Transactional(rollbackFor = Exception.class)
 	public void saque(Conta conta, double valor) {
-		
+
 		if (conta.getSaldo() < valor) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
 		if (conta.getAtiva().equals(false)) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INATIVA);
 		}
-		
-		
+
 		conta.setSaldo(conta.getSaldo() - valor);
 
 		this.salvar(conta);
@@ -60,17 +55,11 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 
 	}
 
-	public void deposito(Conta conta, double valor) {
-		if (conta.getAtiva().equals(false)) {
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INATIVA);
-		}
-		
-	}
 	@Transactional(rollbackFor = Exception.class)
 	public void deposito(Conta conta, double valor) {
-		
+
 		conta.setSaldo(conta.getSaldo() + valor);
-		
+
 		this.salvar(conta);
 
 		extratoService.gerarExtratoDeposito(conta.getSaldo() - valor, conta.getSaldo(), TipoTransacao.DEPOSITO,
@@ -88,7 +77,23 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 				TipoTransacao.TRANSFERENCIA, LocalDateTime.now(), valor, contaOrigem);
 		extratoService.gerarExtratoTransferencia(contaDestino.getSaldo() - valor, contaDestino.getSaldo(),
 				TipoTransacao.TRANSFERENCIA, LocalDateTime.now(), valor, contaDestino);
-	
+
+	}
+
+	public Conta carregarContaPorNumero(String agencia, String numeroConta) {
+		Conta conta = repository.findByAgenciaAndNumeroConta(agencia, numeroConta);
+		if (conta == null) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
+		}
+		return conta;
+	}
+
+	public List<Conta> obterContasDoCliente(String cpf) {
+		Cliente cli = clienteService.buscarClientePorCpf(cpf);
+		if (cli != null) {
+			return contaRepository.findByCliente(cli);
+		}
+		return null;
 	}
 
 	public Conta buscar(Long id) {

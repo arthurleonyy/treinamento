@@ -1,11 +1,6 @@
 package com.indracompany.treinamento.controller.rest;
 
-
-<<<<<<< HEAD
 import javax.validation.Valid;
-=======
-import java.util.List;
->>>>>>> 4cbd62a0c547da997a8471a2203bf6043970123a
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -38,22 +33,11 @@ public class ClienteRest extends GenericCrudRest<Cliente, Long, ClienteService>{
 	}
 	
 	@RequestMapping(value =  "/buscar-por-nome/{nome}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody  ResponseEntity<List<Cliente>>  buscarClientePorNome(final @PathVariable String  nome) {
-		
-		  List<Cliente> result = clienteService.buscarClientePorNome(nome);
-		  return  new ResponseEntity<>(result, HttpStatus.OK);
+	public @ResponseBody  ResponseEntity<Cliente>  buscarClientePorNome(final @PathVariable String  nome) {
+		  Cliente result = clienteService.buscarClientePorNome(nome);
+		  return  new ResponseEntity<Cliente>(result, HttpStatus.OK);
 
-	  
 	  }
-	
-	
-	@RequestMapping(value = "/buscar-por-email/{email}/", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
-	public @ResponseBody ResponseEntity<Cliente>buscarClientePorEmail(final @PathVariable String email) {
-		
-		Cliente retorno = clienteService.buscarClientePorEmail(email);
-		return  new ResponseEntity<>(retorno, HttpStatus.OK);
-		
-	}
 	
 	@RequestMapping(value = "/buscar-por-email/{email}/", method = RequestMethod.GET, produces = {MediaType.APPLICATION_JSON_VALUE})
 	public @ResponseBody ResponseEntity<Cliente> buscarClientePorEmail(final @PathVariable String email){
