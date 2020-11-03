@@ -38,7 +38,7 @@ public class Transacao extends GenericEntity<Long> {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column
-	private Calendar data;
+	private Date data;
 	
 	@Column(nullable = false)
 	private String descricao;
