@@ -14,7 +14,7 @@ public enum TipoDeConta {
 	private String descricao;
 	
 	TipoDeConta(String descricao) {
-		this.descricao = descricao;
+		this.descricao = descricao;   //tipo de enuns constantes pre-definidos//
 	}
 
 	public String getDescricao() {

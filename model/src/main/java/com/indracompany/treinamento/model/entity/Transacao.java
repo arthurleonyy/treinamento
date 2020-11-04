@@ -35,10 +35,10 @@ public class Transacao extends GenericEntity<Long> {
 	@JoinColumn(name = "fk_conta_id", nullable = false)
 	private Conta conta;
 
-	@Temporal(TemporalType.TIMESTAMP)
+	@Temporal(TemporalType.TIMESTAMP) //representa a data e hora juntos//
 	private Date data;
 
-	@Enumerated(EnumType.STRING)
+	@Enumerated(EnumType.STRING) //Grava o nome do enum no banco de dados//
 	private TipoDeConta tipoDeConta;
 
 	@Enumerated(EnumType.STRING)
