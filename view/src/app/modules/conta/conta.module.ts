@@ -6,7 +6,10 @@ import { DepositarComponent } from './depositar/depositar.component';
 
 
 @NgModule({
-  declarations: [ContaComponent, DepositarComponent],
+  declarations: [
+    ContaComponent,
+    DepositarComponent
+  ],
   imports: [
     CommonModule,
     ContaRoutingModule
