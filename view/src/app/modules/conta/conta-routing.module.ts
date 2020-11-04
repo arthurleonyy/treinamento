@@ -5,12 +5,10 @@ import { DepositarComponent } from "./depositar/depositar.component"
 
 const routes: Routes = [
   {
-    path: '',
-    component: ContaComponent,
-  },
-  {
-    path: '',
-    component: DepositarComponent,
+    path: '', component: ContaComponent,
+    children: [
+      { path: 'depositar', component: DepositarComponent }
+    ],
   },
 ];
 

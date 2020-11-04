@@ -13,12 +13,12 @@ const routes: Routes = [
     loadChildren: './modules/conta/conta.module#ContaModule'
   },
   {
-    path: 'conta',
-    loadChildren: './modules/conta/conta.module#ContaModule'
-  },
-  {
     path: '**',
     component: PaginaNaoEncontradaComponent
+  },
+  {
+    path: 'sem-permissao',
+    component: PaginaSemAutorizacaoComponent
   },
 ];
 
