@@ -9,6 +9,10 @@ const routes: Routes = [
     loadChildren: './modules/home/home.module#HomeModule'
   },
   {
+    path: 'conta',
+    loadChildren: './modules/conta/conta.module#contaModule'
+  },
+  {
     path: '**',
     component: PaginaNaoEncontradaComponent
   },
