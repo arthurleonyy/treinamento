@@ -10,15 +10,11 @@ const routes: Routes = [
   },
   {
     path: 'conta',
-    loadChildren: './modules/conta/conta.module#contaModule'
+    loadChildren: './modules/conta/conta.module#ContaModule'
   },
   {
     path: '**',
     component: PaginaNaoEncontradaComponent
-  },
-  {
-    path: 'sem-permissao',
-    component: PaginaSemAutorizacaoComponent
   },
 ];
 

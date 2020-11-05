@@ -1,4 +1,4 @@
-import { AfterViewInit, ElementRef, OnInit, ViewChildren, Directive } from '@angular/core';
+import { AfterViewInit, ElementRef, OnInit, ViewChildren } from '@angular/core';
 import { FormControlName, FormGroup } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, merge, Observable } from 'rxjs';
@@ -8,7 +8,6 @@ import { ValidationMessages } from 'src/app/shared/utils/validation-messages';
 import { ButtonSubmit } from '../models/button-submit.model';
 import { ValidateMessage } from '../models/validate-message.model';
 
-@Directive()
 export class FormBase implements OnInit, AfterViewInit {
 
     @ViewChildren(FormControlName, { read: ElementRef }) formInputElements: ElementRef[];

@@ -2,15 +2,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContaComponent } from './conta.component';
 import { ContaRoutingModule } from './conta-routing.module';
-import { DepositarComponent } from './componentes/depositar/depositar.component';
-
-
 
 @NgModule({
-  declarations: [ContaComponent, DepositarComponent],
+  declarations: [
+    ContaComponent,
+  ],
   imports: [
     CommonModule,
-    ContaRoutingModule
+    ContaRoutingModule,
   ]
 })
 export class ContaModule { }
