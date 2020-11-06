@@ -7,6 +7,9 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: './modules/home/home.module#HomeModule'
+  },{
+    path: 'conta',
+    loadChildren: './modules/conta/conta.module#ContaModule'
   },
   {
     path: '**',

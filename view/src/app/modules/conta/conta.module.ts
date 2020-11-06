@@ -1,13 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContaComponent } from './conta.component';
+import { ContaRoutingModule } from './conta-routing.module';
+import { TransferenciaComponent } from './componenetes/transferencia/transferencia.component';
 
 
 
 @NgModule({
-  declarations: [ContaComponent],
+  declarations: [
+    ContaComponent,
+    TransferenciaComponent
+  ],
   imports: [
-    CommonModule
+    CommonModule,
+    ContaRoutingModule
   ]
 })
 export class ContaModule { }
