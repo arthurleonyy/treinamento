@@ -6,10 +6,8 @@ import { ContaComponent } from './conta.component';
 const routes: Routes = [
   {
     path: '',
-    component: ContaComponent,
-    children: [{path: 'depositar',
-    component: DepositarComponent}]
-  },
+    component: ContaComponent, children: [{path: 'depositar', component: DepositarComponent}]
+  }
 ];
 
 @NgModule({
