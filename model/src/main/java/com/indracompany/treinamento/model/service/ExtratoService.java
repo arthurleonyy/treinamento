@@ -18,8 +18,8 @@ public class ExtratoService  extends GenericCrudService<Extrato, Long, ExtratoRe
 	@Autowired
 	private ContaService contaservice;
 	
-	public List<Extrato> visualizarExtratos(Long id) {
-		Conta conta = contaservice.buscar(id);
+	public List<Extrato> visualizarExtratos(String agencia , String numeroConta) {
+		Conta conta = contaservice.carregarContaPorNumero(agencia, numeroConta);
 		if(conta != null) {
 			List<Extrato> extratos = er.findByConta(conta);
 			return extratos;

@@ -36,10 +36,9 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	  	  }
 	  
 	  }
+	  
 	  public boolean cpfIsValido(String cpf) { 
-			  
-		  return CpfUtils.validaCPF(cpf);
-		  
+		 return CpfUtils.validaCPF(cpf);
 	  }
 	 
 	

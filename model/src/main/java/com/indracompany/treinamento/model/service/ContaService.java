@@ -29,12 +29,19 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
+		if(agencia.isEmpty() || numeroConta.isEmpty()) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CAMPOS_VAZIOS);	
+		}
+		
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
+		if(conta == null) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
+		}
 		return conta.getSaldo();
 	}
 	
 	public void saque(Conta conta, double valor) {
-		if (conta.getSaldo() < valor) {
+		if (conta.getSaldo() < valor || valor <= 0) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
 		conta.setSaldo(conta.getSaldo() - valor);
@@ -48,6 +55,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 	
 	public void deposito(Conta conta, double valor) {
+		if(valor <= 0) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_NEGATIVO);
+		}
 		conta.setSaldo(conta.getSaldo() + valor);
 		this.salvar(conta);
 		Extrato extrato = new Extrato();
@@ -59,6 +69,11 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
+		
+		if(valor <= 0) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_NEGATIVO);
+		}
+		
 		this.saque(contaOrigem, valor);
 		this.deposito(contaDestino, valor);
 		Extrato extrato = new Extrato();

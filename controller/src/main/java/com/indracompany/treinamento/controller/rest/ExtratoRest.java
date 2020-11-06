@@ -19,9 +19,9 @@ public class ExtratoRest {
 	@Autowired
 	private ExtratoService es;
 
-	@GetMapping("/visualizar/{id}")
-	public ResponseEntity<List<Extrato>> visualizarExtratos(@PathVariable Long id){
-		List<Extrato> extratos = es.visualizarExtratos(id);
+	@GetMapping("/visualizar/{agencia}/{numeroconta}")
+	public ResponseEntity<List<Extrato>> visualizarExtratos(@PathVariable String agencia , String numeroconta){
+		List<Extrato> extratos = es.visualizarExtratos(agencia, numeroconta);
 		return ResponseEntity.ok(extratos);
 	}
 	
