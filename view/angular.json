@@ -138,10 +138,6 @@
           }
         }
       }
-    }
-  },
-  "defaultProject": "snc19",
-  "cli": {
-    "analytics": false
-  }
+    }},
+  "defaultProject": "snc19"
 }

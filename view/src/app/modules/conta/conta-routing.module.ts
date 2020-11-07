@@ -1,15 +1,13 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { from } from 'rxjs';
+import { DepositoComponent } from './components/deposito/deposito.component';
 import { ContaComponent } from './conta.component';
-import { DepositoComponent} from './deposito.component';
+
 const routes: Routes = [
   {
     path: '',
-    component: ContaComponent,
-  },
-
-  { path: 'deposito', component:DepositoComponent}
+    component: ContaComponent, children: [{path: 'deposito', component: DepositoComponent}]
+  }
 ];
 
 @NgModule({
