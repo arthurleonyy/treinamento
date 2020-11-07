@@ -12,10 +12,10 @@ import java.util.Locale;
 import java.util.MissingResourceException;
 import java.util.PropertyResourceBundle;
 import java.util.ResourceBundle;
-
 import javax.faces.context.FacesContext;
-
 import org.apache.commons.lang3.StringUtils;
+import com.indracompany.treinamento.enums.OrigemMensagemEnum;
+import com.indracompany.treinamento.model.entity.Conta;
 
 public class Messages extends ResourceBundle {
 
@@ -73,7 +73,6 @@ public class Messages extends ResourceBundle {
     return this.parent.getObject(key);
   }
 
-
   public static boolean hasMessage(String key) {
     try {
       return RESOURCE_BUNDLE.getObject(key) != null;
@@ -84,6 +83,7 @@ public class Messages extends ResourceBundle {
 
   /**
    * Recupera uma mensagem do arquivo de properties.
+   * 
    * @param key A chave da propriedade.
    * @return O valor da propriedade.
    */
@@ -92,8 +92,8 @@ public class Messages extends ResourceBundle {
   }
 
   /**
-   * @author Eder Ferreira
-   * Metodo que retorna a descricao de uma mensagem informada no arquivo .properties
+   * @author Eder Ferreira Metodo que retorna a descricao de uma mensagem informada no arquivo
+   *         .properties
    * @param bundle
    * @param codMsg
    * @param params
@@ -122,6 +122,7 @@ public class Messages extends ResourceBundle {
 
   /**
    * Metodo que sobrescreve os valores dos parametros, na descricao de uma mensagem
+   * 
    * @param descMsg
    * @param params
    * @return String
@@ -147,5 +148,28 @@ public class Messages extends ResourceBundle {
     return getTextMessageReplace(line, params);
   }
 
+  public static String montaMensagens(OrigemMensagemEnum origem, Conta conta) {
+    String mensagem = null;
+
+    if (OrigemMensagemEnum.SALDO.equals(origem)) {
+      mensagem = "Consulta de saldo";
+    }
+
+    if (OrigemMensagemEnum.SAQUE.equals(origem)) {
+      mensagem = "Saque Realizado";
+    }
+
+    if (OrigemMensagemEnum.DEPOSITO.equals(origem)) {
+      mensagem = "Proventos TED. Conta de origem: " + conta.getNumeroConta() + " Número da agencia: "
+          + conta.getNumeroAgencia() + " CPF: " + conta.getCliente().getCpf() + " " + conta.getCliente().getNome();
+    }
+
+    if (OrigemMensagemEnum.TRANFERENCIA.equals(origem)) {
+      mensagem = "Realização de tranferencia para Conta destino: " + conta.getNumeroConta() + " Número da agencia: "
+          + conta.getNumeroAgencia() + " CPF: " + conta.getCliente().getCpf() + " " + conta.getCliente().getNome();
+    }
+
+    return mensagem;
+  }
 
 }

@@ -16,7 +16,6 @@ ministrado por Eder Ferreira (efmendes@indracompany.com) e Arthur Leony (aldanta
 - JPA (Hibernate) 
 - Spring Data 
 - MySQL
-
 ========================================================================
 
 **COMO CONSTRUIR O AMBIENTE**
@@ -26,7 +25,8 @@ Baixar e instalar o Lombok na sua IDE em https://projectlombok.org/download.
 Acessar o diretório onde o lombok.jar foi baixado e executar no terminal: java -jar lombok.jar.
 Na janela de instalação, especificar o caminho onde se encontra sua IDE e concluir a instalação.
 
-Caso não consiga instalar através da interface, copiar o lombok.jar para o diretório do eclipse e editar o arquivo eclipse.ini e incluir a linha abaixo no final do arquivo:
+Caso não consiga instalar através da interface, copiar o lombok.jar para o diretório do eclipse e editar o arquivo 
+eclipse.ini e incluir a linha abaixo no final do arquivo:
 
 -javaagent:/DIRETÓRIO_QUE_VOCE_COPIOU_O_LOMBOK.JAR/lombok.jar
 
@@ -53,27 +53,14 @@ Para acesso à sua API desenvolvida, utilize o endereço: http://localhost:8080/
 
 ========================================================================
 
-Para acesso à sua API desenvolvida, utilize o endereço: http://localhost:8080/treinamento
-
 Voce pode desenvolver utilizando os recursos abaixo:
 ========================================================================
 - Java 8
 - Maven
-
 ========================================================================
 
 Banco de dados
 ========================================================================
-Como acessar o client do MySQL:
-
-https://www.db4free.net/phpMyAdmin/
-
-JDBC URL: jdbc:mysql://db4free.net:3306/treinamentoindra
-Usuário: treinamentoindra
-Senha: treinamentoindra
-
-========================================================================
-
 Como acessar o client do MySQL:
 
     https://www.db4free.net/phpMyAdmin/

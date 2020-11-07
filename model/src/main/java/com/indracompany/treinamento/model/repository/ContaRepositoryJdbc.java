@@ -13,36 +13,36 @@ import com.indracompany.treinamento.model.entity.Conta;
 
 @Repository
 public class ContaRepositoryJdbc {
-	
-	@Autowired
-	private JdbcTemplate jdbcTemplate;
-	
-	public List<Conta> buscarContas(String agencia, String numeroConta){
-		StringBuilder sql = new StringBuilder("select c.* from Contas c where 1=1 ");
-		
-		if (agencia != null) {
-			sql.append(" and c.agencia = '"+agencia+"'");
-		}
-		
-		if (numeroConta != null) {
-			sql.append(" and c.num_conta = '"+numeroConta+"'");
-		}
-		return jdbcTemplate.query(sql.toString(), new ContaRowMapper());
-	}
 
-	
-	private class ContaRowMapper implements RowMapper<Conta> {
+  @Autowired
+  private JdbcTemplate jdbcTemplate;
 
-		@Override
-		public Conta mapRow(ResultSet rs, int rowNum) throws SQLException {
+  public List<Conta> buscarContas(String agencia, String numeroConta) {
+    StringBuilder sql = new StringBuilder("select c.* from Contas c where 1=1 ");
 
-			Conta conta = new Conta();
-			conta.setId(rs.getLong("id"));
-			conta.setAgencia(rs.getString("agencia"));
-			conta.setNumeroConta(rs.getString("num_conta"));
+    if (agencia != null) {
+      sql.append(" and c.agencia = '" + agencia + "'");
+    }
 
-			return conta;
-		}
-	}
-		
+    if (numeroConta != null) {
+      sql.append(" and c.num_conta = '" + numeroConta + "'");
+    }
+
+    return jdbcTemplate.query(sql.toString(), new ContaRowMapper());
+  }
+
+  private class ContaRowMapper implements RowMapper<Conta> {
+
+    @Override
+    public Conta mapRow(ResultSet rs, int rowNum) throws SQLException {
+
+      Conta conta = new Conta();
+      conta.setId(rs.getLong("id"));
+      conta.setNumeroAgencia(rs.getString("agencia"));
+      conta.setNumeroConta(rs.getString("num_conta"));
+
+      return conta;
+    }
+  }
+
 }

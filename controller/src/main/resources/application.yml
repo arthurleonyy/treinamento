@@ -32,7 +32,7 @@ spring:
 primary:
   datasource:
     driverClassName: org.postgresql.Driver
-    jdbcUrl: ${DB_TREINAMENTO_URL:jdbc:postgresql://localhost:5432/treinamento?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC}
+    jdbcUrl: ${DB_TREINAMENTO_URL:jdbc:postgresql://localhost:5432/treinamento}
     username: ${DB_TREINAMENTO_USER:MateusPJorge}
     password: ${DB_TREINAMENTO_PASSWORD:MateusPJorge}
 hibernate: 

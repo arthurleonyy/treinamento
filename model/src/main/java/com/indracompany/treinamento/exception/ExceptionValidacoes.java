@@ -11,7 +11,6 @@ import lombok.Setter;
  * @author efmendes
  *
  */
-
 @AllArgsConstructor
 public enum ExceptionValidacoes implements AplicacaoExceptionValidacoes {
 
@@ -27,9 +26,10 @@ public enum ExceptionValidacoes implements AplicacaoExceptionValidacoes {
   ERRO_CPF_INVALIDO("msg.erro.cpf.invalido", null, AplicacaoExceptionValidacoes.SEVERIDADE_ERRO),
   ERRO_SALDO_CONTA_INSUFICIENTE("erro.saldo.conta.insuficiente", null, AplicacaoExceptionValidacoes.SEVERIDADE_ERRO),
   ERRO_CONTA_INEXISTENTE("erro.conta.inexistente", null, AplicacaoExceptionValidacoes.SEVERIDADE_ERRO),
+  ERRO_MOVIMENTACOES_NAO_ENCONTRADAS("erro.movimentacoes.nao.encontradas", null, AplicacaoExceptionValidacoes.SEVERIDADE_ERRO),
 
   // Mensagens Alterta
-  ALERTA_NENHUM_REGISTRO_ENCONTRADO("msg.app.alerta.nenhum.registro.encontrado", null, AplicacaoExceptionValidacoes.SEVERIDADE_ALERTA),;
+  ALERTA_NENHUM_REGISTRO_ENCONTRADO("msg.app.alerta.nenhum.registro.encontrado", null, AplicacaoExceptionValidacoes.SEVERIDADE_ALERTA);
 
   @Getter
   @Setter
