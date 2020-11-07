@@ -1,6 +1,6 @@
-import { DepositarComponent } from './components/depositar/depositar.component';
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
+import { DepositarComponent } from './components/depositar/depositar.component';
 import { ContaComponent } from './conta.component';
 
 const routes: Routes = [
