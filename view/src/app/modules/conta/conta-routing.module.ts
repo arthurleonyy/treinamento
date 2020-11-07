@@ -1,3 +1,4 @@
+import { DepositarComponent } from './components/depositar/depositar.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ContaComponent } from './conta.component';
@@ -6,6 +7,12 @@ const routes: Routes = [
   {
     path: '',
     component: ContaComponent,
+    children: [
+      {
+        path: 'depositar',
+        component: DepositarComponent
+      }
+    ]
   },
 ];
 
