@@ -21,6 +21,7 @@ ministrado por Eder Ferreira (efmendes@indracompany.com) e Arthur Leony (aldanta
 
 **COMO CONSTRUIR O AMBIENTE**
 ========================================================================
+
 Baixar e instalar o Lombok na sua IDE em https://projectlombok.org/download.
 Acessar o diretório onde o lombok.jar foi baixado e executar no terminal: java -jar lombok.jar.
 Na janela de instalação, especificar o caminho onde se encontra sua IDE e concluir a instalação.
@@ -43,7 +44,7 @@ Caso não consiga instalar através da interface, copiar o lombok.jar para o dir
 	mvn install
 	../treinamento-controller/target
 	java -jar treinamento.war
-		
+
 **É de suma importância aguardar a execução dos comandos acima citados.**
 
 ========================================================================
@@ -51,6 +52,8 @@ Caso não consiga instalar através da interface, copiar o lombok.jar para o dir
 Para acesso à sua API desenvolvida, utilize o endereço: http://localhost:8080/treinamento
 
 ========================================================================
+
+Para acesso à sua API desenvolvida, utilize o endereço: http://localhost:8080/treinamento
 
 Voce pode desenvolver utilizando os recursos abaixo:
 ========================================================================
@@ -68,3 +71,13 @@ https://www.db4free.net/phpMyAdmin/
 JDBC URL: jdbc:mysql://db4free.net:3306/treinamentoindra
 Usuário: treinamentoindra
 Senha: treinamentoindra
+
+========================================================================
+
+Como acessar o client do MySQL:
+
+    https://www.db4free.net/phpMyAdmin/
+
+    JDBC URL: jdbc:mysql://db4free.net:3306/treinamentoindra
+    Usuário: treinamentoindra
+    Senha: treinamentoindra
