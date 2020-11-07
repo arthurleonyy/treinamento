@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+
 import { ContaComponent } from './conta.component';
+import { NgModule, Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+
 
 
 

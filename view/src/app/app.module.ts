@@ -1,3 +1,4 @@
+
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
@@ -14,7 +15,8 @@ import { SidebarComponent } from './layouts/components/sidebar/sidebar.component
 import { PaginaNaoEncontradaComponent } from './layouts/pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { PaginaSemAutorizacaoComponent } from './layouts/pages/pagina-sem-autorizacao/pagina-sem-autorizacao.component';
 import { SharedModule } from './shared/shared.module';
-
+import { ContaComponent } from './modules/conta/conta/conta.component';
+import { DepositarComponent } from './modules/conta/depositar/depositar.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -23,7 +25,9 @@ import { SharedModule } from './shared/shared.module';
     FooterComponent,
     SidebarComponent,
     PaginaNaoEncontradaComponent,
-    PaginaSemAutorizacaoComponent
+    PaginaSemAutorizacaoComponent,
+    ContaComponent,
+    DepositarComponent
   ],
   imports: [
     BrowserModule,
