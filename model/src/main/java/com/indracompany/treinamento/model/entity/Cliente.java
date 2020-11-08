@@ -15,26 +15,27 @@ import lombok.EqualsAndHashCode;
 @Table(name = "clientes")
 @EqualsAndHashCode(callSuper = true)
 public class Cliente extends GenericEntity<Long> {
+	
+	
+	private static final long serialVersionUID = -2847865650784407318L;
+	
+	@Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+	private Long id;
+	
+	@Column(name = "nome" ,nullable = false)
+	private String nome;
+	
+	@Column(name = "cpf",nullable = false)
+	private String cpf;
+	
+	@Column(name = "email",nullable = false)
+	private String email;
+	
+	@Column(name = "ativo",nullable = false)
+	private boolean ativo;
+	
+	@Column(name = "observacoes")
+	private String observacoes;
+	
 
-  private static final long serialVersionUID = -2847865650784407318L;
-
-  @Id
-  @GeneratedValue(strategy = GenerationType.IDENTITY)
-  private Long id;
-
-  @Column(name = "nome")
-  private String nome;
-
-  @Column(name = "cpf")
-  private String cpf;
-
-  @Column(name = "email")
-  private String email;
-
-  @Column(name = "ativo")
-  private boolean ativo;
-
-  @Column(name = "observacoes")
-  private String observacoes;
-
-}
