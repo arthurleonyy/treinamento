@@ -37,8 +37,13 @@ public class ContaRest {
 	
 	
 	@RequestMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+<<<<<<< HEAD
 	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
 		double saldo = contaService.consultarSaldo(agencia, numeroConta);
+=======
+	public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, @PathVariable String numeroConta) {
+		Double saldo = contaService.consultarSaldo(agencia, numeroConta);
+>>>>>>> remotes/origin/develop
 		return new ResponseEntity<Double>(saldo, HttpStatus.OK);
 	}
 	

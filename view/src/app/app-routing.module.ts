@@ -1,35 +1,19 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PaginaNaoEncontradaComponent } from './layouts/pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
-import { DepositarComponent } from './modules/conta/depositar/depositar.component';
-import { ContaComponent } from './modules/conta/conta.component';
-import { PaginaSemAutorizacaoComponent } from './layouts/pages/pagina-sem-autorizacao/pagina-sem-autorizacao.component';
-import { AppComponent } from './app.component';
 
 const routes: Routes = [
-
   {
-    path: "",
-    component: AppComponent
+    path: '',
+    loadChildren: './modules/home/home.module#HomeModule'
   },
-
   {
-    path: "conta",
-    component: ContaComponent
-},
-
-{
-    path: "conta/depositar",
-    component: DepositarComponent
-},
-
+    path: 'conta',
+    loadChildren: './modules/conta/conta.module#ContaModule'
+  },
   {
     path: '**',
     component: PaginaNaoEncontradaComponent
-  },
-  {
-    path: 'sem-permissao',
-    component: PaginaSemAutorizacaoComponent
   },
 ];
 

@@ -14,8 +14,6 @@ import { SidebarComponent } from './layouts/components/sidebar/sidebar.component
 import { PaginaNaoEncontradaComponent } from './layouts/pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { PaginaSemAutorizacaoComponent } from './layouts/pages/pagina-sem-autorizacao/pagina-sem-autorizacao.component';
 import { SharedModule } from './shared/shared.module';
-import { DepositarComponent } from './modules/conta/depositar/depositar.component';
-import { ContaComponent } from './modules/conta/conta.component';
 
 @NgModule({
   declarations: [
@@ -25,9 +23,7 @@ import { ContaComponent } from './modules/conta/conta.component';
     FooterComponent,
     SidebarComponent,
     PaginaNaoEncontradaComponent,
-    PaginaSemAutorizacaoComponent,
-    ContaComponent,
-    DepositarComponent
+    PaginaSemAutorizacaoComponent
   ],
   imports: [
     BrowserModule,
