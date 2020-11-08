@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ContaComponent } from './conta.component';
 import { ContaRoutingModule } from './conta-routing.module';
-import { TransferenciaComponent } from './componenetes/transferencia/transferencia.component';
+import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
 
 
 

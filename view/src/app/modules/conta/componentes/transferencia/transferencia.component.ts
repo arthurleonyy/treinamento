@@ -12,4 +12,5 @@ export class TransferenciaComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  usuario = {id:1 , nome: "Paulo Henrique Roque da Silva" , email: "Paulo@gmail.com"}
 }

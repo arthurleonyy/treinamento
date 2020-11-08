@@ -6,7 +6,10 @@ import { SobreComponent } from './componentes/sobre/sobre.component';
 
 
 @NgModule({
-  declarations: [InicioComponent, SobreComponent],
+  declarations: [
+    InicioComponent,
+    SobreComponent
+  ],
   imports: [
     CommonModule,
     HomeRoutingModule

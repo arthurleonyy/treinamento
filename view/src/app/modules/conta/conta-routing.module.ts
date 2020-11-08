@@ -1,4 +1,4 @@
-import { TransferenciaComponent } from './componenetes/transferencia/transferencia.component';
+import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
 import { ContaComponent } from './conta.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
@@ -8,13 +8,13 @@ const routes: Routes = [
   {
     path: '',
     component: ContaComponent,
-    children:[
+    children: [
       {
         path: 'transferencia',
         component: TransferenciaComponent,
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
