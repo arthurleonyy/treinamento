@@ -1,14 +1,17 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ContaComponent } from './conta.component';
-import { DepositarComponent } from "./depositar/depositar.component"
+import { ContaComponent } from './pages/conta.component';
+import { DepositarComponent } from "./pages/depositar/depositar.component"
 
 const routes: Routes = [
   {
     path: '', component: ContaComponent,
     children: [
-      { path: 'depositar', component: DepositarComponent }
-    ],
+      {
+        path: 'depositar',
+        component: DepositarComponent
+      }
+    ]
   },
 ];
 

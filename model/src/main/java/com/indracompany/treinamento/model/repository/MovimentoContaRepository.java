@@ -21,8 +21,6 @@ public interface MovimentoContaRepository extends GenericCrudRepository<Moviment
 				+ " and c.agencia = :agencia"
 				+ " and c.num_conta = :numeroConta ", nativeQuery = true )
 	 List<MovimentoConta> findByAgenciaAndNumeroConta(String agencia, String numeroConta);
-     
-    /* @Query(value = "select * from movimentocontas mc where mc.data BETWEEN :dataInicial and :dataFinal", nativeQuery = true)
- 	List<MovimentoConta> findByIntervalDate(String dataInicial, String dataFinal);*/
+  
      
 }
