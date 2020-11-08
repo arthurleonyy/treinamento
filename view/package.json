@@ -1,5 +1,9 @@
 {
+<<<<<<< HEAD
   "name": "snc19",
+=======
+  "name": "treinamento-angular",
+>>>>>>> origin/develop
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

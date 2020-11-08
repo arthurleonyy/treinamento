@@ -27,6 +27,9 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	@Autowired
 	private ClienteService clienteService;
 	
+	@Autowired
+	private MovimentoContaService movContaService;
+	
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
 		if(agencia.isEmpty() || numeroConta.isEmpty()) {
@@ -39,22 +42,26 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		}
 		return conta.getSaldo();
 	}
-	
+	@Transactional(rollbackFor = Exception.class)
 	public void saque(Conta conta, double valor) {
+
 		if (conta.getSaldo() < valor || valor <= 0) {
-			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
-		}
+
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);
+
 		Extrato extrato = new Extrato();
 		extrato.setConta(conta);
 		extrato.setDiaTransacao(new Date());
 		extrato.setTipoOperacao("Saque");
 		extratoRepository.save(extrato);
 		
+
+		}
 	}
-	
+	@Transactional(rollbackFor = Exception.class)
 	public void deposito(Conta conta, double valor) {
+
 		if(valor <= 0) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_NEGATIVO);
 		}
@@ -65,11 +72,13 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		extrato.setDiaTransacao(new Date());
 		extrato.setTipoOperacao("Deposito");
 		extratoRepository.save(extrato);
+
 	}
 	
 	@Transactional(rollbackFor = Exception.class)
 	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
 		
+
 		if(valor <= 0) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_NEGATIVO);
 		}
@@ -81,6 +90,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		extrato.setDiaTransacao(new Date());
 		extrato.setTipoOperacao("Transferencia");
 		extratoRepository.save(extrato);
+	
+
 	}
 	
 	public Conta carregarContaPorNumero(String agencia, String numeroConta) {

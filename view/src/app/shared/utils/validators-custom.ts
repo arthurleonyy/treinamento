@@ -228,4 +228,16 @@ export class ValidatorsCustom {
         return null;
     }
 
+<<<<<<< HEAD
+=======
+    static lessThanOne(control: AbstractControl) {
+        const value = Number(control.value);
+        if (value < 1) {
+            return { lessThanOne: true };
+        } else {
+            return null;
+        }
+    }
+
+>>>>>>> origin/develop
 }
