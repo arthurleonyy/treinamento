@@ -23,6 +23,6 @@ export class ContaService {
 
   transferencia(obj: ContaTransferencia) {
     return this.apiService.post(`${this.controller}/transferencia`, obj);
-  }
+    }
 
 }
