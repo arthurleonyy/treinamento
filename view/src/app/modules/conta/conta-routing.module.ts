@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContaComponent } from './conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
+import { SaldoComponent } from './pages/saldo/saldo.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
 
 const routes: Routes = [
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'transferencia',
         component: TransferenciaComponent
+      },
+      {
+        path: 'saldo',
+        component: SaldoComponent
       },
     ]
   },
