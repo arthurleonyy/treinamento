@@ -234,17 +234,3 @@
 .toltip-danger {
   color: #dc3545 !important;
 }
-
-.card-custom-top {
-  border-top: 2px solid #ff5162 !important;
-  border-radius: 3px;
-}
-
-// Custom sidebar color
-.sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
-  background-color: #ff5162 !important;
-  color: #fff;
-}
-.nav-pills .nav-link:not(.active):hover {
-  color: #ff7684 !important;
-}

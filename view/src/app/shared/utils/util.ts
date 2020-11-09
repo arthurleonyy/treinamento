@@ -365,12 +365,12 @@ export class Util {
     }
 
     static getUsuarioSession() {
-        const usuLocal = localStorage.getItem(`treinamento-angular.usuario`);
+        const usuLocal = localStorage.getItem(`snc19.usuario`);
         return usuLocal ? JSON.parse(atob(usuLocal)) : null;
     }
 
     static getPerfilUsuarioSession() {
-        const usuLocal = localStorage.getItem(`treinamento-angular.usuario`);
+        const usuLocal = localStorage.getItem(`snc19.usuario`);
         return usuLocal ? JSON.parse(atob(usuLocal)).perfilFuncao : null;
     }
 
@@ -422,7 +422,7 @@ export class Util {
      */
     static getOptionsExcel(): any {
         // tratar caso tenha o token
-        const TOKEN = localStorage.getItem('treinamento-angular.token') ? 'Bearer ' + localStorage.getItem('treinamento-angular.token') : '';
+        const TOKEN = localStorage.getItem('snc19.token') ? 'Bearer ' + localStorage.getItem('snc19.token') : '';
         return {
         headers: new HttpHeaders({
             'Content-Type': 'application/json',

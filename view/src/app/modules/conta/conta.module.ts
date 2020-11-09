@@ -7,12 +7,14 @@ import { SharedModule } from 'src/app/shared/shared.module';
 import { ContaRoutingModule } from './conta-routing.module';
 import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
+import { TransferenciaContaComponent } from './pages/transferencia-conta/transferencia-conta.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 
 @NgModule({
   declarations: [
     ContaComponent,
     DepositarSacarComponent,
+    TransferenciaContaComponent,
     OperacoesComponent,
   ],
   imports: [
