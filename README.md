@@ -1,71 +1,27 @@
-**SOBRE O QUE É O PROJETO?**
-========================================================================
-O objetivo do projeto é servir de base para o treinamento de "Formação Java/Angular para novos profissionais", da Indra, unidade de João Pessoa, 
-ministrado por Eder Ferreira (efmendes@indracompany.com) e Arthur Leony (aldantas@indracompany.com)
+# MovimentacaoItem
 
+This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.25.
 
-**Conteúdo do Treinamento**
+## Development server
 
-- Git
-- Lombok 
-- Criando um projeto Spring 
-- Maven 
-- Spring Boot 
-- Api (Rest)
-- Swagger 
-- JPA (Hibernate) 
-- Spring Data 
-- MySQL
+Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
+## Code scaffolding
 
-**COMO CONSTRUIR O AMBIENTE**
-========================================================================
+Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
 
-Baixar e instalar o Lombok na sua IDE em https://projectlombok.org/download.
-Acessar o diretório onde o lombok.jar foi baixado e executar no terminal: java -jar lombok.jar.
-Na janela de instalação, especificar o caminho onde se encontra sua IDE e concluir a instalação.
+## Build
 
-Caso não consiga instalar através da interface, copiar o lombok.jar para o diretório do eclipse e editar o arquivo eclipse.ini e incluir a linha abaixo no final do arquivo:
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
 
--javaagent:/DIRETÓRIO_QUE_VOCE_COPIOU_O_LOMBOK.JAR/lombok.jar
+## Running unit tests
 
-**Back-End**
+Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
 
-	Primeiramente deve-se clonar o repositório no endereço:
-	
-	https://github.com/efmendes/treinamento.git
-	
-	Após o projeto ser clonado, abra o terminal no diretório clonado **treinamento**
-	e utilize os seguintes comandos:
+## Running end-to-end tests
 
-	
-	mvn install
-	../treinamento-controller/target
-	java -jar treinamento.war
-	
-	
-**É de suma importância aguardar a execução dos comandos acima citados.**
+Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
 
-========================================================================
+## Further help
 
-
-Para acesso à sua API desenvolvida, utilize o endereço: http://localhost:8080/treinamento
-
-
-
-
-Voce pode desenvolver utilizando os recursos abaixo:
-========================================================================
-- Java 8
-- Maven
-
-Banco de dados
-========================================================================
-
-Como acessar o client do MySQL:
-
-    https://www.db4free.net/phpMyAdmin/
-	
-	JDBC URL: jdbc:mysql://db4free.net:3306/treinamentoindra
-    Usuário: treinamentoindra
-	Senha: treinamentoindra
+To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).

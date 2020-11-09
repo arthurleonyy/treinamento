@@ -1,0 +1,55 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Consultar Saldo
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.agencia}">Agência</small>
+            </label>
+            <input type="text" class="form-control" formControlName="agencia"
+              [ngClass]="{'is-invalid': displayMessage.agencia}">
+            <small class="form-text text-red" *ngIf="displayMessage.agencia"
+              [innerHTML]="displayMessage.agencia"></small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.numeroConta}">Número da Conta</small>
+            </label>
+            <input type="text" class="form-control" formControlName="numeroConta"
+              [ngClass]="{'is-invalid': displayMessage.numeroConta}">
+            <small class="form-text text-red" *ngIf="displayMessage.numeroConta"
+              [innerHTML]="displayMessage.numeroConta"></small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.valor}">Saldo</small>
+            </label>
+            <label input type="text" class="form-control" formControlName="valor"
+              [ngClass]="{'is-invalid': displayMessage.valor}"></label> 
+            <small class="form-text text-red" *ngIf="displayMessage.valor" [innerHTML]="displayMessage.valor"></small>
+          </div>
+        </div>
+      </div>
+    </form>
+  </div>
+
+
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-success float-right"  (click)="onSubmit()">
+          <i class="fa fa-check"></i>
+          Consultar Saldo
+        </button>
