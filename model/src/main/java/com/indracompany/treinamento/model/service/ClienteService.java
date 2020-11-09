@@ -22,19 +22,37 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 		}
 		return clienteRepository.findByCpf(cpf);
 	}
-
-	private boolean cpfEhValido(String cpf) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	public List<Cliente> buscarClientePorNome (String nome ) {
-		return this.clienteRepository.findByNome(nome); 
-	}
-	 
-	public Cliente buscarClientePorEmail (String email ) {
-		return this.clienteRepository.findByEmail(email);
 	
+	 public List<Cliente> buscarClientePorNome(String nome) {
+		
+		List<Cliente> list = clienteRepository.findByNomeStartsWith(nome); 
+		
+		
+		if(list == null || list.isEmpty()) {
+			
+			throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);	
+		}
+			
+		return list;
+		
+	 }
+	
+	public Cliente buscarClientePorEmail(String  email) {
+		
+		Cliente cliente = clienteRepository.findByEmail(email);
+		
+        if( cliente != null) {
+        	  
+        	  return  cliente;
+		
+		}
+         
+  		
+			 throw new AplicacaoException(ExceptionValidacoes.ALERTA_NENHUM_REGISTRO_ENCONTRADO);
+			
+	}
+	private boolean cpfEhValido(String cpf) {
+		return CpfUtil.validaCPF(cpf);
 	}
 	
 

@@ -17,7 +17,6 @@ import { OnlyNumberDirective } from './directives/only-number.directive';
 import { UpperCaseDirective } from './directives/upper-case.directive';
 
 
-
 @NgModule({
   declarations: [
     AlertCustomComponent,
@@ -39,9 +38,9 @@ import { UpperCaseDirective } from './directives/upper-case.directive';
       backdropBorderRadius: '0px',
       fullScreenBackdrop: true,
       backdropBackgroundColour: 'rgba(0,0,0,0.3)',
-      primaryColour: '#007bff',
-      secondaryColour: '#0069d9',
-      tertiaryColour: '#007bff'
+      primaryColour: '#dc3545',
+      secondaryColour: '#dc3545',
+      tertiaryColour: '#dc3545'
     }),
   ],
   exports: [
@@ -60,7 +59,7 @@ import { UpperCaseDirective } from './directives/upper-case.directive';
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingCustomInterceptor,
       multi: true
-    }
+    },
   ]
 })
 export class SharedModule {
@@ -70,4 +69,4 @@ export class SharedModule {
       providers: [],
     };
   }
- }
+}
