@@ -24,30 +24,31 @@ public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {
 
 		http
-			.httpBasic()
-			.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+		.httpBasic()
+		.and()
+		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.
-			authorizeRequests().antMatchers("/", "/public/**","/login*","/swagger-ui.html*", "/webjars/**","/v2/**").permitAll()
-			//.authorizeRequests().antMatchers("/**").permitAll();
-			.and()
-			.authorizeRequests().antMatchers("/rest/**").authenticated();
+	http.
+		authorizeRequests().antMatchers("/", "/public/**","/login*","/swagger-ui.html*", "/webjars/**","/v2/**","/rest/**").permitAll();
+		//.authorizeRequests().antMatchers("/**").permitAll();
+		//authorizeRequests().antMatchers("/", "/public/**","/login*","/swagger-ui.html*", "/webjars/**","/v2/**").permitAll()
+		//.and()
+		//.authorizeRequests().antMatchers("/rest/**").authenticated();
 
-		http
-			.logout()
-			.logoutUrl("/rest/autenticacao/logout")
-			.invalidateHttpSession(true)
-			.deleteCookies("JSESSIONID")
-			.permitAll();
+	http
+		.logout()
+		.logoutUrl("/rest/autenticacao/logout")
+		.invalidateHttpSession(true)
+		.deleteCookies("JSESSIONID")
+		.permitAll();
 
-		http
-			.csrf()
-			.disable();
+	http
+		.csrf()
+		.disable();
 
-		http
-			.cors();
-	}
+	http
+		.cors();
+}
 	
 	
 	
