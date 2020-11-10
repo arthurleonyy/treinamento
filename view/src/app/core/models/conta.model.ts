@@ -39,6 +39,11 @@ export class ContaSaldo {
     }
 }
 
-export interface RespondeSaldo{
-    
+export class Contas {
+    cpf: string;
+
+    constructor(param: any) {
+        this.cpf = param.cpf;
+
+    }
 }

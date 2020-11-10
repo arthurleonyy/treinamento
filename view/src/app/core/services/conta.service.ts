@@ -3,6 +3,7 @@ import { Conta } from '../models/conta.model';
 import { ApiService } from './api.service';
 import { ContaTransferencia } from '../models/conta.model';
 import { ContaSaldo } from '../models/conta.model';
+import { Contas } from '../models/conta.model';
 
 
 @Injectable({
@@ -29,5 +30,10 @@ export class ContaService {
   saldo(obj: ContaSaldo) {
     return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/{numeroConta}?numeroConta=${obj.numeroConta}`);
     }  
+  
+  consultarContas(obj:Contas)  {
+    return this.apiService.get(`${this.controller}/consultar-contas-cliente/${obj.cpf}`);
+  }
 
 }
+

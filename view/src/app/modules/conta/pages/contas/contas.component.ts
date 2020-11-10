@@ -2,20 +2,24 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBase } from 'src/app/core/classes/form-base';
-import { ContaSaldo } from 'src/app/core/models/conta.model';
+import { Contas } from 'src/app/core/models/conta.model';
 import { ContaService } from 'src/app/core/services/conta.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 
 @Component({
-  selector: 'app-saldo',
-  templateUrl: './saldo.component.html',
-  styleUrls: ['./saldo.component.scss']
+  selector: 'app-contas',
+  templateUrl: './contas.component.html',
+  styleUrls: ['./contas.component.scss']
 })
-export class SaldoComponent extends FormBase implements OnInit, AfterViewInit {
-  
+export class ContasComponent extends FormBase implements OnInit, AfterViewInit {
+
   respostaSaldo = '';
   respostaAgencia = '';
   respostaConta = '';
+  respostaNome = '';
+  respostaCpf = '';
+  respostaEmail = '';
+  respostaGrana = '';
 
 
   constructor(
@@ -36,8 +40,7 @@ export class SaldoComponent extends FormBase implements OnInit, AfterViewInit {
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      agencia:      ['', Validators.required],
-      numeroConta:  ['', Validators.required],
+      cpf:      ['', Validators.required],
     });
   }
 
@@ -47,32 +50,37 @@ export class SaldoComponent extends FormBase implements OnInit, AfterViewInit {
   validateMensageError() {
     this.createValidateFieldMessage({
       agencia: {
-        required: 'Agência obrigatória.',
+        required: 'CPF obrigatório.',
       },
-      numeroConta: {
-        required: 'Número da conta obrigatório.',
-      },
+
     });
   }
 
   onSubmit() {
     
     if (this.form.valid) {
-      
-      const contaSaldo = new ContaSaldo(this.form.value); {
-        this.saldo(contaSaldo);
-
+      const contas = new Contas(this.form.value); {
+        
+        this.consultarContas(contas);
+        
     }
   }
 }
 
-  private saldo(contaSaldo: ContaSaldo) {
-    this.respostaAgencia = contaSaldo.agencia;
-    this.respostaConta = contaSaldo.numeroConta;
+  private consultarContas(contas: Contas) {
 
-    this.contaService.saldo(contaSaldo).subscribe(
+
+    this.contaService.consultarContas(contas).subscribe(
       response => {
-        this.respostaSaldo = response.body;
+        console.log(response.body);
+        this.respostaAgencia = response.body[0].agencia;
+        this.respostaConta = response.body[0].numeroConta;
+        this.respostaNome = response.body[0].cliente.nome;
+        this.respostaCpf = response.body[0].cliente.cpf;
+        this.respostaEmail = response.body[0].cliente.email;
+        this.respostaGrana = response.body[0].saldo;
+        
+
 
       },
       

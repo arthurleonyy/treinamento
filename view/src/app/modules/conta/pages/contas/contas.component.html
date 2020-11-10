@@ -1,0 +1,134 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+  <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Consultar Contas
+  </h5>
+  </div>
+  <div class="card-body">
+  <form [formGroup]="form">
+      <div class="row">
+      <div class="col-12 col-md-4">
+          <div class="form-group">
+          <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.cpf}">CPF</small>
+          </label>
+          <input type="text" class="form-control" formControlName="cpf" [ngClass]="{'is-invalid': displayMessage.cpf}">
+            <small class="form-text text-red" *ngIf="displayMessage.cpf" [innerHTML]="displayMessage.cpf"></small>
+          </div>
+      </div>
+
+
+      </div>
+  </form>
+  </div>
+
+  <div class="card-footer">
+      <div class="row" >
+          <div class="col-12 " >
+          <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+              <i class="fa fa-check"></i>
+              Consultar
+          </button>
+          <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1"> 
+              <i class="fa fa-times"></i>
+              Cancelar
+          </a>
+          </div>
+      </div>
+  </div> 
+
+</div>
+
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+  <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Conta
+  </h5>
+  </div>
+  <div class="card-body">
+      <form [formGroup]="form">
+          <div class="row">
+
+              <div class="col-12 col-md-4">
+                  <div class="form-group">
+                      <label class="form">
+                          <strong style="font-size:large "> Agência - </strong>{{respostaAgencia}} 
+                      </label>
+                  </div>
+              </div>
+          </div>
+      </form>
+      </div>
+      <div class="card-body">
+          <form [formGroup]="form">
+              <div class="row">
+              <div class="col-12 col-md-4">
+                  <div class="form-group">
+                  <label class="form">
+                  <strong style="font-size:large "> Conta - </strong>{{respostaConta}} 
+                  </label>
+                  </div>
+              </div>
+          </div>
+      </form>
+      </div>
+
+      <div class="card-body">
+        <form [formGroup]="form">
+            <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                <label class="form">
+                <strong style="font-size:large "> Nome - </strong>{{respostaNome}} 
+                </label>
+                </div>
+            </div>
+        </div>
+    </form>
+    </div>
+
+    <div class="card-body">
+      <form [formGroup]="form">
+          <div class="row">
+          <div class="col-12 col-md-4">
+              <div class="form-group">
+              <label class="form">
+              <strong style="font-size:large "> CPF - </strong>{{respostaCpf}} 
+              </label>
+              </div>
+          </div>
+      </div>
+  </form>
+  </div>
+
+  <div class="card-body">
+    <form [formGroup]="form">
+        <div class="row">
+        <div class="col-12 col-md-4">
+            <div class="form-group">
+            <label class="form">
+            <strong style="font-size:large "> E-mail - </strong>{{respostaEmail}} 
+            </label>
+            </div>
+        </div>
+    </div>
+</form>
+</div>
+
+      <div class="card-body">
+          <form [formGroup]="form">
+              <div class="row">
+      <div class="col-12 col-md-4">
+          <div class="form-group">
+              <label class="form">
+                  <strong style="font-size:large "> Saldo - </strong>{{respostaGrana | currency:'BRL'}} 
+                  </label>
+          </div>
+      </div>
+
+  </div>
+</form>
+</div>
+
+
+</div>
