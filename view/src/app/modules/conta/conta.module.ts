@@ -1,3 +1,4 @@
+import { ConsultaSaldoComponent } from './pages/consulta-saldo/consulta-saldo.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -16,6 +17,7 @@ import { OperacoesComponent } from './pages/operacoes/operacoes.component';
     DepositarSacarComponent,
     TransferenciaContaComponent,
     OperacoesComponent,
+    ConsultaSaldoComponent
   ],
   imports: [
     CommonModule,
