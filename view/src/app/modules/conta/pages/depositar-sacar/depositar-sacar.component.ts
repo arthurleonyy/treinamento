@@ -25,9 +25,9 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
   }
 
   ngOnInit() {
-    this.createFormGroup();
     this.validateMensageError();
     this.getNameScreen();
+    this.createFormGroup();
   }
 
   private getNameScreen() {
@@ -35,16 +35,17 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
       this.nameScreen = 'Depositar';
     } else if (this.router.url.includes('sacar')) {
       this.nameScreen = 'Sacar';
-    }
+    } 
   }
 
-  createFormGroup() {
-    this.form = this.formBuilder.group({
-      agencia:      ['', Validators.required],
-      numeroConta:  ['', Validators.required],
-      valor:        [0, [Validators.required, ValidatorsCustom.lessThanOne]],
-    });
-  }
+  createFormGroup(){
+      this.form = this.formBuilder.group({
+        agencia:      ['', Validators.required],
+        numeroConta:  ['', Validators.required],
+        valor:        [0, [Validators.required, ValidatorsCustom.lessThanOne]],
+      });
+    }
+  
 
   /**
    * Seta a mensagem de validação que irá ser exibida ao usuário

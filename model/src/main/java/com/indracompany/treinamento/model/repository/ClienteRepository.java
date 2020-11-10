@@ -14,6 +14,5 @@ public interface ClienteRepository extends GenericCrudRepository<Cliente, Long> 
 	
 	List<Cliente> findByNomeStartsWith(String nome);
 
-	Cliente findByEmail(String email);
-
+	
 }
