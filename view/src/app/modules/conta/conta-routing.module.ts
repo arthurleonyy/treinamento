@@ -1,27 +1,36 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { DepositarComponent } from './components/depositar/depositar.component';
-import { SacarComponent } from './components/sacar/sacar.component';
-import { TransferirComponent } from './components/transferir/transferir.component';
-import { ContaComponent } from './conta.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ContaComponent } from './pages/conta.component';
+import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
+import { OperacoesComponent } from './pages/operacoes/operacoes.component';
+import { TransferirComponent } from './pages/transferir/transferir.component';
 
 const routes: Routes = [
   {
-    path: '', component: ContaComponent,
+    path: '',
+    component: ContaComponent,
     children: [
       {
+        path: '',
+        component: OperacoesComponent
+      },
+      {
+        path: 'operacoes',
+        component: OperacoesComponent
+      },
+      {
         path: 'depositar',
-        component: DepositarComponent
+        component: DepositarSacarComponent
       },
       {
         path: 'sacar',
-        component: SacarComponent
-      },{
+        component: DepositarSacarComponent
+      },
+      {
         path: 'transferir',
         component: TransferirComponent
       },
-
-    ],
+    ]
   },
 ];
 

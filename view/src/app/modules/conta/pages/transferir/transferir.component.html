@@ -1,0 +1,79 @@
+<div class="card mb-0 mt-4 rounded-0">
+    <div class="card-header card-custom-top">
+      <h5 class="align-middle text-dark">
+        <i class="fas fa-hand-holding-usd"></i> Transferencia
+      </h5>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label class="form-required">
+                <small [ngClass]="{'text-red': displayMessage.agenciaDestino}">Agência Destino</small>
+              </label>
+              <input type="text" class="form-control" formControlName="agenciaDestino" [ngClass]="{'is-invalid': displayMessage.agenciaDestino}">
+              <small class="form-text text-red" *ngIf="displayMessage.agenciaDestino" [innerHTML]="displayMessage.agenciaDestino"></small>
+            </div>
+          </div>
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label class="form-required">
+                <small [ngClass]="{'text-red': displayMessage.numeroContaDestino}">Número da Conta Destino</small>
+              </label>
+              <input type="text" class="form-control" formControlName="numeroContaDestino" [ngClass]="{'is-invalid': displayMessage.numeroContaDestino}">
+              <small class="form-text text-red" *ngIf="displayMessage.numeroContaDestino" [innerHTML]="displayMessage.numeroContaDestino"></small>
+            </div>
+          </div>
+        </div>  
+        <div class="row"> 
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label class="form-required">
+                    <small [ngClass]="{'text-red': displayMessage.agenciaOrigem}">Agência Origem</small>
+                  </label>
+                  <input type="text" class="form-control" formControlName="agenciaOrigem" [ngClass]="{'is-invalid': displayMessage.agenciaOrigem}">
+                  <small class="form-text text-red" *ngIf="displayMessage.agenciaOrigem" [innerHTML]="displayMessage.agenciaOrigem"></small>
+                </div>
+            </div>
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label class="form-required">
+                    <small [ngClass]="{'text-red': displayMessage.numeroContaOrigem}">Número da Conta Origem</small>
+                  </label>
+                  <input type="text" class="form-control" formControlName="numeroContaOrigem" [ngClass]="{'is-invalid': displayMessage.numeroContaOrigem}">
+                  <small class="form-text text-red" *ngIf="displayMessage.numeroContaOrigem" [innerHTML]="displayMessage.numeroContaOrigem"></small>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12 col-md-4">
+                <div class="form-group">
+                  <label class="form-required">
+                    <small [ngClass]="{'text-red': displayMessage.valor}">Valor</small>
+                  </label>
+                  <input type="number" class="form-control" formControlName="valor" [ngClass]="{'is-invalid': displayMessage.valor}">
+                  <small class="form-text text-red" *ngIf="displayMessage.valor" [innerHTML]="displayMessage.valor"></small>
+                </div>
+              </div>
+        </div> 
+      </form>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+            <i class="fa fa-check"></i>
+            Salvar
+          </button>
+          <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1"> 
+            <i class="fa fa-times"></i>
+            Cancelar
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  
+  
+  
