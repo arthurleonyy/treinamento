@@ -14,6 +14,8 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 export class SaldoComponent extends FormBase implements OnInit, AfterViewInit {
   
   respostaSaldo = '';
+  respostaAgencia = '';
+  respostaConta = '';
 
 
   constructor(
@@ -59,15 +61,20 @@ export class SaldoComponent extends FormBase implements OnInit, AfterViewInit {
       
       const contaSaldo = new ContaSaldo(this.form.value); {
         this.saldo(contaSaldo);
+
     }
   }
 }
 
   private saldo(contaSaldo: ContaSaldo) {
 
+    this.respostaAgencia = contaSaldo.agencia;
+    this.respostaConta = contaSaldo.numeroConta;
+
     this.contaService.saldo(contaSaldo).subscribe(
       response => {
         this.respostaSaldo = response.body;
+
       },
       
       erro => {
