@@ -4,7 +4,11 @@
 
 export const environment = {
   production: false,
+<<<<<<< HEAD
   apiUrl: 'https://localhost:44326/api/'
+=======
+  apiUrl: 'http://localhost:8080/treinamento/rest/'
+>>>>>>> 394ee876be0d38e76ef99cf003aa6a7c58a33af5
 };
 
 /*
