@@ -43,16 +43,16 @@ export class TransferirComponent extends FormBase implements OnInit, AfterViewIn
   validateMensageError() {
     this.createValidateFieldMessage({
       agenciaOrigem: {
-        required: 'Agência obrigatória.',
+        required: 'Agência de origem é obrigatório.',
       },
       numeroContaOrigem: {
-        required: 'Número da conta obrigatório.',
+        required: 'Número da conta de origem é obrigatório.',
       },
       agenciaDestino: {
-        required: 'Valor obrigatório.',
+        required: 'Agência de destino é obrigatório.',
       },
       numeroContaDestino: {
-        required: 'Valor obrigatório.',
+        required: 'Número da conta de destino é obrigatório.',
       },
       valor: {
         required: 'Valor obrigatório.',

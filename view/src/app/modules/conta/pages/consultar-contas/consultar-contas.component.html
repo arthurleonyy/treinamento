@@ -1,0 +1,105 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-search-dollar"></i> Consultar Contas
+    </h5>
+  </div>
+
+  <div class="card-body">
+    <div class="row">
+      <div class="col-6 opcoes">
+        <button type="submit" class="btn btn-primary float-left" (click)="allAccounts()">
+          Buscar Todas as Contas
+        </button>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-6 opcoes">
+        <button type="submit" class="btn btn-primary float-left" data-toggle="modal" data-target="#exampleModalCenter">
+          Buscar Contas por CPF
+        </button>
+      </div>
+    </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLongTitle">Informe o CPF da conta</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="card-body">
+          <form [formGroup]="form">
+            <div class="row">
+              <div class="col-12 col-md-6">
+                <div class="form-group">
+                  <label class="form-required">
+                    <small [ngClass]="{'text-red': displayMessage.cpf}">CPF</small>
+                  </label>
+                  <input type="text" class="form-control" formControlName="cpf" [ngClass]="{'is-invalid': displayMessage.cpf}" autofocus>
+                  <small class="form-text text-red" *ngIf="displayMessage.cpf" [innerHTML]="displayMessage.cpf"></small>
+                </div>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary" (click)="accountsByCpf()" data-dismiss="modal">Buscar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+    <div class="row">
+      <div class="col-6 opcoes">
+        <button type="submit" class="btn btn-primary float-left" (click)="accountsByNumber()">
+          Buscar Contas por Agência e Nº da Conta
+        </button>
+      </div>
+    </div>
+    
+  </div>
+
+  <body>    
+    <table class="table table-striped table-bordered table-hover" *ngIf="itens">
+      <thead class=".poscentralized">
+        <tr>
+          <th scope="col">Id</th>
+          <th scope="col">Agência</th>
+          <th scope="col">Número da Conta</th>
+          <th scope="col">Nome do Cliente</th>
+          <th scope="col">CPF</th>
+          <th scope="col">E-mail</th>
+          <th scope="col">Ativo</th>
+          <th scope="col">Observações</th>
+          <th scope="col">Saldo R$</th>         
+        </tr>
+      </thead>
+
+      <tbody>            
+        <tr *ngFor="let conta of itens">                  
+          <td>{{conta.id}}</td>
+          <td>{{conta.agencia}}</td>
+          <td>{{conta.numeroConta}}</td>
+          <td>{{conta.cliente.nome}}</td>
+          <td>{{conta.cliente.cpf}}</td>
+          <td>{{conta.cliente.email}}</td>
+          <td>{{conta.cliente.ativo}}</td>
+          <td>{{conta.cliente.observacoes}}</td>
+          <td>{{ formateSaldo(conta.saldo) }}</td>         
+        </tr>
+      </tbody>
+    </table>
+
+  </body>
+
+  <div class="card-footer">
+  </div>
+</div>

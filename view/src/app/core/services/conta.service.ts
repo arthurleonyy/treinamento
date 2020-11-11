@@ -28,4 +28,12 @@ export class ContaService {
     return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/${obj.numeroConta}`);
   }
 
+  consultarContas() {
+    return this.apiService.get(`${this.controller}/`);
+  }
+
+  consultarContasPorCpf(cpf: string) {
+    return this.apiService.get(`${this.controller}/consultar-contas-cliente/${cpf}`);
+  }
+
 }
