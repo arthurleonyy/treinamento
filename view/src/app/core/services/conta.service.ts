@@ -1,3 +1,4 @@
+import { Transferencia } from '../models/transferencia.model'
 import { Injectable } from '@angular/core';
 import { Conta } from '../models/conta.model';
 import { ApiService } from './api.service';
@@ -17,6 +18,10 @@ export class ContaService {
 
   sacar(obj: Conta) {
     return this.apiService.post(`${this.controller}/saque`, obj);
+  }
+  transferir(obj: Transferencia) {
+    console.log(obj);
+    return this.apiService.post(`${this.controller}/transferencia`, obj);
   }
 
 }

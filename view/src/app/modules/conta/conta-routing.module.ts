@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
+import { TransferirComponent } from './pages/transferir/transferir.component';
 
 const routes: Routes = [
   {
@@ -24,6 +25,10 @@ const routes: Routes = [
       {
         path: 'sacar',
         component: DepositarSacarComponent
+      },
+      {
+        path: 'transferir',
+        component: TransferirComponent
       },
     ]
   },
