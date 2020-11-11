@@ -44,91 +44,25 @@
   <h5 class="align-middle text-dark">
       <i class="fas fa-hand-holding-usd"></i> Conta
   </h5>
-  </div>
-  <div class="card-body">
-      <form [formGroup]="form">
-          <div class="row">
 
-              <div class="col-12 col-md-4">
-                  <div class="form-group">
-                      <label class="form">
-                          <strong style="font-size:large "> Agência - </strong>{{respostaAgencia}} 
-                      </label>
-                  </div>
-              </div>
-          </div>
-      </form>
-      </div>
-      <div class="card-body">
-          <form [formGroup]="form">
-              <div class="row">
-              <div class="col-12 col-md-4">
-                  <div class="form-group">
-                  <label class="form">
-                  <strong style="font-size:large "> Conta - </strong>{{respostaConta}} 
-                  </label>
-                  </div>
-              </div>
-          </div>
-      </form>
-      </div>
+  <table class="table" *ngIf="formato">
+    <thead class="thead-danger">
+      <tr>
+        <th scope="col">Agência</th>
+        <th scope="col">Conta</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Saldo</th>
+    </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let entrada of formato">
+        <td>{{entrada.agencia}}</td>
+        <td>{{entrada.numeroConta}}</td>
+        <td>{{entrada.cliente.nome}}</td>
+        <td>{{entrada.cliente.cpf}}</td>
+        <td>{{entrada.cliente.email}}</td>
+        <td>{{entrada.saldo | currency:"BRL"}}</td>
 
-      <div class="card-body">
-        <form [formGroup]="form">
-            <div class="row">
-            <div class="col-12 col-md-4">
-                <div class="form-group">
-                <label class="form">
-                <strong style="font-size:large "> Nome - </strong>{{respostaNome}} 
-                </label>
-                </div>
-            </div>
-        </div>
-    </form>
-    </div>
-
-    <div class="card-body">
-      <form [formGroup]="form">
-          <div class="row">
-          <div class="col-12 col-md-4">
-              <div class="form-group">
-              <label class="form">
-              <strong style="font-size:large "> CPF - </strong>{{respostaCpf}} 
-              </label>
-              </div>
-          </div>
-      </div>
-  </form>
-  </div>
-
-  <div class="card-body">
-    <form [formGroup]="form">
-        <div class="row">
-        <div class="col-12 col-md-4">
-            <div class="form-group">
-            <label class="form">
-            <strong style="font-size:large "> E-mail - </strong>{{respostaEmail}} 
-            </label>
-            </div>
-        </div>
-    </div>
-</form>
-</div>
-
-      <div class="card-body">
-          <form [formGroup]="form">
-              <div class="row">
-      <div class="col-12 col-md-4">
-          <div class="form-group">
-              <label class="form">
-                  <strong style="font-size:large "> Saldo - </strong>{{respostaGrana | currency:'BRL'}} 
-                  </label>
-          </div>
-      </div>
-
-  </div>
-</form>
-</div>
-
-
-</div>
+    </tr>

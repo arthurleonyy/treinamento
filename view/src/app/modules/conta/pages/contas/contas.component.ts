@@ -13,13 +13,14 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 })
 export class ContasComponent extends FormBase implements OnInit, AfterViewInit {
 
-  respostaSaldo = '';
-  respostaAgencia = '';
-  respostaConta = '';
-  respostaNome = '';
-  respostaCpf = '';
-  respostaEmail = '';
-  respostaGrana = '';
+  //respostaSaldo = '';
+  //respostaAgencia = '';
+  //respostaConta = '';
+  //respostaNome = '';
+  //respostaCpf = '';
+  //respostaEmail = '';
+  //respostaGrana = '';
+  formato = '';
 
 
   constructor(
@@ -73,12 +74,13 @@ export class ContasComponent extends FormBase implements OnInit, AfterViewInit {
     this.contaService.consultarContas(contas).subscribe(
       response => {
         console.log(response.body);
-        this.respostaAgencia = response.body[0].agencia;
-        this.respostaConta = response.body[0].numeroConta;
-        this.respostaNome = response.body[0].cliente.nome;
-        this.respostaCpf = response.body[0].cliente.cpf;
-        this.respostaEmail = response.body[0].cliente.email;
-        this.respostaGrana = response.body[0].saldo;
+        this.formato= response.body;
+        //this.respostaAgencia = response.body[0].agencia;
+        //this.respostaConta = response.body[0].numeroConta;
+        //this.respostaNome = response.body[0].cliente.nome;
+        //this.respostaCpf = response.body[0].cliente.cpf;
+        //this.respostaEmail = response.body[0].cliente.email;
+        //this.respostaGrana = response.body[0].saldo;
         
 
 
