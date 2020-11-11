@@ -1,0 +1,111 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+  <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Consultar Extrato
+  </h5>
+  </div>
+  <div class="card-body">
+  <form [formGroup]="form">
+      <div class="row">
+      <div class="col-12 col-md-4">
+          <div class="form-group">
+          <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.agencia}">Agência</small>
+          </label>
+          <input type="text" class="form-control" formControlName="agencia" [ngClass]="{'is-invalid': displayMessage.agencia}">
+            <small class="form-text text-red" *ngIf="displayMessage.agencia" [innerHTML]="displayMessage.agencia"></small>
+          </div>
+      </div>
+
+      <div class="col-12 col-md-4">
+          <div class="form-group">
+          <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.numeroConta}">Número da Conta</small>
+          </label>
+          <input type="text" class="form-control" formControlName="numeroConta" [ngClass]="{'is-invalid': displayMessage.numeroConta}">
+            <small class="form-text text-red" *ngIf="displayMessage.numeroConta" [innerHTML]="displayMessage.numeroConta"></small>
+          </div>
+      </div>
+
+ 
+
+      </div>
+  </form>
+  </div>
+
+  <div class="card-footer">
+      <div class="row" >
+          <div class="col-12 " >
+          <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+              <i class="fa fa-check"></i>
+              Consultar
+          </button>
+          <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1"> 
+              <i class="fa fa-times"></i>
+              Cancelar
+          </a>
+          </div>
+      </div>
+  </div> 
+
+</div>
+
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+  <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Extrato
+  </h5>
+  </div>
+  <div class="card-body">
+      <form [formGroup]="form">
+          <div class="row">
+
+              <div class="col-12 col-md-4">
+                  <div class="form-group">
+                      <label class="form">
+                          <strong style="font-size:large "> Agência - </strong>{{respostaAgencia}} 
+                      </label>
+                  </div>
+              </div>
+          
+
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+            <label class="form">
+            <strong style="font-size:large "> Conta - </strong>{{respostaConta}} 
+            </label>
+
+            </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+              <label class="form">
+                  <strong style="font-size:large "> Saldo - </strong>{{respostaGrana | currency:'BRL'}} 
+                  </label>
+          </div>
+        </div>  
+      </div>
+    </form>
+  </div>
+</div>
+
+<table class="table" *ngIf="formato">
+  <thead class="thead-dark">
+    <tr>
+      <th scope="col">Operação</th>
+      <th scope="col">Valor</th>
+      <th scope="col">Data</th>
+
+
+
+  </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let entrada of formato">
+      <td>{{entrada.operacao}}</td>
+      <td>{{entrada.valorOperacao | currency:'BRL':true}}</td>
+      <td>{{entrada.dataOperacao | date:"dd/MM/yyyy"}}</td>
+
+
+  </tr>
