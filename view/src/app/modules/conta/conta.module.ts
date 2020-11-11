@@ -9,7 +9,7 @@ import { DepositoComponent } from './components/deposito/deposito.component';
 @NgModule({
   declarations: [ 
      ContaComponent,
-      DepositoComponent],
+      DepositoComponent,],
   imports: [
     CommonModule,
     ContaRoutingModule

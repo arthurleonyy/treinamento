@@ -7,7 +7,8 @@ const routes: Routes = [
   {
     path: '', component: ContaComponent,
     children: [
-      { path: 'deposito', component: DepositoComponent}
+      { path: 'deposito', 
+       component: DepositoComponent}
       ,]
   },
 ];
