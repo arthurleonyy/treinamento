@@ -28,7 +28,7 @@ public class ContaRest {
     private ContaService contaService;
 
     @GetMapping(value = "/consultar-saldo/{agencia}/{numeroConta}", produces = {"application/json"})
-    public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, String numeroConta) {
+    public @ResponseBody ResponseEntity<Double> consultarSaldo(final @PathVariable String agencia, @PathVariable String numeroConta) {
 	Double saldo = contaService.consultaSaldo(agencia, numeroConta);
 	return new ResponseEntity<>(saldo, HttpStatus.OK);
     }
