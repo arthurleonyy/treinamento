@@ -10,7 +10,9 @@ import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
 import { SaldoComponent } from './pages/saldo/saldo.component';
-import { ConsultarcontasComponent } from './pages/consultarcontas/consultarcontas.component';
+import { ConsultarContasComponent } from './pages/consultar-contas/consultar-contas.component';
+
+
 
 @NgModule({
   declarations: [
@@ -19,7 +21,9 @@ import { ConsultarcontasComponent } from './pages/consultarcontas/consultarconta
     OperacoesComponent,
     TransferirComponent,
     SaldoComponent,
-    ConsultarcontasComponent,
+    ConsultarContasComponent,
+
+
   ],
   imports: [
     CommonModule,

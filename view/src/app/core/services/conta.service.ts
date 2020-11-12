@@ -3,6 +3,8 @@ import { Transferencia } from '../models/transferencia.model'
 import { Injectable } from '@angular/core';
 import { Conta } from '../models/conta.model';
 import { ApiService } from './api.service';
+import { ConsultarContas } from '../models/consultar-contas.model';
+
 
 @Injectable({
   providedIn: 'root'
@@ -26,5 +28,10 @@ export class ContaService {
   saldo(obj: Conta) {
     return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/${obj.numeroConta}`);
   }
+  consultarContas(obj: ConsultarContas) {
+
+    return this.apiService.get(`${this.controller}/consultar-contas-cliente/${obj.cpf}`);
+  }
+
 
 }

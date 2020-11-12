@@ -1,0 +1,71 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Consultar Contas
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.cpf}">CPF</small>
+            </label>
+            <input type="text" class="form-control" formControlName="cpf"
+              [ngClass]="{'is-invalid': displayMessage.cpf}">
+            <small class="form-text text-red" *ngIf="displayMessage.cpf" [innerHTML]="displayMessage.cpf"></small>
+          </div>
+        </div>
+
+
+      </div>
+    </form>
+  </div>
+
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-4 ">
+        <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+          <i class="fa fa-check"></i>
+          Consultar
+        </button>
+        <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1">
+          <i class="fa fa-times"></i>
+          Cancelar
+        </a>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd elevation-1"></i> Lista de Contas
+    </h5>
+    <div class="table-responsive">
+      <table class="table table-hover" *ngIf="retorno">
+        <thead class="thead-danger">
+          <tr>
+            <th scope="col">CPF</th>
+            <th scope="col">Cliente</th>
+            <th scope="col">Agência</th>
+            <th scope="col">Conta</th>
+            <th scope="col">Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let list of retorno">
+            <td class="center">{{list.cliente.cpf}}</td>
+            <td>{{list.cliente.nome}}</td>
+            <td>{{list.agencia}}</td>
+            <td>{{list.numeroConta}}</td>
+            <td>{{list.saldo | currency:'BRL':true}}</td>
+
+          </tr>
+        </tbody>
+      </table>
+    </div>
