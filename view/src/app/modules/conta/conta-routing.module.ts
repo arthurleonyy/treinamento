@@ -1,19 +1,46 @@
 import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ContaComponent } from './conta.component';
-import { DepositoComponent } from './deposito/deposito.component';
-import { SaqueComponent } from './saque/saque.component';
-import { TransferenciaComponent } from './transferencia/transferencia.component';
+import { RouterModule, Routes } from '@angular/router';
+import { ConsultaSaldoComponent } from './pages/consulta-saldo/consulta-saldo.component';
+import { ConsultarContasComponent } from './pages/consultar-contas/consultar-contas.component';
+import { ContaComponent } from './pages/conta.component';
+import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
+import { OperacoesComponent } from './pages/operacoes/operacoes.component';
+import { TransferirComponent } from './pages/transferir/transferir.component';
 
 const routes: Routes = [
   {
     path: '',
     component: ContaComponent,
     children: [
-        { path: 'deposito', component: DepositoComponent},
-        { path: 'saque', component: SaqueComponent},
-        { path: 'transferencia', component: TransferenciaComponent},
-    ],
+      {
+        path: '',
+        component: OperacoesComponent
+      },
+      {
+        path: 'operacoes',
+        component: OperacoesComponent
+      },
+      {
+        path: 'depositar',
+        component: DepositarSacarComponent
+      },
+      {
+        path: 'sacar',
+        component: DepositarSacarComponent
+      },
+      {
+        path: 'transferir',
+        component: TransferirComponent
+      },
+      {
+        path: 'consulta-saldo',
+        component: ConsultaSaldoComponent
+      },
+      {
+        path: 'consultar-contas',
+        component: ConsultarContasComponent
+      },
+    ]
   },
 ];
 
