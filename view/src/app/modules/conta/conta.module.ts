@@ -1,12 +1,5 @@
-<<<<<<< HEAD
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { ContaComponent } from './conta.component';
-import { ContaRoutingModule } from './conta-routing.module';
-import { TransferenciaComponent } from './componentes/transferencia/transferencia.component';
+import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
 
-
-=======
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -17,21 +10,17 @@ import { ContaRoutingModule } from './conta-routing.module';
 import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
->>>>>>> origin/develop
+import { ExtratoComponent } from './pages/extrato/extrato.component';
+
+
 
 @NgModule({
   declarations: [
     ContaComponent,
-<<<<<<< HEAD
-    TransferenciaComponent
-  ],
-  imports: [
-    CommonModule,
-    ContaRoutingModule
-  ]
-=======
     DepositarSacarComponent,
     OperacoesComponent,
+    TransferenciaComponent,
+    ExtratoComponent
   ],
   imports: [
     CommonModule,
@@ -44,6 +33,6 @@ import { OperacoesComponent } from './pages/operacoes/operacoes.component';
   providers: [
     ContaService,
   ],
->>>>>>> origin/develop
+
 })
 export class ContaModule { }

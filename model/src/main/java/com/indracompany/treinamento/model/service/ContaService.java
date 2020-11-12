@@ -46,7 +46,8 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	public void saque(Conta conta, double valor) {
 
 		if (conta.getSaldo() < valor || valor <= 0) {
-
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
+		}
 		conta.setSaldo(conta.getSaldo() - valor);
 		this.salvar(conta);
 
@@ -58,7 +59,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		
 
 		}
-	}
+
 	@Transactional(rollbackFor = Exception.class)
 	public void deposito(Conta conta, double valor) {
 
@@ -78,11 +79,17 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	@Transactional(rollbackFor = Exception.class)
 	public void transferencia (Conta contaOrigem, Conta contaDestino, double valor) {
 		
+		if(contaOrigem == null || contaDestino == null) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
+		}
 
 		if(valor <= 0) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_VALOR_NEGATIVO);
 		}
 		
+		if(valor > contaOrigem.getSaldo()) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
+		}
 		this.saque(contaOrigem, valor);
 		this.deposito(contaDestino, valor);
 		Extrato extrato = new Extrato();

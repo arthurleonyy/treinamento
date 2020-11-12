@@ -7,18 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class InicioComponent implements OnInit {
 
-<<<<<<< HEAD
 
-
-=======
->>>>>>> origin/develop
   constructor() { }
 
   ngOnInit() {
   }
 
-<<<<<<< HEAD
 
-=======
->>>>>>> origin/develop
 }

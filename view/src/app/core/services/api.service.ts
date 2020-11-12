@@ -20,11 +20,8 @@ export class ApiService {
    */
   public getOptions(): any {
     // tratar caso tenha o token
-<<<<<<< HEAD
-    const TOKEN = localStorage.getItem('snc19.token') ? 'Bearer ' + localStorage.getItem('snc19.token') : '';
-=======
+
     const TOKEN = localStorage.getItem('treinamento-angular.token') ? 'Bearer ' + localStorage.getItem('treinamento-angular.token') : '';
->>>>>>> origin/develop
 
     return {
       headers: new HttpHeaders({
