@@ -11,6 +11,11 @@ import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 import { SaldoComponent } from './pages/saldo/saldo.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
+import { LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+import { ContasComponent } from './pages/contas/contas.component';
+registerLocaleData(ptBr)
 
 @NgModule({
   declarations: [
@@ -18,7 +23,8 @@ import { TransferirComponent } from './pages/transferir/transferir.component';
     DepositarSacarComponent,
     OperacoesComponent,
     TransferirComponent,
-    SaldoComponent
+    SaldoComponent,
+    ContasComponent
   
   ],
   imports: [
@@ -31,6 +37,9 @@ import { TransferirComponent } from './pages/transferir/transferir.component';
   ],
   providers: [
     ContaService,
+    {
+      provide:LOCALE_ID,
+      useValue: 'pt-BR'},
   ],
 })
 export class ContaModule { }

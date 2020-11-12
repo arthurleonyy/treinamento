@@ -1,4 +1,5 @@
-import { SaldoComponent } from './../../modules/conta/pages/saldo/saldo.component';
+
+
 export class Conta {
 
     agencia: string;
@@ -28,17 +29,33 @@ export class ContaTransferir{
         this.valor = param.valor;
     }
 }
+    export class Saldo {
 
-export class Saldo{
-
-
-    agencia: string;
-    numeroConta: string;
-    valor: number;
-
-    constructor(param: any) {
-        this.agencia = param.agencia;
-        this.numeroConta = param.numeroConta;
-        this.valor = param.valor;
+        agencia: string;
+        numeroConta: string;
+      static agencia: string;
+    
+        constructor(param: any) {
+            this.agencia = param.agencia;
+            this.numeroConta = param.numeroConta;
+        }
     }
-}
+
+
+    export class Contas {
+        cpf: string;
+    
+        constructor(param: any) {
+            this.cpf = param.cpf;
+    
+        }
+    }
+   
+      
+    
+      
+
+      
+
+
+

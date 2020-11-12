@@ -1,13 +1,20 @@
+import { Contas } from './../models/conta.model';
 
-import { ContaTransferir, Saldo } from './../models/conta.model';
+
 import { Injectable } from '@angular/core';
-import { Conta } from '../models/conta.model';
+import { Conta, ContaTransferir, Saldo } from '../models/conta.model';
+
 import { ApiService } from './api.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ContaService {
+  consultarSaldo(conta: Saldo) {
+    throw new Error('Method not implemented.');
+  }
+  
+  
 
   private controller = 'contas';
 
@@ -25,8 +32,11 @@ export class ContaService {
     return this.apiService.post(`${this.controller}/transferencia`, obj);
   }
 
-  saldo(obj: Saldo) {
-    return this.apiService.get(`${this.controller}/saldo`,);
+  saldo (obj: Saldo) {
+    return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/{numeroConta}?numeroConta=${obj.numeroConta}`);
+  }
+  consultarContas(obj:Contas)  {
+    return this.apiService.get(`${this.controller}/consultar-contas-cliente/${obj.cpf}`);
   }
 
 }
