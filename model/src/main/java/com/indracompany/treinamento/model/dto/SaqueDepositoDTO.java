@@ -6,11 +6,9 @@ import lombok.Data;
 
 @Data
 public class SaqueDepositoDTO implements Serializable{
-
 	private static final long serialVersionUID = 896251423328585736L;
 	
-	private String agencia;
-	private String numeroConta;
+	private ContaDTO conta;
 	private double valor;
 
 }

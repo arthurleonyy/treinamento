@@ -33,22 +33,22 @@ public class OperacaoFinanceiraRest {
 	
 	@RequestMapping(value = "/saque", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<Void> saque(@ApiParam("JSON com dados necessarios para realizar o saque ") final @RequestBody SaqueDepositoDTO dto ) {
-		Conta conta = contaService.carregarPorAgenciaENumeroConta(dto.getAgencia(), dto.getNumeroConta());
+		Conta conta = contaService.carregarPorAgenciaENumeroConta(dto.getConta().getAgencia(), dto.getConta().getNumeroConta());
 		operacaoFinanceiraService.saque(conta, dto.getValor());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/deposito", method = RequestMethod.PUT, produces = { MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<Void> deposito(@ApiParam("JSON com dados necessarios para realizar o deposito ") final @RequestBody SaqueDepositoDTO dto ) {
-		Conta conta = contaService.carregarPorAgenciaENumeroConta(dto.getAgencia(), dto.getNumeroConta());
+		Conta conta = contaService.carregarPorAgenciaENumeroConta(dto.getConta().getAgencia(), dto.getConta().getNumeroConta());
 		operacaoFinanceiraService.deposito(conta, dto.getValor());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 	
 	@RequestMapping(value = "/transferencia", method = RequestMethod.PUT, produces = {MediaType.APPLICATION_JSON_VALUE })
 	public @ResponseBody ResponseEntity<Void> transferencia(@ApiParam("JSON com dados necessarios para realizar Transferencia") final @RequestBody TransferenciaBancariaDTO dto){
-		Conta contaOrigem = contaService.carregarPorAgenciaENumeroConta(dto.getAgenciaOrigem(), dto.getNumeroContaOrigem());
-		Conta contaDestino = contaService.carregarPorAgenciaENumeroConta(dto.getAgenciaDestino(), dto.getNumeroContaDestino());
+		Conta contaOrigem = contaService.carregarPorAgenciaENumeroConta(dto.getContaOrigem().getAgencia(), dto.getContaOrigem().getNumeroConta());
+		Conta contaDestino = contaService.carregarPorAgenciaENumeroConta(dto.getContaDestino().getAgencia(), dto.getContaDestino().getNumeroConta());
 		operacaoFinanceiraService.transferencia(contaOrigem, contaDestino, dto.getValor());
 		return new ResponseEntity<>(HttpStatus.OK);
 	}

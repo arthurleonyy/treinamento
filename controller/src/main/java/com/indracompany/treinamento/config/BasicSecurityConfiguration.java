@@ -26,10 +26,13 @@ public class BasicSecurityConfiguration extends WebSecurityConfigurerAdapter {
 		http
 			.httpBasic()
 			.and()
-			.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+			.sessionManagement()
+			.sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-		http.
-			authorizeRequests().antMatchers("/", "/public/**","/login*","/swagger-ui.html*", "/webjars/**","/v2/**","/rest/**").permitAll();
+		http
+			.authorizeRequests()
+			.antMatchers("/", "/public/**", "/login*", "/swagger-ui.html*", "/webjars/**", "/v2/**", "/rest/**")
+			.permitAll();
 			//.authorizeRequests().antMatchers("/**").permitAll();
 //			.and()
 //			.authorizeRequests().antMatchers("/rest/**").authenticated();
