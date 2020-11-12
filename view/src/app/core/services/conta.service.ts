@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Conta } from '../models/conta.model';
+import { Extrato } from '../models/extrato.model';
 import { Transferencia } from '../models/transferencia.model';
 import { ApiService } from './api.service';
 
@@ -28,12 +29,16 @@ export class ContaService {
     return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/${obj.numeroConta}`);
   }
 
-  consultarContas() {
-    return this.apiService.get(`${this.controller}/`);
-  }
-
   consultarContasPorCpf(cpf: string) {
     return this.apiService.get(`${this.controller}/consultar-contas-cliente/${cpf}`);
+  }
+
+  consultarExtrato (obj: Extrato) {
+    return this.apiService.get(`extratos/consultar-extrato/${obj.agencia}/${obj.numeroConta}`);
+  }
+
+  consultarCliente (obj: Conta) {
+    return this.apiService.get(`${this.controller}/consultar-conta/${obj.agencia}/${obj.numeroConta}`);
   }
 
 }

@@ -44,4 +44,12 @@
       </div>
     </div>
   </div>
+
+  <div class="saldoRetorno" *ngIf="flag">    
+    <h6>Agência: {{ agencia }}</h6>
+    <h6>Número da Conta: {{ numeroConta }}</h6>
+    <h6>Cliente: {{ cliente }}</h6>
+    <h6>Saldo: {{ saldo | currency: 'BRL' }}</h6>
+  </div>  
+
 </div>

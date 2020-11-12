@@ -11,8 +11,14 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
   templateUrl: './consultar-saldo.component.html',
   styleUrls: ['./consultar-saldo.component.scss']
 })
-export class ConsultarSaldoComponent  extends FormBase implements OnInit, AfterViewInit {
+export class ConsultarSaldoComponent extends FormBase implements OnInit, AfterViewInit {
 
+    agencia: string;
+    numeroConta: string;
+    saldo: '';
+    cliente: '';
+    flag: boolean;
+  
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService,
@@ -50,30 +56,37 @@ export class ConsultarSaldoComponent  extends FormBase implements OnInit, AfterV
   onSubmit() {
     if (this.form.valid) {
       const conta = new Conta(this.form.value);
+      this.flag = false
       this.consultarSaldo(conta);      
     }
-  }
-
-  formateSaldo(saldo: String) {
-    saldo = saldo.toString()
-    let saldoFormatado = 'R$ ' + saldo.replace('.', ',')
-    if (saldo.indexOf(".") == -1) {
-      saldoFormatado = saldoFormatado + ',00'
-    }
-    return saldoFormatado
   }
 
   private consultarSaldo(conta: Conta) {
     this.contaService.consultarSaldo(conta).subscribe(
       response => {
-        let saldo = this.formateSaldo(response.body)
-        SweetalertCustom.showAlertConfirm('Agência: ' + conta.agencia + '</br>'
-                                           + 'Número da Conta: ' + conta.numeroConta + '</br>'
-                                           + 'Saldo '  + saldo, {type: 'success'}).then(
-          result => {         
-              this.router.navigate(['conta/operacoes']);
-          }
-        );
+        this.saldo = response.body
+        console.log(this.saldo)
+        this.agencia = conta.agencia
+        this.numeroConta = conta.numeroConta
+
+        this.consultarCliente(conta)
+       
+      },
+      erro => {
+        if (erro.error.detalhes) {
+          SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
+        } else {
+          SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
+        }
+      }
+    );
+  }
+
+  private consultarCliente(conta: Conta) {
+    this.contaService.consultarCliente(conta).subscribe(
+      response => {
+        this.cliente = response.body.cliente.nome
+        this.flag = true
       },
       erro => {
         if (erro.error.detalhes) {

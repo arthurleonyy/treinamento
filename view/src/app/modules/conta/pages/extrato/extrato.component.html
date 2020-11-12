@@ -1,0 +1,89 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-search-dollar"></i> Consulta de Extrato Financeiro
+    </h5>
+  </div>
+
+    <div class="card-body">
+      <form [formGroup]="form">
+        <div class="row">
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label class="form-required">
+                <small [ngClass]="{'text-red': displayMessage.agencia}">Agência</small>
+              </label>
+              <input type="text" class="form-control" formControlName="agencia" [ngClass]="{'is-invalid': displayMessage.agencia}" autofocus>
+              <small class="form-text text-red" *ngIf="displayMessage.agencia" [innerHTML]="displayMessage.agencia"></small>
+            </div>
+          </div>
+
+          <div class="col-12 col-md-4">
+            <div class="form-group">
+              <label class="form-required">
+                <small [ngClass]="{'text-red': displayMessage.numeroConta}">Número da Conta</small>
+              </label>
+              <input type="text" class="form-control" formControlName="numeroConta" [ngClass]="{'is-invalid': displayMessage.numeroConta}">
+              <small class="form-text text-red" *ngIf="displayMessage.numeroConta" [innerHTML]="displayMessage.numeroConta"></small>
+            </div>
+          </div>
+  
+        </div>
+      </form>
+    </div>
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+            <i class="fa fa-check"></i>
+            Buscar
+          </button>
+          <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1"> 
+            <i class="fa fa-times"></i>
+            Cancelar
+          </a>
+        </div>
+      </div>
+    </div> 
+
+  <!-- Tabela de exibição -->
+  <h2 *ngIf="itens.length !== 0; then table else notFound"></h2>
+  <ng-template #table>
+    <body>      
+      <table #table class="table table-striped table-bordered table-hover">
+        <thead class=".poscentralized">
+          <tr>
+            <th scope="col">Id</th>
+            <th scope="col">Agência</th>
+            <th scope="col">Número da Conta</th>
+            <th scope="col">Nome do Cliente</th>          
+            <th scope="col">Operação</th>
+            <th scope="col">Valor R$</th>
+            <th scope="col">Descrição</th>
+            <th scope="col">Saldo Atual R$</th> 
+            <th scope="col">Data</th>       
+          </tr>
+        </thead>
+
+        <tbody>            
+          <tr *ngFor="let extrato of itens">                  
+            <td>{{extrato.id}}</td>
+            <td>{{extrato.conta.agencia}}</td>
+            <td>{{extrato.conta.numeroConta}}</td>
+            <td>{{extrato.conta.cliente.nome}}</td>          
+            <td>{{extrato.operacao}}</td>
+            <td>{{extrato.valor | currency:'BRL'}}</td>
+            <td>{{extrato.descricao}}</td>
+            <td>{{ extrato.conta.saldo | currency:'BRL' }}</td> 
+            <td>{{extrato.data | date:'dd-MM-yyyy, HH:mm:ss' }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </body>
+  </ng-template>
+
+  <ng-template #notFound>
+    <h5>Agência e Conta não existentes no banco de dados.</h5>  
+  </ng-template>
+
+</div>

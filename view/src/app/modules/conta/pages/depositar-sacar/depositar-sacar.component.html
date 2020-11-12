@@ -12,7 +12,7 @@
             <label class="form-required">
               <small [ngClass]="{'text-red': displayMessage.agencia}">Agência</small>
             </label>
-            <input type="text" class="form-control" formControlName="agencia" [ngClass]="{'is-invalid': displayMessage.agencia}">
+            <input type="text" class="form-control" formControlName="agencia" [ngClass]="{'is-invalid': displayMessage.agencia}" autofocus>
             <small class="form-text text-red" *ngIf="displayMessage.agencia" [innerHTML]="displayMessage.agencia"></small>
           </div>
         </div>

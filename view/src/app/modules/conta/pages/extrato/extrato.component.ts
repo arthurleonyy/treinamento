@@ -2,16 +2,17 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBase } from 'src/app/core/classes/form-base';
-import { ConsultarContas } from 'src/app/core/models/consultar-contas.model';
+import { Conta } from 'src/app/core/models/conta.model';
+import { Extrato } from 'src/app/core/models/extrato.model';
 import { ContaService } from 'src/app/core/services/conta.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 
 @Component({
-  selector: 'app-consultar-contas',
-  templateUrl: './consultar-contas.component.html',
-  styleUrls: ['./consultar-contas.component.scss']
+  selector: 'app-extrato',
+  templateUrl: './extrato.component.html',
+  styleUrls: ['./extrato.component.scss']
 })
-export class ConsultarContasComponent extends FormBase implements OnInit, AfterViewInit {
+export class ExtratoComponent extends FormBase implements OnInit, AfterViewInit {
 
   itens: []
 
@@ -30,32 +31,38 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      cpf: ['', Validators.required],
+      agencia:       ['', Validators.required],
+      numeroConta:   ['', Validators.required],
     });
   }
 
+   /**
+   * Seta a mensagem de validação que irá ser exibida ao usuário
+   */
   validateMensageError() {
     this.createValidateFieldMessage({
-      cpf: {
-        required: 'CPF obrigatório.',
+      agencia: {
+        required: 'Agência obrigatória.',
+      },
+      numeroConta: {
+        required: 'Número da conta obrigatório.',
       },
     });
   }
 
   onSubmit() {
     if (this.form.valid) {
-      const contas = new ConsultarContas(this.form.value);  
-      this.accountsByCpf(contas);
-    
+      const conta = new Extrato(this.form.value);
+      this.consultarExtrato(conta);      
     }
   }
 
-  accountsByCpf(contas: ConsultarContas) {
-    this.contaService.consultarContasPorCpf(contas.cpf).subscribe(
-      response => {            
+  private consultarExtrato(conta: Extrato) {
+    this.contaService.consultarExtrato(conta).subscribe(
+      response => {
         this.itens = response.body;
       },
-      erro => {
+      erro =>  {
         if (erro.error.detalhes) {
           SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
         } else {
@@ -64,5 +71,5 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
       }
     );
   }
- 
+
 }
