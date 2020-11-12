@@ -1,57 +1,64 @@
 <div class="card mb-0 mt-4 rounded-0">
   <div class="card-header card-custom-top">
     <h5 class="align-middle text-dark">
-      <i class="fas fa-hand-holding-usd"></i> Transferir
+      <i class="fas fa-dollar-sign"></i> Transferir
     </h5>
   </div>
 
   <div class="card-body">
     <form [formGroup]="form">
+      <h5><i class="fas fa-wallet"></i>&nbsp;&nbsp;<i class="fas fa-sign-out-alt"></i> Conta de Origem</h5>
+      
       <div class="row">
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-5">
           <div class="form-group">
             <label class="form-required">
-              <small [ngClass]="{'text-red': displayMessage.agenciaDestino}">Agência Destino</small>
-            </label>
-            <input type="text" class="form-control" formControlName="agenciaDestino" [ngClass]="{'is-invalid': displayMessage.agenciaDestino}">
-            <small class="form-text text-red" *ngIf="displayMessage.agenciaDestino" [innerHTML]="displayMessage.agenciaDestino"></small>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label class="form-required">
-              <small [ngClass]="{'text-red': displayMessage.agenciaOrigem}">Agência Origem</small>
+              <small [ngClass]="{'text-red': displayMessage.agenciaOrigem}">Número: Agência</small>
             </label>
             <input type="text" class="form-control" formControlName="agenciaOrigem" [ngClass]="{'is-invalid': displayMessage.agenciaOrigem}">
             <small class="form-text text-red" *ngIf="displayMessage.agenciaOrigem" [innerHTML]="displayMessage.agenciaOrigem"></small>
           </div>
         </div>
 
-        <div class="col-12 col-md-4">
+        <div class="col-12 col-md-5">
           <div class="form-group">
             <label class="form-required">
-              <small [ngClass]="{'text-red': displayMessage.numeroContaDestino}">Número Conta Destino</small>
-            </label>
-            <input type="text" class="form-control" formControlName="numeroContaDestino" [ngClass]="{'is-invalid': displayMessage.numeroContaDestino}">
-            <small class="form-text text-red" *ngIf="displayMessage.numeroContaDestino" [innerHTML]="displayMessage.numeroContaDestino"></small>
-          </div>
-        </div>
-
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label class="form-required">
-              <small [ngClass]="{'text-red': displayMessage.numeroContaOrigem}">Número Conta Origem</small>
+              <small [ngClass]="{'text-red': displayMessage.numeroContaOrigem}">Número: Conta</small>
             </label>
             <input type="text" class="form-control" formControlName="numeroContaOrigem" [ngClass]="{'is-invalid': displayMessage.numeroContaOrigem}">
             <small class="form-text text-red" *ngIf="displayMessage.numeroContaOrigem" [innerHTML]="displayMessage.numeroContaOrigem"></small>
           </div>
         </div>
+      </div>  
+      <br>
 
-        <div class="col-12 col-md-4">
+      <h5><i class="fas fa-sign-in-alt"></i>&nbsp;&nbsp;<i class="fas fa-wallet"></i> Conta de Destino</h5>
+      <div class="row">  
+        <div class="col-12 col-md-5">
           <div class="form-group">
             <label class="form-required">
-              <small [ngClass]="{'text-red': displayMessage.valor}">Valor</small>
+              <small [ngClass]="{'text-red': displayMessage.agenciaDestino}">Número: Agência</small>
+            </label>
+            <input type="text" class="form-control" formControlName="agenciaDestino" [ngClass]="{'is-invalid': displayMessage.agenciaDestino}">
+            <small class="form-text text-red" *ngIf="displayMessage.agenciaDestino" [innerHTML]="displayMessage.agenciaDestino"></small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-5">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.numeroContaDestino}">Número: Conta</small>
+            </label>
+            <input type="text" class="form-control" formControlName="numeroContaDestino" [ngClass]="{'is-invalid': displayMessage.numeroContaDestino}">
+            <small class="form-text text-red" *ngIf="displayMessage.numeroContaDestino" [innerHTML]="displayMessage.numeroContaDestino"></small>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-12 col-md-5">
+          <div class="form-group">
+            <label class="form-required">
+              <i class="fas fa-dollar-sign"></i><small [ngClass]="{'text-red': displayMessage.valor}"> Valor</small>
             </label>
             <input type="number" class="form-control" formControlName="valor" [ngClass]="{'is-invalid': displayMessage.valor}">
             <small class="form-text text-red" *ngIf="displayMessage.valor" [innerHTML]="displayMessage.valor"></small>
