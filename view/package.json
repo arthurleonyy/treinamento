@@ -1,9 +1,5 @@
 {
-<<<<<<< HEAD
-  "name": "snc19",
-=======
   "name": "treinamento-angular",
->>>>>>> 394ee876be0d38e76ef99cf003aa6a7c58a33af5
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",

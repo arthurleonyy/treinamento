@@ -1,8 +1,8 @@
-import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
-import { environment } from 'src/environments/environment';
 import { catchError } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
 
 const BASE_URL = environment.apiUrl;
 
@@ -20,11 +20,7 @@ export class ApiService {
    */
   public getOptions(): any {
     // tratar caso tenha o token
-<<<<<<< HEAD
-    const TOKEN = localStorage.getItem('snc19.token') ? 'Bearer ' + localStorage.getItem('snc19.token') : '';
-=======
     const TOKEN = localStorage.getItem('treinamento-angular.token') ? 'Bearer ' + localStorage.getItem('treinamento-angular.token') : '';
->>>>>>> 394ee876be0d38e76ef99cf003aa6a7c58a33af5
 
     return {
       headers: new HttpHeaders({

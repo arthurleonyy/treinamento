@@ -23,7 +23,7 @@ import { SharedModule } from './shared/shared.module';
     FooterComponent,
     SidebarComponent,
     PaginaNaoEncontradaComponent,
-    PaginaSemAutorizacaoComponent
+    PaginaSemAutorizacaoComponent,
   ],
   imports: [
     BrowserModule,
