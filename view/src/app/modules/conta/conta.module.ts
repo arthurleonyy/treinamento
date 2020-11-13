@@ -4,18 +4,20 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CoreModule } from 'src/app/core/core.module';
 import { ContaService } from 'src/app/core/services/conta.service';
 import { SharedModule } from 'src/app/shared/shared.module';
+import { ContaComponent } from './components/conta/conta.component';
 import { ContaRoutingModule } from './conta-routing.module';
-import { ContaComponent } from './pages/conta.component';
+import { ContaPageComponent } from './pages/conta-page.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
 
 @NgModule({
   declarations: [
-    ContaComponent,
+    ContaPageComponent,
     DepositarSacarComponent,
     OperacoesComponent,
     TransferirComponent,
+    ContaComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,5 @@
 import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBase } from 'src/app/core/classes/form-base';
 import { DepositarSacarDTO } from 'src/app/core/models/conta.model';
@@ -40,9 +40,7 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      agencia:      ['', [Validators.required]],
-      numeroConta:  ['', [Validators.required]],
-      valor:        [0, [Validators.required, ValidatorsCustom.lessThanOne]],
+      valor: [0, [Validators.required, ValidatorsCustom.lessThanOne]],
     });
   }
 
@@ -51,12 +49,6 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
    */
   validateMensageError() {
     this.createValidateFieldMessage({
-      agencia: {
-        required: 'Agência obrigatório.',
-      },
-      numeroConta: {
-        required: 'Número da conta obrigatório.',
-      },
       valor: {
         required: 'Valor obrigatório.',
         lessThanOne: 'Valor deve ser maior que 0.'
@@ -74,7 +66,7 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
   private depositarSacar(depositarSacarDTO: DepositarSacarDTO, operacao: string) {
     this.contaService.depositarSacar(depositarSacarDTO, operacao).subscribe(
       response => {
-        SweetalertCustom.showAlertTimer('Operação realizada com sucesso.', {type: 'success'}).then(
+        SweetalertCustom.showAlertTimer('Operação realizada com sucesso.', { type: 'success' }).then(
           result => {
             if (result.dismiss) {
               this.router.navigate(['conta/operacoes']);
@@ -90,6 +82,14 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
         }
       }
     );
+  }
+
+  getControlAgenciaDaConta(agencia: AbstractControl) {
+    this.form.addControl('agencia', agencia);
+  }
+
+  getControlNumeroContaDaConta(numeroConta: AbstractControl) {
+    this.form.addControl('numeroConta', numeroConta);
   }
 
 }

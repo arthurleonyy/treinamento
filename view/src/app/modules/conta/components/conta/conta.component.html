@@ -1,0 +1,47 @@
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label class="form-required">
+          <small [ngClass]="{ 'text-red': displayMessage.agencia }"
+            >Agência</small
+          >
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="agencia"
+          [ngClass]="{ 'is-invalid': displayMessage.agencia }"
+          (blur)="emitFormControlAgencia()"
+        />
+        <small
+          class="form-text text-red"
+          *ngIf="displayMessage.agencia"
+          [innerHTML]="displayMessage.agencia"
+        ></small>
+      </div>
+    </div>
+
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label class="form-required">
+          <small [ngClass]="{ 'text-red': displayMessage.numeroConta }"
+            >Número da Conta</small
+          >
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="numeroConta"
+          [ngClass]="{ 'is-invalid': displayMessage.numeroConta }"
+          (blur)="emitFormControlNumeroConta()"
+        />
+        <small
+          class="form-text text-red"
+          *ngIf="displayMessage.numeroConta"
+          [innerHTML]="displayMessage.numeroConta"
+        ></small>
+      </div>
+    </div>
+  </div>
+</form>

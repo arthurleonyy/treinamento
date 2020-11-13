@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContaComponent } from './pages/conta.component';
+import { ContaPageComponent } from './pages/conta-page.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
@@ -8,7 +8,7 @@ import { TransferirComponent } from './pages/transferir/transferir.component';
 const routes: Routes = [
   {
     path: '',
-    component: ContaComponent,
+    component: ContaPageComponent,
     children: [
       {
         path: '',

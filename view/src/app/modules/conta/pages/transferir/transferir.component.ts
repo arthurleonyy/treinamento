@@ -1,10 +1,10 @@
-import { TransferirDTO } from './../../../../core/models/conta.model';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
 import { FormBase } from './../../../../core/classes/form-base';
+import { TransferirDTO } from './../../../../core/models/conta.model';
 import { ContaService } from './../../../../core/services/conta.service';
 
 @Component({
@@ -29,10 +29,6 @@ export class TransferirComponent extends FormBase implements OnInit {
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      agenciaOrigem: ['', [Validators.required]],
-      numeroContaOrigem: ['', [Validators.required]],
-      agenciaDestino: ['', [Validators.required]],
-      numeroContaDestino: ['', [Validators.required]],
       valor: [0, [Validators.required, ValidatorsCustom.lessThanOne]],
     });
   }
@@ -41,22 +37,8 @@ export class TransferirComponent extends FormBase implements OnInit {
    * Seta a mensagem de validação que irá ser exibida ao usuário
    */
   validateMensageError() {
-    const msgAgencia = 'Agência obrigatório.';
-    const msgNumeroConta = 'Número da conta obrigatório.';
 
     this.createValidateFieldMessage({
-      agenciaOrigem: {
-        required: msgAgencia,
-      },
-      numeroContaOrigem: {
-        required: msgNumeroConta,
-      },
-      agenciaDestino: {
-        required: msgAgencia,
-      },
-      numeroContaDestino: {
-        required: msgNumeroConta,
-      },
       valor: {
         required: 'Valor obrigatório.',
         lessThanOne: 'Valor deve ser maior que 0.'
@@ -88,6 +70,22 @@ export class TransferirComponent extends FormBase implements OnInit {
         }
       }
     );
+  }
+
+  getControlAgenciaDaContaOrigem(agencia: AbstractControl) {
+    this.form.addControl('agenciaOrigem', agencia);
+  }
+
+  getControlNumeroContaDaContaOrigem(numeroConta: AbstractControl) {
+    this.form.addControl('numeroContaOrigem', numeroConta);
+  }
+
+  getControlAgenciaDaContaDestino(agencia: AbstractControl) {
+    this.form.addControl('agenciaDestino', agencia);
+  }
+
+  getControlNumeroContaDaContaDestino(numeroConta: AbstractControl) {
+    this.form.addControl('numeroContaDestino', numeroConta);
   }
 
 }
