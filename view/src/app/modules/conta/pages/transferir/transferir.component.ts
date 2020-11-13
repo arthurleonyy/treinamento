@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBase } from 'src/app/core/classes/form-base';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -13,7 +13,7 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
   templateUrl: './transferir.component.html',
   styleUrls: ['./transferir.component.scss']
 })
-export class TransferirComponent extends FormBase implements OnInit {
+export class TransferirComponent extends FormBase implements OnInit, AfterViewInit{
 
   constructor(
     private formBuilder: FormBuilder,
@@ -30,11 +30,11 @@ export class TransferirComponent extends FormBase implements OnInit {
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      agenciaOrigem:      ['', Validators.required],
-      numeroContaOrigem:  ['', Validators.required],
+      agenciaOrigem:       ['', Validators.required],
+      numeroContaOrigem:   ['', Validators.required],
       agenciaDestino:      ['', Validators.required],
       numeroContaDestino:  ['', Validators.required],
-      valor:        [0, [Validators.required, ValidatorsCustom.lessThanOne]],
+      valor:               [0, [Validators.required, ValidatorsCustom.lessThanOne]],
     });
   }
 

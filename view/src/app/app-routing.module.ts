@@ -5,11 +5,11 @@ import { PaginaNaoEncontradaComponent } from './layouts/pages/pagina-nao-encontr
 const routes: Routes = [
   {
     path: '',
-    loadChildren: './modules/home/home.module#HomeModule'
+    loadChildren: () => import('./modules/home/home.module').then(m => m.HomeModule)
   },
   {
     path: 'conta',
-    loadChildren: './modules/conta/conta.module#ContaModule'
+    loadChildren: () => import('./modules/conta/conta.module').then(m => m.ContaModule)
   },
   {
     path: '**',
