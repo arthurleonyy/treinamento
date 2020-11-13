@@ -1,21 +1,22 @@
-import { ConsultarContas } from 'src/app/core/models/consultar-contas.model';
-import { Router } from '@angular/router';
 import { SweetalertCustom } from './../../../../shared/utils/sweetalert-custom';
 import { ContaService } from 'src/app/core/services/conta.service';
 import { FormBuilder, Validators } from '@angular/forms';
 import { FormBase } from './../../../../core/classes/form-base';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
+import { Router } from '@angular/router';
+import { ConsultarExtrato } from 'src/app/core/models/extrato.model';
+
 
 @Component({
-  selector: 'app-consultar-contas',
-  templateUrl: './consultar-contas.component.html',
-  styleUrls: ['./consultar-contas.component.scss']
+  selector: 'app-extrato',
+  templateUrl: './extrato.component.html',
+  styleUrls: ['./extrato.component.scss']
 })
 
-export class ConsultarContasComponent extends FormBase implements OnInit, AfterViewInit {
+export class ExtratoComponent extends FormBase implements OnInit, AfterViewInit {
 
   retorno = [];
+
 
   constructor(
     private formBuilder: FormBuilder,
@@ -32,7 +33,8 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      cpf: ['', Validators.required],
+      agencia: ['', Validators.required],
+      numeroConta: ['', Validators.required],
 
     });
   }
@@ -40,24 +42,30 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
   validateMensageError() {
     this.createValidateFieldMessage({
 
-      cpf: {
-        required: 'Informar o cpf é obrigatório.',
+      agencia: {
+        required: 'Agência é obrigatória.',
+      },
+      numeroConta: {
+        required: 'Número conta é obrigatório.',
       },
 
     });
   }
-
   onSubmit() {
+
     if (this.form.valid) {
-      const contas = new ConsultarContas(this.form.value);
+      const contas = new ConsultarExtrato(this.form.value);
       this.consultar(contas);
+
     }
   }
 
-  private consultar(contas: ConsultarContas) {
-    this.contaService.consultarContas(contas).subscribe(
+  private consultar(contas: ConsultarExtrato) {
+    this.contaService.extrato(contas).subscribe(
       response => {
+
         this.retorno = response.body;
+
         erro => {
           if (erro.error.detalhes) {
             SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
