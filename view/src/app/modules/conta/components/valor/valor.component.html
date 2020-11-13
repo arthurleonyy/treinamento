@@ -1,0 +1,23 @@
+<form [formGroup]="form">
+  <div class="row">
+    <div class="col-12 col-md-4">
+      <div class="form-group">
+        <label class="form-required">
+          <small [ngClass]="{ 'text-red': displayMessage.valor }">Valor</small>
+        </label>
+        <input
+          type="text"
+          class="form-control"
+          formControlName="valor"
+          [ngClass]="{ 'is-invalid': displayMessage.valor }"
+          (blur)="[emitFormValor(), emitIsFormValorInvalid()]"
+        />
+        <small
+          class="form-text text-red"
+          *ngIf="displayMessage.valor"
+          [innerHTML]="displayMessage.valor"
+        ></small>
+      </div>
+    </div>
+  </div>
+</form>

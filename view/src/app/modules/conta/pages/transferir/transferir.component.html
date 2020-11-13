@@ -5,60 +5,46 @@
     </h5>
   </div>
   <div class="card-body">
-    <form [formGroup]="form">
-      <h6 class="align-middle text-dark">
-        <i class="fas fa-upload"></i> Conta de Origem
-      </h6>
+    <h6 class="align-middle text-dark">
+      <i class="fas fa-upload"></i> Conta de Origem
+    </h6>
 
-      <app-conta
-        (agenciaDaContaControl)="getControlAgenciaDaContaOrigem($event)"
-        (numeroContaDaContaControl)="getControlNumeroContaDaContaOrigem($event)"
-      ></app-conta>
+    <app-conta
+      (isFormContaInvalid)="getIsFormContaOrigemInvalid($event)"
+      (agenciaDaContaOrigem)="getAgenciaDaContaOrigem($event)"
+      (numeroContaDaContaOrigem)="getNumeroContaDaContaOrigem($event)"
+    ></app-conta>
 
-      <h6 class="align-middle text-dark">
-        <i class="fas fa-download"></i> Conta de Destino
-      </h6>
+    <h6 class="align-middle text-dark">
+      <i class="fas fa-download"></i> Conta de Destino
+    </h6>
 
-      <app-conta
-        (agenciaDaContaControl)="getControlAgenciaDaContaDestino($event)"
-        (numeroContaDaContaControl)="getControlNumeroContaDaContaDestino($event)"
-      ></app-conta>
+    <app-conta
+      (isFormContaInvalid)="getIsFormContaDestinoInvalid($event)"
+      (agenciaDaContaDestino)="getAgenciaDaContaDestino($event)"
+      (numeroContaDaContaDestino)="getNumeroContaDaContaDestino($event)"
+    ></app-conta>
 
-      <h6 class="align-middle text-dark">
-        <i class="fas fa-dollar-sign"></i> Valor
-      </h6>
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label class="form-required">
-              <small [ngClass]="{ 'text-red': displayMessage.valor }"
-                >Valor</small
-              >
-            </label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="valor"
-              [ngClass]="{ 'is-invalid': displayMessage.valor }"
-            />
-            <small
-              class="form-text text-red"
-              *ngIf="displayMessage.valor"
-              [innerHTML]="displayMessage.valor"
-            ></small>
-          </div>
-        </div>
-      </div>
-    </form>
+    <h6 class="align-middle text-dark">
+      <i class="fas fa-dollar-sign"></i> Valor
+    </h6>
+    <app-valor
+      (isFormValorInvalid)="getIsFormValorInvalid($event)"
+      (valor)="getValor($event)"
+    ></app-valor>
   </div>
-  
+
   <div class="card-footer">
     <div class="row">
       <div class="col-12">
         <button
           type="submit"
           class="btn btn-success float-right"
-          [disabled]="form.invalid"
+          [disabled]="
+            isFormContaOrigemInvalid ||
+            isFormContaDestinoInvalid ||
+            isFormValorInvalid
+          "
           (click)="onSubmit()"
         >
           <i class="fa fa-check"></i>

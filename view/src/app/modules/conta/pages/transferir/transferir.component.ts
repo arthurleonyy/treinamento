@@ -1,9 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
-import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
-import { FormBase } from './../../../../core/classes/form-base';
 import { TransferirDTO } from './../../../../core/models/conta.model';
 import { ContaService } from './../../../../core/services/conta.service';
 
@@ -12,43 +9,33 @@ import { ContaService } from './../../../../core/services/conta.service';
   templateUrl: './transferir.component.html',
   styleUrls: ['./transferir.component.scss']
 })
-export class TransferirComponent extends FormBase implements OnInit {
+export class TransferirComponent {
+
+  isFormContaOrigemInvalid = true;
+  isFormContaDestinoInvalid = true;
+  isFormValorInvalid = true;
+  agenciaOrigem: string;
+  numeroContaOrigem: string;
+  agenciaDestino: string;
+  numeroContaDestino: string;
+  valor: number;
 
   constructor(
-    private formBuilder: FormBuilder,
     private contaService: ContaService,
     public router: Router
-  ) {
-    super();
-  }
-
-  ngOnInit() {
-    this.createFormGroup();
-    this.validateMensageError();
-  }
-
-  createFormGroup() {
-    this.form = this.formBuilder.group({
-      valor: [0, [Validators.required, ValidatorsCustom.lessThanOne]],
-    });
-  }
-
-  /**
-   * Seta a mensagem de validação que irá ser exibida ao usuário
-   */
-  validateMensageError() {
-
-    this.createValidateFieldMessage({
-      valor: {
-        required: 'Valor obrigatório.',
-        lessThanOne: 'Valor deve ser maior que 0.'
-      },
-    });
-  }
+  ) { }
 
   onSubmit() {
-    const transferirDTO = new TransferirDTO(this.form.value);
-    this.transferir(transferirDTO);
+    if (!this.isFormContaOrigemInvalid && !this.isFormContaDestinoInvalid && !this.isFormValorInvalid) {
+      const transferirDTO = new TransferirDTO({
+        agenciaOrigem: this.agenciaOrigem,
+        numeroContaOrigem: this.numeroContaOrigem,
+        agenciaDestino: this.agenciaDestino,
+        numeroContaDestino: this.numeroContaDestino,
+        valor: this.valor
+      });
+      this.transferir(transferirDTO);
+    }
   }
 
   private transferir(transferirDTO: TransferirDTO) {
@@ -72,20 +59,36 @@ export class TransferirComponent extends FormBase implements OnInit {
     );
   }
 
-  getControlAgenciaDaContaOrigem(agencia: AbstractControl) {
-    this.form.addControl('agenciaOrigem', agencia);
+  getAgenciaDaContaOrigem(agencia: string) {
+    this.agenciaOrigem = agencia;
   }
 
-  getControlNumeroContaDaContaOrigem(numeroConta: AbstractControl) {
-    this.form.addControl('numeroContaOrigem', numeroConta);
+  getNumeroContaDaContaOrigem(numeroConta: string) {
+    this.numeroContaOrigem = numeroConta;
   }
 
-  getControlAgenciaDaContaDestino(agencia: AbstractControl) {
-    this.form.addControl('agenciaDestino', agencia);
+  getAgenciaDaContaDestino(agencia: string) {
+    this.agenciaDestino = agencia;
   }
 
-  getControlNumeroContaDaContaDestino(numeroConta: AbstractControl) {
-    this.form.addControl('numeroContaDestino', numeroConta);
+  getNumeroContaDaContaDestino(numeroConta: string) {
+    this.numeroContaDestino = numeroConta;
+  }
+
+  getValor(valor: number) {
+    this.valor = valor;
+  }
+
+  getIsFormContaOrigemInvalid(isFormContaInvalid: boolean) {
+    this.isFormContaOrigemInvalid = isFormContaInvalid;
+  }
+
+  getIsFormContaDestinoInvalid(isFormContaInvalid: boolean) {
+    this.isFormContaDestinoInvalid = isFormContaInvalid;
+  }
+
+  getIsFormValorInvalid(isFormValorInvalid: boolean) {
+    this.isFormValorInvalid = isFormValorInvalid;
   }
 
 }

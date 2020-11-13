@@ -1,32 +1,29 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { FormBase } from 'src/app/core/classes/form-base';
 import { DepositarSacarDTO } from 'src/app/core/models/conta.model';
 import { ContaService } from 'src/app/core/services/conta.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
-import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
 
 @Component({
   selector: 'app-depositar-sacar',
   templateUrl: './depositar-sacar.component.html',
   styleUrls: ['./depositar-sacar.component.scss']
 })
-export class DepositarSacarComponent extends FormBase implements OnInit, AfterViewInit {
+export class DepositarSacarComponent implements OnInit {
 
   nameScreen = '';
+  isFormContaInvalid = true;
+  isFormValorInvalid = true;
+  agencia: string;
+  numeroConta: string;
+  valor: number;
 
   constructor(
-    private formBuilder: FormBuilder,
     private contaService: ContaService,
     public router: Router
-  ) {
-    super();
-  }
+  ) { }
 
   ngOnInit() {
-    this.createFormGroup();
-    this.validateMensageError();
     this.getNameScreen();
   }
 
@@ -38,27 +35,13 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
     }
   }
 
-  createFormGroup() {
-    this.form = this.formBuilder.group({
-      valor: [0, [Validators.required, ValidatorsCustom.lessThanOne]],
-    });
-  }
-
-  /**
-   * Seta a mensagem de validação que irá ser exibida ao usuário
-   */
-  validateMensageError() {
-    this.createValidateFieldMessage({
-      valor: {
-        required: 'Valor obrigatório.',
-        lessThanOne: 'Valor deve ser maior que 0.'
-      },
-    });
-  }
-
   onSubmit() {
-    if (this.form.valid && this.nameScreen) {
-      const depositarSacarDTO = new DepositarSacarDTO(this.form.value);
+    if (!this.isFormContaInvalid && !this.isFormValorInvalid && this.nameScreen) {
+      const depositarSacarDTO = new DepositarSacarDTO({
+        agencia: this.agencia,
+        numeroConta: this.numeroConta,
+        valor: this.valor
+      });
       this.depositarSacar(depositarSacarDTO, this.nameScreen);
     }
   }
@@ -84,12 +67,24 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
     );
   }
 
-  getControlAgenciaDaConta(agencia: AbstractControl) {
-    this.form.addControl('agencia', agencia);
+  getAgenciaDaConta(agencia: string) {
+    this.agencia = agencia;
   }
 
-  getControlNumeroContaDaConta(numeroConta: AbstractControl) {
-    this.form.addControl('numeroConta', numeroConta);
+  getNumeroContaDaConta(numeroConta: string) {
+    this.numeroConta = numeroConta;
+  }
+
+  getValor(valor: number) {
+    this.valor = valor;
+  }
+
+  getIsFormContaInvalid(isFormContaInvalid: boolean) {
+    this.isFormContaInvalid = isFormContaInvalid;
+  }
+
+  getIsFormValorInvalid(isFormValorInvalid: boolean) {
+    this.isFormValorInvalid = isFormValorInvalid;
   }
 
 }

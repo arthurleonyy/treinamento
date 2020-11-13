@@ -12,35 +12,16 @@
     </h5>
   </div>
   <div class="card-body">
-    <form [formGroup]="form">
-      <app-conta
-        (agenciaDaContaControl)="getControlAgenciaDaConta($event)"
-        (numeroContaDaContaControl)="getControlNumeroContaDaConta($event)"
-      ></app-conta>
+    <app-conta
+      (isFormContaInvalid)="getIsFormContaInvalid($event)"
+      (agenciaDaConta)="getAgenciaDaConta($event)"
+      (numeroContaDaConta)="getNumeroContaDaConta($event)"
+    ></app-conta>
 
-      <div class="row">
-        <div class="col-12 col-md-4">
-          <div class="form-group">
-            <label class="form-required">
-              <small [ngClass]="{ 'text-red': displayMessage.valor }"
-                >Valor</small
-              >
-            </label>
-            <input
-              type="number"
-              class="form-control"
-              formControlName="valor"
-              [ngClass]="{ 'is-invalid': displayMessage.valor }"
-            />
-            <small
-              class="form-text text-red"
-              *ngIf="displayMessage.valor"
-              [innerHTML]="displayMessage.valor"
-            ></small>
-          </div>
-        </div>
-      </div>
-    </form>
+    <app-valor
+      (isFormValorInvalid)="getIsFormValorInvalid($event)"
+      (valor)="getValor($event)"
+    ></app-valor>
   </div>
   <div class="card-footer">
     <div class="row">
@@ -48,12 +29,13 @@
         <button
           type="submit"
           class="btn btn-success float-right"
-          [disabled]="form.invalid"
+          [disabled]="isFormContaInvalid || isFormValorInvalid"
           (click)="onSubmit()"
         >
           <i class="fa fa-check"></i>
           Salvar
         </button>
+
         <a
           [routerLink]="['/conta/operacoes']"
           class="btn btn-danger float-right mr-1"

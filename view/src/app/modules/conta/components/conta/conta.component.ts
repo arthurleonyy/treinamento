@@ -1,5 +1,5 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { AbstractControl, FormBuilder, Validators } from '@angular/forms';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { FormBase } from 'src/app/core/classes/form-base';
 
 @Component({
@@ -9,8 +9,9 @@ import { FormBase } from 'src/app/core/classes/form-base';
 })
 export class ContaComponent extends FormBase implements OnInit {
 
-  @Output() agenciaDaContaControl = new EventEmitter<AbstractControl>();
-  @Output() numeroContaDaContaControl = new EventEmitter<AbstractControl>();
+  @Output() agenciaDaConta = new EventEmitter<string>();
+  @Output() numeroContaDaConta = new EventEmitter<string>();
+  @Output() isFormContaInvalid = new EventEmitter<boolean>();
 
   constructor(private formBuilder: FormBuilder) {
     super();
@@ -42,12 +43,16 @@ export class ContaComponent extends FormBase implements OnInit {
     });
   }
 
-  emitFormControlAgencia() {
-    this.agenciaDaContaControl.emit(this.form.controls.agencia);
+  emitFormAgencia() {
+    this.agenciaDaConta.emit(this.form.value.agencia);
   }
 
-  emitFormControlNumeroConta() {
-    this.numeroContaDaContaControl.emit(this.form.controls.numeroConta);
+  emitFormNumeroConta() {
+    this.numeroContaDaConta.emit(this.form.value.numeroConta);
+  }
+
+  emitIsFormContaInvalid() {
+    this.isFormContaInvalid.emit(this.form.invalid);
   }
 
 }
