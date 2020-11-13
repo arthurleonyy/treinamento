@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { DepositarSacarDTO } from 'src/app/core/models/conta.model';
-import { ContaService } from 'src/app/core/services/conta.service';
+import { OperacoesService } from 'src/app/core/services/operacoes.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 
 @Component({
@@ -19,7 +19,7 @@ export class DepositarSacarComponent implements OnInit {
   valor: number;
 
   constructor(
-    private contaService: ContaService,
+    private operacoesService: OperacoesService,
     public router: Router
   ) { }
 
@@ -47,7 +47,7 @@ export class DepositarSacarComponent implements OnInit {
   }
 
   private depositarSacar(depositarSacarDTO: DepositarSacarDTO, operacao: string) {
-    this.contaService.depositarSacar(depositarSacarDTO, operacao).subscribe(
+    this.operacoesService.depositarSacar(depositarSacarDTO, operacao).subscribe(
       response => {
         SweetalertCustom.showAlertTimer('Operação realizada com sucesso.', { type: 'success' }).then(
           result => {
@@ -67,23 +67,23 @@ export class DepositarSacarComponent implements OnInit {
     );
   }
 
-  getAgenciaDaConta(agencia: string) {
+  setAgenciaDaConta(agencia: string) {
     this.agencia = agencia;
   }
 
-  getNumeroContaDaConta(numeroConta: string) {
+  setNumeroContaDaConta(numeroConta: string) {
     this.numeroConta = numeroConta;
   }
 
-  getValor(valor: number) {
+  setValor(valor: number) {
     this.valor = valor;
   }
 
-  getIsFormContaInvalid(isFormContaInvalid: boolean) {
+  setIsFormContaInvalid(isFormContaInvalid: boolean) {
     this.isFormContaInvalid = isFormContaInvalid;
   }
 
-  getIsFormValorInvalid(isFormValorInvalid: boolean) {
+  setIsFormValorInvalid(isFormValorInvalid: boolean) {
     this.isFormValorInvalid = isFormValorInvalid;
   }
 

@@ -9,29 +9,29 @@
       <i class="fas fa-upload"></i> Conta de Origem
     </h6>
 
-    <app-conta
-      (isFormContaInvalid)="getIsFormContaOrigemInvalid($event)"
-      (agenciaDaContaOrigem)="getAgenciaDaContaOrigem($event)"
-      (numeroContaDaContaOrigem)="getNumeroContaDaContaOrigem($event)"
-    ></app-conta>
+    <app-form-conta
+      (isFormContaInvalid)="setIsFormContaOrigemInvalid($event)"
+      (agenciaDaContaOrigem)="setAgenciaDaContaOrigem($event)"
+      (numeroContaDaContaOrigem)="setNumeroContaDaContaOrigem($event)"
+    ></app-form-conta>
 
     <h6 class="align-middle text-dark">
       <i class="fas fa-download"></i> Conta de Destino
     </h6>
 
-    <app-conta
-      (isFormContaInvalid)="getIsFormContaDestinoInvalid($event)"
-      (agenciaDaContaDestino)="getAgenciaDaContaDestino($event)"
-      (numeroContaDaContaDestino)="getNumeroContaDaContaDestino($event)"
-    ></app-conta>
+    <app-form-conta
+      (isFormContaInvalid)="setIsFormContaDestinoInvalid($event)"
+      (agenciaDaContaDestino)="setAgenciaDaContaDestino($event)"
+      (numeroContaDaContaDestino)="setNumeroContaDaContaDestino($event)"
+    ></app-form-conta>
 
     <h6 class="align-middle text-dark">
       <i class="fas fa-dollar-sign"></i> Valor
     </h6>
-    <app-valor
-      (isFormValorInvalid)="getIsFormValorInvalid($event)"
-      (valor)="getValor($event)"
-    ></app-valor>
+    <app-form-valor
+      (isFormValorInvalid)="setIsFormValorInvalid($event)"
+      (valor)="setValor($event)"
+    ></app-form-valor>
   </div>
 
   <div class="card-footer">

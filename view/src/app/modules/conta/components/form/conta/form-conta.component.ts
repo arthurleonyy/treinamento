@@ -3,11 +3,11 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FormBase } from 'src/app/core/classes/form-base';
 
 @Component({
-  selector: 'app-conta',
-  templateUrl: './conta.component.html',
-  styleUrls: ['./conta.component.scss']
+  selector: 'app-form-conta',
+  templateUrl: './form-conta.component.html',
+  styleUrls: ['./form-conta.component.scss']
 })
-export class ContaComponent extends FormBase implements OnInit {
+export class FormContaComponent extends FormBase implements OnInit {
 
   @Output() agenciaDaConta = new EventEmitter<string>();
   @Output() numeroContaDaConta = new EventEmitter<string>();

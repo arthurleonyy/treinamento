@@ -1,14 +1,15 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { ContaPageComponent } from './pages/conta-page.component';
+import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
+import { ExtratoSaldoComponent } from './pages/extrato-saldo/extrato-saldo.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 import { TransferirComponent } from './pages/transferir/transferir.component';
 
 const routes: Routes = [
   {
     path: '',
-    component: ContaPageComponent,
+    component: ContaComponent,
     children: [
       {
         path: '',
@@ -29,6 +30,14 @@ const routes: Routes = [
       {
         path: 'transferir',
         component: TransferirComponent
+      },
+      {
+        path: 'extrato',
+        component: ExtratoSaldoComponent
+      },
+      {
+        path: 'saldo',
+        component: ExtratoSaldoComponent
       },
     ]
   },

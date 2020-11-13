@@ -1,14 +1,14 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { FormBase } from 'src/app/core/classes/form-base';
 import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
-import { FormBase } from './../../../../core/classes/form-base';
 
 @Component({
-  selector: 'app-valor',
-  templateUrl: './valor.component.html',
-  styleUrls: ['./valor.component.scss']
+  selector: 'app-form-valor',
+  templateUrl: './form-valor.component.html',
+  styleUrls: ['./form-valor.component.scss']
 })
-export class ValorComponent extends FormBase implements OnInit {
+export class FormValorComponent extends FormBase implements OnInit {
 
   @Output() valor = new EventEmitter<number>();
   @Output() isFormValorInvalid = new EventEmitter<boolean>();

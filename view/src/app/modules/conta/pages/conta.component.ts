@@ -2,10 +2,10 @@ import { Component, OnInit } from '@angular/core';
 
 @Component({
   selector: 'app-conta-page',
-  templateUrl: './conta-page.component.html',
-  styleUrls: ['./conta-page.component.scss']
+  templateUrl: './conta.component.html',
+  styleUrls: ['./conta.component.scss']
 })
-export class ContaPageComponent implements OnInit {
+export class ContaComponent implements OnInit {
 
   constructor() { }
 

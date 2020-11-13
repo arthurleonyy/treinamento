@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 import { TransferirDTO } from './../../../../core/models/conta.model';
-import { ContaService } from './../../../../core/services/conta.service';
+import { OperacoesService } from '../../../../core/services/operacoes.service';
 
 @Component({
   selector: 'app-transferir',
@@ -21,7 +21,7 @@ export class TransferirComponent {
   valor: number;
 
   constructor(
-    private contaService: ContaService,
+    private operacoesService: OperacoesService,
     public router: Router
   ) { }
 
@@ -39,7 +39,7 @@ export class TransferirComponent {
   }
 
   private transferir(transferirDTO: TransferirDTO) {
-    this.contaService.transferir(transferirDTO).subscribe(
+    this.operacoesService.transferir(transferirDTO).subscribe(
       response => {
         SweetalertCustom.showAlertTimer('Operação realizada com sucesso.', { type: 'success' }).then(
           result => {
@@ -59,35 +59,35 @@ export class TransferirComponent {
     );
   }
 
-  getAgenciaDaContaOrigem(agencia: string) {
+  setAgenciaDaContaOrigem(agencia: string) {
     this.agenciaOrigem = agencia;
   }
 
-  getNumeroContaDaContaOrigem(numeroConta: string) {
+  setNumeroContaDaContaOrigem(numeroConta: string) {
     this.numeroContaOrigem = numeroConta;
   }
 
-  getAgenciaDaContaDestino(agencia: string) {
+  setAgenciaDaContaDestino(agencia: string) {
     this.agenciaDestino = agencia;
   }
 
-  getNumeroContaDaContaDestino(numeroConta: string) {
+  setNumeroContaDaContaDestino(numeroConta: string) {
     this.numeroContaDestino = numeroConta;
   }
 
-  getValor(valor: number) {
+  setValor(valor: number) {
     this.valor = valor;
   }
 
-  getIsFormContaOrigemInvalid(isFormContaInvalid: boolean) {
+  setIsFormContaOrigemInvalid(isFormContaInvalid: boolean) {
     this.isFormContaOrigemInvalid = isFormContaInvalid;
   }
 
-  getIsFormContaDestinoInvalid(isFormContaInvalid: boolean) {
+  setIsFormContaDestinoInvalid(isFormContaInvalid: boolean) {
     this.isFormContaDestinoInvalid = isFormContaInvalid;
   }
 
-  getIsFormValorInvalid(isFormValorInvalid: boolean) {
+  setIsFormValorInvalid(isFormValorInvalid: boolean) {
     this.isFormValorInvalid = isFormValorInvalid;
   }
 

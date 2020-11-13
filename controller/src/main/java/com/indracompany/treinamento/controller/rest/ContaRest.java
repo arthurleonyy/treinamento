@@ -21,11 +21,14 @@ import io.swagger.annotations.ApiParam;
 
 @RestController()
 @CrossOrigin(origins = "*")
-@RequestMapping("rest/contas")
+@RequestMapping("rest/conta")
 public class ContaRest {
 	
 	@Autowired
-	private ContaService contaService;
+  private ContaService contaService;
+  
+  @Autowired
+	private ExtratoService extratoService;
 	
 	
 	@RequestMapping(value = "/criar", method = RequestMethod.POST, produces = { MediaType.APPLICATION_JSON_VALUE })
@@ -45,6 +48,11 @@ public class ContaRest {
 		List<Conta> contas = contaService.obterContasDoCliente(cpf);
 		return new ResponseEntity<>(contas, HttpStatus.OK);
 	}
-	
+  
+  @RequestMapping(value = "/consultar-extrato/{agencia}&{numeroConta}", method = RequestMethod.GET, produces = { MediaType.APPLICATION_JSON_VALUE})
+	public @ResponseBody ResponseEntity<List<OperacaoFinanceira>> consultarExtrato(final @PathVariable String agencia, final @PathVariable String numeroConta) {
+		List<OperacaoFinanceira> extrato = extratoService.consultarPorAgenciaENumeroConta(agencia, numeroConta);
+		return new ResponseEntity<>(extrato, HttpStatus.OK);
+	}
 
 }

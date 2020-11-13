@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { DepositarSacarDTO, TransferirDTO } from '../models/conta.model';
+import { Conta } from '../models/conta.model';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -7,21 +7,17 @@ import { ApiService } from './api.service';
 })
 export class ContaService {
 
-  private controller = 'operacoes';
+  private controller = 'conta';
 
   constructor(private apiService: ApiService) { }
 
-  depositarSacar(dto: DepositarSacarDTO, operacao: string) {
+  extratoSaldo(dto: Conta, operacao: string) {
     operacao = operacao.toLowerCase();
-    if (operacao === 'depositar') {
-      return this.apiService.put(`${this.controller}/deposito`, dto);
-    } else if (operacao === 'sacar') {
-      return this.apiService.put(`${this.controller}/saque`, dto);
+    if (operacao === 'extrato') {
+      return this.apiService.get(`${this.controller}/consultar-extrato/${dto.agencia}&${dto.numeroConta}`);
+    } else if (operacao === 'saldo') {
+      return this.apiService.get(`${this.controller}/consultar-saldo/${dto.agencia}&${dto.numeroConta}`);
     }
-  }
-
-  transferir(dto: TransferirDTO) {
-    return this.apiService.put(`${this.controller}/transferencia`, dto);
   }
 
 }

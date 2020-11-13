@@ -3,9 +3,9 @@
     <h5 class="align-middle text-dark">
       <i
         [className]="
-          nameScreen === 'Depositar'
-            ? 'fas fa-hand-holding-usd'
-            : 'fas fa-hand-holding-usd fa-flip-horizontal'
+          nameScreen === 'Extrato'
+            ? 'fas fa-receipt'
+            : 'fas fa-money-check-alt'
         "
       ></i>
       {{ nameScreen }}
@@ -18,10 +18,6 @@
       (numeroContaDaConta)="setNumeroContaDaConta($event)"
     ></app-form-conta>
 
-    <app-form-valor
-      (isFormValorInvalid)="setIsFormValorInvalid($event)"
-      (valor)="setValor($event)"
-    ></app-form-valor>
   </div>
   <div class="card-footer">
     <div class="row">
@@ -29,11 +25,11 @@
         <button
           type="submit"
           class="btn btn-success float-right"
-          [disabled]="isFormContaInvalid || isFormValorInvalid"
+          [disabled]="isFormContaInvalid"
           (click)="onSubmit()"
         >
-          <i class="fa fa-check"></i>
-          Salvar
+          <i class="fa fa-search"></i>
+          Consultar
         </button>
 
         <a
