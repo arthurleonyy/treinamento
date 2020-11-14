@@ -13,7 +13,6 @@ import { Saldo } from 'src/app/core/models/saldo.model';
 })
 export class ConsultaSaldoComponent extends FormBase implements OnInit, AfterViewInit {
  
-  nameScreen = 'Saldo';
   mostraSaldo = null;
 
   constructor(
@@ -42,7 +41,7 @@ export class ConsultaSaldoComponent extends FormBase implements OnInit, AfterVie
       agencia: {
         required: 'Agência obrigatória.',
       },
-      numeroconta: {
+      numeroConta: {
         required: 'Número da conta obrigatório.',
       },
     });
@@ -51,9 +50,7 @@ export class ConsultaSaldoComponent extends FormBase implements OnInit, AfterVie
   onSubmit(){
     if(this.form.valid){
       const obj = new Saldo(this.form.value);
-        if(this.nameScreen === 'Saldo'){
           this.saldo(obj);
-        }
       }
     }
 
