@@ -22,7 +22,7 @@ export class ContaService {
     return this.apiService.post(`${this.controller}/saque`, obj);
   }
 
-  transferencia(obj: Transferencia){
+  transferir(obj: Transferencia){
     return this.apiService.post(`${this.controller}/transferencia`, obj);
   }
 

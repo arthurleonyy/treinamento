@@ -28,7 +28,9 @@ import { OperacoesComponent } from './pages/operacoes/operacoes.component';
     ReactiveFormsModule,
   ],
   providers: [
+    
     ContaService,
+    
   ],
 })
 export class ContaModule { }

@@ -14,8 +14,6 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 })
 export class TransferenciaContaComponent extends FormBase implements OnInit, AfterViewInit {
 
-  nameScreen = 'Transferencia';
-
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService,
@@ -63,14 +61,12 @@ export class TransferenciaContaComponent extends FormBase implements OnInit, Aft
     onSubmit(){
       if(this.form.valid){
         const transferencia = new Transferencia(this.form.value);
-        if(this.nameScreen === 'Transferencia'){
-          this.transferencia(transferencia);
-        }
+          this.transferir(transferencia);
       }
     }
 
-    private transferencia(transferencia: Transferencia){
-      this.contaService.transferencia(transferencia).subscribe(
+    private transferir(transferencia: Transferencia){
+      this.contaService.transferir(transferencia).subscribe(
         response => {
           SweetalertCustom.showAlertTimer('Operação realizada com sucesso!', {type: 'success'}).then(
             result => {
