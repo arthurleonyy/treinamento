@@ -48,6 +48,13 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		Conta conta = this.carregarContaPorNumero(agencia, numeroConta);
 		return conta;
 	}
+	
+	public List<Conta> obterContasDoCliente(String cpf) {
+		Cliente cliente = clienteService.buscarClientePorCpf(cpf);
+		List<Conta> contas = this.carregarContaPorCpf(cliente);
+		return contas;		
+		
+	}
 
 	@Transactional(rollbackFor = Exception.class)
 	public void saque(Conta conta, BigDecimal valor, boolean isTransfer) {
@@ -124,12 +131,13 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		}
 		return conta;
 	}
-
-	public List<Conta> obterContasDoCliente(String cpf) {
-		Cliente cli = clienteService.buscarClientePorCpf(cpf);
-		if (cli != null) {
-			return contaRepository.findByCliente(cli);
+	
+	public List<Conta> carregarContaPorCpf(Cliente cliente) {
+		List<Conta> contas = repository.findByCliente(cliente);
+		if (contas.size() == 0) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_NAO_ENCONTRADO);
 		}
-		return null;
+		return contas;
 	}
+
 }

@@ -1,4 +1,3 @@
-import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserModule } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -14,6 +13,11 @@ import { SidebarComponent } from './layouts/components/sidebar/sidebar.component
 import { PaginaNaoEncontradaComponent } from './layouts/pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { PaginaSemAutorizacaoComponent } from './layouts/pages/pagina-sem-autorizacao/pagina-sem-autorizacao.component';
 import { SharedModule } from './shared/shared.module';
+import { NgModule, LOCALE_ID } from '@angular/core';
+import { registerLocaleData } from '@angular/common';
+import ptBr from '@angular/common/locales/pt';
+import { ContaService } from './core/services/conta.service'
+registerLocaleData(ptBr)
 
 @NgModule({
   declarations: [
@@ -37,7 +41,12 @@ import { SharedModule } from './shared/shared.module';
     NgxMaskModule.forRoot(),
     NgbModule
   ],
-  providers: [],
+  providers: [
+    ContaService,
+    {
+      provide:LOCALE_ID,
+      useValue: 'pt-BR'},
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

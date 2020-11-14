@@ -27,7 +27,8 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	private ExtratoRepository extratoRepository;
 	
 	@Autowired
-	private ClienteService clienteService;
+	private ContaService contaService;
+	
 
 	public void realizarOperacao(Conta conta, BigDecimal valor, OperacaoEnum operacao, String codOperacao, LocalDateTime dataHora, String descricao) {
 		Extrato extrato = new Extrato();
@@ -41,8 +42,9 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 	}
 
 	
-	public List<Extrato> buscarPorAgenciaConta (String agencia, String conta) {
-		List<Extrato> extrato = extratoRepository.findByAgenciaAndNumeroConta(agencia, conta);
+	public List<Extrato> buscarPorAgenciaConta (String agencia, String numeroconta) {
+		Conta conta = buscarConta(agencia, numeroconta);
+		List<Extrato> extrato = extratoRepository.findByAgenciaAndNumeroConta(conta.getAgencia(), conta.getNumeroConta());
 		return extrato;
 	}
 	
@@ -77,5 +79,9 @@ public class ExtratoService extends GenericCrudService<Extrato, Long, ExtratoRep
 		return extrato;
 	}
 	
+	public Conta buscarConta (String agencia, String numeroConta) {
+		Conta conta = contaService.consultarConta(agencia, numeroConta);
+		return conta;
+	}	
 	
 }

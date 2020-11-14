@@ -19,8 +19,14 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	public Cliente buscarClientePorCpf(String cpf) {
 		if (!cpfEhValido(cpf)){
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_INVALIDO);
+		}		
+		Cliente cliente = clienteRepository.findByCpf(cpf);
+		if (cliente == null) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CPF_NAO_ENCONTRADO);
 		}
-		return clienteRepository.findByCpf(cpf);
+		return cliente;
+			
+		
 	}
 	
 	public List<Cliente> buscarClientePorNome(String nome) {

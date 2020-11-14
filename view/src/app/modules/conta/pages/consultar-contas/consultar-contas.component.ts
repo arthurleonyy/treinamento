@@ -14,6 +14,7 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 export class ConsultarContasComponent extends FormBase implements OnInit, AfterViewInit {
 
   itens: []
+  flag: boolean
 
   constructor(
     private formBuilder: FormBuilder,
@@ -45,6 +46,7 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
   onSubmit() {
     if (this.form.valid) {
       const contas = new ConsultarContas(this.form.value);  
+      this.flag = false
       this.accountsByCpf(contas);
     
     }
@@ -54,6 +56,7 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
     this.contaService.consultarContasPorCpf(contas.cpf).subscribe(
       response => {            
         this.itens = response.body;
+        this.flag = true
       },
       erro => {
         if (erro.error.detalhes) {

@@ -39,7 +39,7 @@
 
   <!-- Tabela de exibição -->
   <body>    
-    <table class="table table-striped table-bordered table-hover" *ngIf="itens">
+    <table class="table table-striped table-bordered table-hover" *ngIf="flag">
       <thead class=".poscentralized">
         <tr>
           <th scope="col">Id</th>
@@ -64,7 +64,7 @@
           <td>{{conta.cliente.email}}</td>
           <td>{{conta.cliente.ativo}}</td>
           <td>{{conta.cliente.observacoes}}</td>
-          <td>{{ conta.saldo | currency:'BRL' }}</td>         
+          <td>{{ conta.saldo | currency: 'BRL' }}</td>         
         </tr>
       </tbody>
     </table>

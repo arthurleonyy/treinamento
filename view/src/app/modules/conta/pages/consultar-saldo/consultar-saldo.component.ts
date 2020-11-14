@@ -65,7 +65,6 @@ export class ConsultarSaldoComponent extends FormBase implements OnInit, AfterVi
     this.contaService.consultarSaldo(conta).subscribe(
       response => {
         this.saldo = response.body
-        console.log(this.saldo)
         this.agencia = conta.agencia
         this.numeroConta = conta.numeroConta
 

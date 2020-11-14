@@ -15,6 +15,10 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 export class ExtratoComponent extends FormBase implements OnInit, AfterViewInit {
 
   itens: []
+  itemSaldo: string
+  flag: boolean
+  valor: number
+  noTransactionFound: boolean
 
   constructor(
     private formBuilder: FormBuilder,
@@ -53,6 +57,9 @@ export class ExtratoComponent extends FormBase implements OnInit, AfterViewInit 
   onSubmit() {
     if (this.form.valid) {
       const conta = new Extrato(this.form.value);
+      this.flag = false
+      this.valor = 0
+      this.noTransactionFound = false
       this.consultarExtrato(conta);      
     }
   }
@@ -60,7 +67,14 @@ export class ExtratoComponent extends FormBase implements OnInit, AfterViewInit 
   private consultarExtrato(conta: Extrato) {
     this.contaService.consultarExtrato(conta).subscribe(
       response => {
-        this.itens = response.body;
+        if (response.body.length !== 0){
+          this.itens = response.body;
+          this.itemSaldo = response.body[0].conta.saldo
+          this.flag = true
+        }
+        else {
+          this.noTransactionFound = true
+        }       
       },
       erro =>  {
         if (erro.error.detalhes) {
