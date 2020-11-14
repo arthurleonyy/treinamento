@@ -29,12 +29,15 @@ public class ClienteService extends GenericCrudService<Cliente, Long, ClienteRep
 	
 	  public Cliente buscarCpf(String cpf) {
 	  
-		  if(cpfIsValido(cpf)) { 
+		  if(!cpfIsValido(cpf)) { 
 			  throw new AplicacaoException(ExceptionValidacoes.ERROR_CPF_INVALIDO); 
 	  	  }else {
-	  
-	  		  Cliente cliente = cr.findByCpf(cpf); 
-	  		  return cliente; 
+	  		  Cliente cliente = cr.findByCpf(cpf);
+	  		  if(cliente == null) {
+	  			  throw new AplicacaoException(ExceptionValidacoes.ERRO_CLIENTE_INEXISTENTE);
+	  		  }
+	  		  
+	  		  return cliente;
 	  	  }
 	  
 	  }

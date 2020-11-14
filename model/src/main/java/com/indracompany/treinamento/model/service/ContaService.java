@@ -90,6 +90,7 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 		if(valor > contaOrigem.getSaldo()) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_SALDO_CONTA_INSUFICIENTE);
 		}
+		
 		this.saque(contaOrigem, valor);
 		this.deposito(contaDestino, valor);
 		Extrato extrato = new Extrato();

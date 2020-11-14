@@ -5,6 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.indracompany.treinamento.exception.AplicacaoException;
+import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Conta;
 import com.indracompany.treinamento.model.entity.Extrato;
 import com.indracompany.treinamento.model.repository.ExtratoRepository;
@@ -20,12 +22,12 @@ public class ExtratoService  extends GenericCrudService<Extrato, Long, ExtratoRe
 	
 	public List<Extrato> visualizarExtratos(String agencia , String numeroConta) {
 		Conta conta = contaservice.carregarContaPorNumero(agencia, numeroConta);
-		if(conta != null) {
-			List<Extrato> extratos = er.findByConta(conta);
-			return extratos;
+		if(conta== null) {
+			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
 		}
+		List<Extrato> extratos = er.findByConta(conta);
+		return extratos;
 		
-		return null;
 		
 	}
 }

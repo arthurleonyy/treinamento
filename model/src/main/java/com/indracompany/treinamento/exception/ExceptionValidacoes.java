@@ -29,6 +29,7 @@ public enum ExceptionValidacoes implements AplicacaoExceptionValidacoes {
   ERRO_CONTA_INEXISTENTE("erro.conta.inexistente", null, AplicacaoExceptionValidacoes.SEVERIDADE_ERRO),
   ERRO_CAMPOS_VAZIOS("msg.erro.agencia.vazio",null,AplicacaoExceptionValidacoes.SEVERIDADE_ERRO),
   ERRO_VALOR_NEGATIVO("msg.erro.valor.negativo",null,AplicacaoExceptionValidacoes.SEVERIDADE_ALERTA),
+  ERRO_CLIENTE_INEXISTENTE("msg.erro.cliente.inexistente","404",AplicacaoExceptionValidacoes.SEVERIDADE_ALERTA),
   
 
   // Mensagens Alterta
