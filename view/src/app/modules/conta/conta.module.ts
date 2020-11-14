@@ -15,8 +15,9 @@ import { TransferirComponent } from './pages/transferir/transferir.component';
   declarations: [
     ContaComponent,
     DepositarSacarComponent,
-    OperacoesComponent,
     TransferirComponent,
+    OperacoesComponent,
+    
   ],
   imports: [
     CommonModule,

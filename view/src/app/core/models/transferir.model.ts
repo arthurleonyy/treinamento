@@ -10,7 +10,7 @@ export class Transferir {
         this.agenciaOrigem = param.agenciaOrigem;
         this.numeroContaOrigem = param.numeroContaOrigem;
         this.agenciaDestino = param.agenciaDestino;
-        this.numeroContaDestino = param.numeroConta;
+        this.numeroContaDestino = param.numeroContaDestino;
         this.valor = param.valor;
     }
 }

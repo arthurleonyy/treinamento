@@ -21,7 +21,7 @@ export class ContaService {
   }
 
   transferir(obj: Transferir) {
-    return this.apiService.post(`${this.controller}/transferir`, obj);
+    return this.apiService.post(`${this.controller}/transferencia`, obj);
   }
 
 }

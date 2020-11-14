@@ -7,35 +7,32 @@ import { Transferir } from 'src/app/core/models/transferir.model';
 import { ContaService } from 'src/app/core/services/conta.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 
-
 @Component({
   selector: 'app-transferir',
   templateUrl: './transferir.component.html',
   styleUrls: ['./transferir.component.scss']
 })
-export class TransferirComponent extends FormBase implements OnInit, AfterViewInit{
+export class TransferirComponent extends FormBase implements OnInit, AfterViewInit {
 
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService,
-    public router: Router
-  ) {
-    super();
-   }
+    public router: Router,
+  ) { super()}
 
   ngOnInit() {
-    this.createFormGroup;
+    this.createFormGroup();
     this.validateMensageError();
   }
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      agenciaOrigem:       ['', Validators.required],
-      numeroContaOrigem:   ['', Validators.required],
       agenciaDestino:      ['', Validators.required],
+      agenciaOrigem:      ['', Validators.required],
       numeroContaDestino:  ['', Validators.required],
-      valor:               [0, [Validators.required, ValidatorsCustom.lessThanOne]],
-    });
+      numeroContaOrigem:  ['', Validators.required],
+      valor:        [0, [Validators.required, ValidatorsCustom.lessThanOne]],
+    }); //Esse formulario respeita a ordem do json requerido na API rest
   }
 
   validateMensageError() {
@@ -62,6 +59,7 @@ export class TransferirComponent extends FormBase implements OnInit, AfterViewIn
   onSubmit(){
     if (this.form.valid) {
       const transf = new Transferir(this.form.value);
+      console.log(transf)
       this.contaService.transferir(transf).subscribe(
         response => {
           SweetalertCustom.showAlertTimer('Operação realizada com sucesso.', {type: 'success'}).then(
@@ -82,5 +80,6 @@ export class TransferirComponent extends FormBase implements OnInit, AfterViewIn
       );
     }
   }
+
 
 }
