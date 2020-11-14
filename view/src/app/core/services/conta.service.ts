@@ -1,5 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Conta } from '../models/conta.model';
+import { Transferencia } from '../models/transferencia.model';
 import { ApiService } from './api.service';
 
 @Injectable({
@@ -16,7 +17,15 @@ export class ContaService {
   }
 
   sacar(obj: Conta) {
-    return this.apiService.post(`${this.controller}/saque`, obj);
+    return this.apiService.post(`${this.controller}/saques`, obj);
+  }
+
+  transferir(obj: Transferencia) {
+    return this.apiService.post(`${this.controller}/transferencia`, obj);
+  }
+
+  getSaldo(obj: Conta) {
+    return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/${obj.numeroConta}`);
   }
 
 }

@@ -14,6 +14,7 @@ import { TableHeaderDirective } from './components/table-custom/config/table-hea
 import { TableCustomComponent } from './components/table-custom/table-custom.component';
 import { OnlyNumberDirective } from './directives/only-number.directive';
 import { UpperCaseDirective } from './directives/upper-case.directive';
+import { HttpErrorInterceptor } from './interceptor/http-error.interceptor';
 
 @NgModule({
   declarations: [
@@ -56,6 +57,11 @@ import { UpperCaseDirective } from './directives/upper-case.directive';
     {
       provide: HTTP_INTERCEPTORS,
       useClass: LoadingCustomInterceptor,
+      multi: true
+    },
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: HttpErrorInterceptor,
       multi: true
     },
   ]
