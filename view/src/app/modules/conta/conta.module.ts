@@ -9,6 +9,8 @@ import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
 import { TransferenciaComponent } from './components/transferencia/transferencia.component';
+import { SaldoComponent } from './components/saldo/saldo.component';
+import { ContasComponent } from './components/contas/contas.component';
 
 @NgModule({
   declarations: [
@@ -16,6 +18,8 @@ import { TransferenciaComponent } from './components/transferencia/transferencia
     DepositarSacarComponent,
     OperacoesComponent,
     TransferenciaComponent,
+    SaldoComponent,
+    ContasComponent,
   ],
   imports: [
     CommonModule,

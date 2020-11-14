@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { ContasComponent } from './components/contas/contas.component';
+import { SaldoComponent } from './components/saldo/saldo.component';
 import { TransferenciaComponent } from './components/transferencia/transferencia.component';
 import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
@@ -29,6 +31,14 @@ const routes: Routes = [
       {
         path: 'transferir',
         component: TransferenciaComponent
+      },
+      {
+        path: 'saldo',
+        component: SaldoComponent
+      },
+      {
+        path: 'contas',
+        component: ContasComponent
       },
     ]
   },
