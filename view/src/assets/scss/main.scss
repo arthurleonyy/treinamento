@@ -240,6 +240,11 @@
   border-radius: 3px;
 }
 
+.card-custom-left {
+  border-left: 2px solid #ff5162 !important;
+  border-radius: 3px;
+}
+
 // Custom sidebar color
 .sidebar-dark-primary .nav-sidebar>.nav-item>.nav-link.active, .sidebar-light-primary .nav-sidebar>.nav-item>.nav-link.active {
   background-color: #ff5162 !important;

@@ -2,27 +2,27 @@ import { AfterViewInit, Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { FormBase } from 'src/app/core/classes/form-base';
-import { Cliente } from 'src/app/core/models/cliente.model';
 import { Conta } from 'src/app/core/models/conta.model';
-import { ContaService } from 'src/app/core/services/conta.service';
+import { Extrato } from 'src/app/core/models/extrato.model';
+import { ExtratoService } from 'src/app/core/services/extrato.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 
 @Component({
-  selector: 'app-consultar-contas',
-  templateUrl: './consultar-contas.component.html',
-  styleUrls: ['./consultar-contas.component.scss']
+  selector: 'app-extrato',
+  templateUrl: './extrato.component.html',
+  styleUrls: ['./extrato.component.scss']
 })
-export class ConsultarContasComponent extends FormBase implements OnInit, AfterViewInit {
+export class ExtratoComponent extends FormBase implements OnInit, AfterViewInit {
 
-  contas: Conta[];
+  extratos: Extrato[];
 
   constructor(
     private formBuilder: FormBuilder,
-    private contaService: ContaService,
+    private extratoService: ExtratoService,
     public router: Router
-    ) {
-      super(); 
-    }
+  ) {
+    super();
+   }
 
   ngOnInit() {
     this.createFormGroup();
@@ -31,14 +31,18 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
 
   createFormGroup() {
     this.form = this.formBuilder.group({
-      cpf:      ['', Validators.required],
+      agencia:      ['', Validators.required],
+      numeroConta:   ['', Validators.required],
     });
   }
 
   validateMensageError() {
     this.createValidateFieldMessage({
-      cpf: {
+      agencia: {
         required: 'Agência é obrigatório.',
+      },
+      numeroConta: {
+        required: 'Numero da Conta é obrigatório.',
       },
     });
   }
@@ -46,11 +50,11 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
   onSubmit(){
     if (this.form.valid) {
 
-      const cliente = new Cliente(this.form.value);
+      const conta = new Conta(this.form.value);
 
-      this.contaService.buscarContasByCpf(cliente.cpf).subscribe(
+      this.extratoService.findByAgenciaAndNumConta(conta.agencia,conta.numeroConta).subscribe(
         response => {
-          this.contas = response.body
+          this.extratos = response.body
         },
         erro => {
           SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
@@ -58,4 +62,5 @@ export class ConsultarContasComponent extends FormBase implements OnInit, AfterV
       );
     }
   }
+
 }

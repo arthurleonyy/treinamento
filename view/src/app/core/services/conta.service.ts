@@ -29,8 +29,8 @@ export class ContaService {
   
   }
 
-  listarContas(){
-    return this.apiService.get(`${this.controller}`);
+  buscarContasByCpf(cpf: string){
+    return this.apiService.get(`${this.controller}/consultar-contas-cliente/${cpf}`);
   }
 
 }

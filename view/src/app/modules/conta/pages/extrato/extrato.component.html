@@ -1,0 +1,95 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Extrato de uma Conta
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      
+      <div class="row">
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.agencia}">Agência</small>
+            </label>
+            <input type="text" class="form-control" formControlName="agencia" [ngClass]="{'is-invalid': displayMessage.agencia}">
+            <small class="form-text text-red" *ngIf="displayMessage.agencia" [innerHTML]="displayMessage.agencia"></small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.numeroConta}">Numero da Conta</small>
+            </label>
+            <input type="text" class="form-control" formControlName="numeroConta" [ngClass]="{'is-invalid': displayMessage.numeroConta}">
+            <small class="form-text text-red" *ngIf="displayMessage.numeroConta" [innerHTML]="displayMessage.numeroConta"></small>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+          <i class="fa fa-check"></i>
+          Consultar
+        </button>
+        <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1"> 
+          <i class="fa fa-times"></i>
+          Cancelar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+<div class="card mb-0 mt-4 rounded-0" *ngIf="extratos">
+
+  <div class="card-header card-custom-left">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Extrato
+    </h5>
+  </div>
+
+  <div class="width-custom-extrato" >
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <th scope="col">Agência</th>
+        <th scope="col">Conta</th>
+        <th scope="col">CPF Cliente</th>
+        <th scope="col">Data da Operação</th>
+        <th scope="col">Detalhe da Operação</th>
+        <th scope="col">Saldo Anterior</th>
+        <th scope="col">Valor da Operação</th>
+        <th scope="col">Saldo Atual</th>
+      </thead>
+
+      <tbody>
+        <tr *ngFor="let extrato of extratos">
+          <td>{{extrato.conta.agencia}}</td>
+          <td>{{extrato.conta.numeroConta}}</td>
+          <td>{{extrato.conta.cliente.cpf}}</td>
+          <td>{{extrato.dataOperacao | date: 'dd/MM/yyyy'}}</td>
+          <td>{{extrato.detalheOperacao}}</td>
+          <td>{{extrato.valorAnterior | currency:'BRL'}}</td>
+
+          <td [ngClass]="{'text-red': extrato.operacao == 'SAIDA', 
+                          'text-green': extrato.operacao == 'ENTRADA', 
+                          'text-orange': extrato.operacao == 'TRANSFERENCIA_SAIDA', 
+                          'text-blue': extrato.operacao == 'TRANSFERENCIA_ENTRADA'}">
+              {{extrato.valorOperacao | currency:'BRL'}}</td>
+
+          <td>{{extrato.valorAtual | currency:'BRL' }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>

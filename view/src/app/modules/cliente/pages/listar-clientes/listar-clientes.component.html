@@ -1,0 +1,31 @@
+<div class="card mb-0 mt-4 rounded-0">
+
+  <div class="card-header card-custom-left">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd"></i> Lista
+      <a [routerLink]="['/cliente/adicionar']"><span class="info-box-icon bg-default elevation-2" style="float: right;"><i class="fas fa-plus"></i></span></a>
+    </h5>
+  </div>
+  <div class="width-custom-extrato">
+    <table class="table table-striped">
+      <thead class="thead-dark">
+        <th class="radius-left-table" scope="col">ID</th>
+        <th scope="col">Nome</th>
+        <th scope="col">CPF</th>
+        <th scope="col">E-mail</th>
+        <th scope="col">Ativado</th>
+        <th scope="col">Observações</th>
+      </thead>
+
+      <tbody *ngFor="let cli of clientes">
+        <td>{{cli.id}}</td>
+        <td>{{cli.nome}}</td>
+        <td>{{cli.cpf}}</td>
+        <td>{{cli.email}}</td>
+        <td>{{cli.ativo}}</td>
+        <td>{{cli.observacoes}}</td>
+      </tbody>
+    </table>
+  </div>
+
+</div>

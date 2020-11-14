@@ -43,6 +43,31 @@
             </li>
           </ul>
         </li>
+
+        <li class="nav-item has-treeview">
+          <a href="javascript:void(0)" class="nav-link">
+            <i class="nav-icon fas fa-user-tie fa-do"></i>
+            <p>
+              Cliente
+              <i class="right fas fa-angle-left"></i>
+            </p>
+          </a>
+          <ul class="nav nav-treeview">
+            <li class="nav-item">
+              <a [routerLink]="['/cliente/listar']" class="nav-link">
+                <i class="far fas fa-list nav-icon"></i>
+                <p>Listar</p>
+              </a>
+            </li>
+            <li class="nav-item">
+              <a [routerLink]="['/cliente/adicionar']" class="nav-link">
+                <i class="far fas fa-plus nav-icon"></i>
+                <p>Adicionar</p>
+              </a>
+            </li>
+          </ul>
+        </li>
+
       </ul>
     </nav>
     <!-- /.sidebar-menu -->

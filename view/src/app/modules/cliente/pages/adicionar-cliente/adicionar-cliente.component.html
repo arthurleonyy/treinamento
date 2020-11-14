@@ -1,0 +1,75 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-user-tie"></i> Adicionar Cliente
+    </h5>
+  </div>
+  <div class="card-body">
+    <form [formGroup]="form">
+      
+      <div class="row">
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.nome}">Nome</small>
+            </label>
+            <input type="text" class="form-control" formControlName="nome" [ngClass]="{'is-invalid': displayMessage.nome}">
+            <small class="form-text text-red" *ngIf="displayMessage.nome" [innerHTML]="displayMessage.nome"></small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.email}">E-mail</small>
+            </label>
+            <input type="text" class="form-control" formControlName="email" [ngClass]="{'is-invalid': displayMessage.email}">
+            <small class="form-text text-red" *ngIf="displayMessage.email" [innerHTML]="displayMessage.email"></small>
+          </div>
+        </div>
+
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.cpf}">CPF</small>
+            </label>
+            <input type="text" class="form-control" formControlName="cpf" [ngClass]="{'is-invalid': displayMessage.cpf}">
+            <small class="form-text text-red" *ngIf="displayMessage.cpf" [innerHTML]="displayMessage.cpf"></small>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="row">
+
+        <div class="col-12 col-md-12">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.observacoes}">Observações</small>
+            </label>
+            <input type="text" class="form-control" formControlName="observacoes" [ngClass]="{'is-invalid': displayMessage.observacoes}">
+            <small class="form-text text-red" *ngIf="displayMessage.observacoes" [innerHTML]="displayMessage.observacoes"></small>
+          </div>
+        </div>
+
+      </div>
+
+    </form>
+  </div>
+
+  <div class="card-footer">
+    <div class="row">
+      <div class="col-12">
+        <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+          <i class="fa fa-check"></i>
+          Salvar
+        </button>
+        <a [routerLink]="['/cliente/listar']" class="btn btn-secondary float-right mr-1"> 
+          <i class="fa fa-times"></i>
+          Cancelar
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
