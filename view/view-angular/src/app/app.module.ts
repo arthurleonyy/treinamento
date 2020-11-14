@@ -14,6 +14,7 @@ import { SidebarComponent } from './layouts/components/sidebar/sidebar.component
 import { PaginaNaoEncontradaComponent } from './layouts/pages/pagina-nao-encontrada/pagina-nao-encontrada.component';
 import { PaginaSemAutorizacaoComponent } from './layouts/pages/pagina-sem-autorizacao/pagina-sem-autorizacao.component';
 import { SharedModule } from './shared/shared.module';
+import { LOCALE_ID } from '@angular/core';
 
 @NgModule({
   declarations: [
@@ -37,7 +38,9 @@ import { SharedModule } from './shared/shared.module';
     NgxMaskModule.forRoot(),
     NgbModule
   ],
-  providers: [],
+  providers: [
+    {provide: LOCALE_ID, useValue: 'pt-BR'}
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
