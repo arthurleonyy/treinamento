@@ -15,6 +15,8 @@ import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
 })
 export class ContasComponent extends FormBase implements OnInit, AfterViewInit {
 
+  contasN: Conta[];
+
   constructor(
 
     private formBuilder: FormBuilder,
@@ -44,29 +46,32 @@ export class ContasComponent extends FormBase implements OnInit, AfterViewInit {
   }
 
   onSubmit() {
-    if (this.form.valid) {
-      const cliente = new Cliente(this.form.value);
-      this.contas(cliente);
-    }
-  }
-
-  private contas(cliente: Cliente) {
-    this.contaService.contas(cliente).subscribe(
-      response => {
-        SweetalertCustom.showAlertConfirm(`Dados: ${response.body}`, {type:`success`})
-        .then(
-          result => {
-              this.router.navigate(['conta/operacoes']);
+      if (this.form.valid) {
+        const cliente = new Cliente(this.form.value);
+        console.log(cliente);
+        this.contaService.contas(cliente).subscribe(
+          response => {
+            // Recebe as contas na resposta da request
+            this.contasN = response.body;
+            SweetalertCustom.showAlertTimer('Operação realizada com sucesso.',{type: 'success'});//.then(
+             /* result => {
+                if(result.dismiss){
+                  this.router.navigate(['/conta/operacoes']);
+                }
+              }*/
+            //);
+          },
+          erro => {
+            console.log(erro);
+            if (erro.error.detalhes) {
+              SweetalertCustom.showAlertConfirm(`${erro.error.detalhes[0]}`,{type: 'error'});
+            } else {
+              SweetalertCustom.showAlertConfirm('Falha na Operação',{type: 'error'});
             }
-        );
-      },
-      erro => {
-        if (erro.error.detalhes) {
-          SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
-        } else {
-          SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
-        }
+          }
+  
+        )
       }
-    );
   }
+  
 }

@@ -30,6 +30,6 @@ export class ContaService {
     return this.apiService.get( `${this.controller}/saldo/${obj.agencia}/${obj.numeroConta}`);
   }
   contas(obj:Cliente){
-    return this.apiService.get( `${this.controller}/saldo/${obj.cpf}`)
+    return this.apiService.get( `${this.controller}/consultar-contas-cliente/${obj.cpf}`)
   }
 }

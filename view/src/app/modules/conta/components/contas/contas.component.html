@@ -31,3 +31,22 @@
               </div>
             </div>
           </div>
+
+          <table *ngIf="contasN" class="table table-striped">
+           <thead>
+             <tr>
+               <th>Agencia</th>
+               <th>numero Da Conta</th>
+               <th>Cliente</th>
+               <th>CPF</th>
+             </tr>
+           </thead>
+           <tbody>
+             <tr *ngFor="let c of contasN">
+                 <td>{{c.agencia}}</td>
+                 <td>{{c.numeroConta}}</td>
+                 <td>{{c.cliente.nome}}</td>
+                 <td>{{c.cliente.cpf}}</td>
+             </tr>
+           </tbody>
+          </table>
