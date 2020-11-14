@@ -1,10 +1,14 @@
+
 <div class="card mb-0 mt-4 rounded-0">
   <div class="card-header card-custom-top">
     <h5 class="align-middle text-dark">
-      <i class="fas fa-hand-holding-usd">Extrato</i>
+      <i class="fas fa-hand-holding-usd">Consultar Saldo</i>
     </h5>
   </div>
+
+
   <div class="card-body">
+
     <form [formGroup]="form">
       <div class="row">
         <div class="col-12 col-md-4">
@@ -16,48 +20,33 @@
             <small class="form-text text-red" *ngIf="displayMessage.agencia" [innerHTML]="displayMessage.agencia"></small>
           </div>
         </div>
+
         <div class="col-12 col-md-4">
           <div class="form-group">
             <label class="form-required">
-              <small [ngClass]="{'text-red': displayMessage.numeroConta}">Número da Conta</small>
+              <small [ngClass]="{'text-red': displayMessage.numeroConta}">NumeroConta</small>
             </label>
             <input type="text" class="form-control" formControlName="numeroConta" [ngClass]="{'is-invalid': displayMessage.numeroConta}">
             <small class="form-text text-red" *ngIf="displayMessage.numeroConta" [innerHTML]="displayMessage.numeroConta"></small>
           </div>
         </div>
+
       </div>
     </form>
-  </div>
-  <div class="card-footer">
-    <div class="row">
-      <div class="col-12">
-        <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
-          <i class="fa fa-check"></i>
-          Salvar
-        </button>
-        <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1">
-          <i class="fa fa-times"></i>
-          Cancelar
-        </a>
+
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+            <i class="fa fa-check"></i>
+            Salvar
+          </button>
+          <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1">
+            <i class="fa fa-times"></i>
+            Cancelar
+          </a>
+        </div>
       </div>
     </div>
-  </div>
-  <table *ngIf="extratos" class="table table-striped">
-    <thead>
-      <tr>
-        <th>Operação</th>
-        <th>diaTransação</th>
-        <th>Cliente</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let extrato of extratos">
-        <td>{{extrato.tipoOperacao}}</td>
-        <td>{{extrato.diatransacao}}</td>
-        <td>{{extrato.conta.cliente.nome}}</td>
-      </tr>
-    </tbody>
-
-  </table>
 
 </div>

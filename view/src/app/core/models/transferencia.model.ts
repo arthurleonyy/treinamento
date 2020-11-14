@@ -6,7 +6,7 @@ export class Transferencia{
   numeroContaOrigem: string;
   valor: number;
 
-  constructor(obj: any){
+  constructor(obj: any) {
       this.agenciaDestino     = obj.agenciaDestino;
       this.agenciaOrigem      = obj.agenciaOrigem;
       this.numeroContaDestino = obj.numeroContaDestino;

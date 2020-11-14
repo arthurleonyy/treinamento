@@ -1,0 +1,69 @@
+<div class="card mb-0 mt-4 rounded-0">
+  <div class="card-header card-custom-top">
+    <h5 class="align-middle text-dark">
+      <i class="fas fa-hand-holding-usd">Consultar contas</i>
+    </h5>
+  </div>
+
+  <div class="card-body">
+
+    <form [formGroup]="form">
+      <div class="row">
+        <div class="col-12 col-md-4">
+          <div class="form-group">
+            <label class="form-required">
+              <small [ngClass]="{'text-red': displayMessage.cpf}">Cpf</small>
+            </label>
+            <input type="text" class="form-control" formControlName="cpf" [ngClass]="{'is-invalid': displayMessage.cpf}">
+            <small class="form-text text-red" *ngIf="displayMessage.cpf" [innerHTML]="displayMessage.cpf"></small>
+          </div>
+        </div>
+      </div>
+    </form>
+
+    <div class="card-footer">
+      <div class="row">
+        <div class="col-12">
+          <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
+            <i class="fa fa-check"></i>
+            Salvar
+          </button>
+          <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1">
+            <i class="fa fa-times"></i>
+            Cancelar
+          </a>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <table *ngIf="contas" class="table table-striped">
+    <thead>
+      <tr>
+        <th>agencia</th>
+        <th>numeroConta</th>
+        <th>cliente</th>
+        <th>nome</th>
+        <th>email</th>
+        <th>cpf</th>
+        <th>observações</th>
+        <th>saldo</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let conta of contas">
+        <td>{{conta.agencia}}</td>
+        <td>{{conta.numeroConta}}</td>
+        <td>{{conta.cliente.id}}</td>
+        <td>{{conta.cliente.nome}}</td>
+        <td>{{conta.cliente.email}}</td>
+        <td>{{conta.cliente.cpf}}</td>
+        <td>{{conta.cliente.observacoes}}</td>
+        <td>{{conta.saldo}}</td>
+      </tr>
+    </tbody>
+
+  </table>
+
+

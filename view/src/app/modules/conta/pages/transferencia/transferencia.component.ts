@@ -27,12 +27,12 @@ export class TransferenciaComponent extends FormBase implements OnInit , AfterVi
   ngOnInit(): void {
     this.createFormGroup();
     this.validateMensageError();
-    console.log(this.form);
   }
 
-  ngAfterViewInit(){
+  ngAfterViewInit() {
     this.controlsBlurValidate();
   }
+
   createFormGroup(){
     this.form = this.formBuilder.group({
         agenciaDestino:       ['', [Validators.required]],
@@ -81,7 +81,7 @@ export class TransferenciaComponent extends FormBase implements OnInit , AfterVi
             if(erro.error.detalhes) {
               SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], {type: 'error'});
             }else{
-              SweetalertCustom.showAlertConfirm("Falha na operação", {type: 'error'});
+              SweetalertCustom.showAlertConfirm('Falha na operação', {type: 'error'});
             }
 
           }

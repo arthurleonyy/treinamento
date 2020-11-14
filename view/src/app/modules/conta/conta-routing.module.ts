@@ -1,4 +1,6 @@
-
+import { ExtratoComponent } from './pages/extrato/extrato.component';
+import { ConsultasContasComponent } from './pages/consultas-contas/consultas-contas.component';
+import { SaldoComponent } from './pages/saldo/saldo.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
@@ -35,6 +37,18 @@ const routes: Routes = [
         path: 'sacar',
         component: DepositarSacarComponent
       },
+      {
+        path: 'saldo',
+        component: SaldoComponent
+      },
+      {
+        path: 'conta',
+        component: ConsultasContasComponent
+      },
+      {
+        path: 'extrato',
+        component: ExtratoComponent
+      }
 
     ]
   },

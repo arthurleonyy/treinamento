@@ -1,5 +1,6 @@
+import { ConsultasContasComponent } from './pages/consultas-contas/consultas-contas.component';
+import { SaldoComponent } from './pages/saldo/saldo.component';
 import { TransferenciaComponent } from './pages/transferencia/transferencia.component';
-
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -20,6 +21,9 @@ import { ExtratoComponent } from './pages/extrato/extrato.component';
     DepositarSacarComponent,
     OperacoesComponent,
     TransferenciaComponent,
+    ExtratoComponent,
+    SaldoComponent,
+    ConsultasContasComponent,
     ExtratoComponent
   ],
   imports: [
