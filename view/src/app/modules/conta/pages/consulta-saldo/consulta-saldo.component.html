@@ -43,3 +43,16 @@
     </div>
   </div>
 </div>
+
+<div class="row" *ngIf="conta">
+  <div class="col-md-12">
+    <div class="info-box card-custom-left mt-3">
+      <span class="info-box-icon bg-default elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
+      <div class="info-box-content mt-2">
+        <p class="info-box-text"><strong>Agência:</strong> {{conta.agencia}}</p>
+        <p class="info-box-text"><strong>Conta:</strong> {{conta.numeroConta}}</p>
+        <p class="info-box-text"><strong>Saldo:</strong> {{conta.valor | currency:'BRL'}}</p>
+      </div>
+    </div>
+  </div>
+</div> 

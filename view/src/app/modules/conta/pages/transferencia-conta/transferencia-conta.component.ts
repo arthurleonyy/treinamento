@@ -76,13 +76,6 @@ export class TransferenciaContaComponent extends FormBase implements OnInit, Aft
             }
           );
         },
-        erro => {
-          if(erro.error.detalhes){
-            SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], {type: 'error'});
-          }else{
-            SweetalertCustom.showAlertConfirm('Falha na operação', {type: 'error'});
-          }
-        }
       );
     }
   }

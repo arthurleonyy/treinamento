@@ -1,42 +1,45 @@
-import { SweetalertCustom } from './../../../../shared/utils/sweetalert-custom';
-import { Router } from '@angular/router';
-import { ContaService } from './../../../../core/services/conta.service';
+import { Conta } from './../../../../core/models/conta.model';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { FormBase } from 'src/app/core/classes/form-base';
-import { Component, OnInit, AfterViewInit } from '@angular/core';
-import { Saldo } from 'src/app/core/models/saldo.model';
+import { ContaService } from 'src/app/core/services/conta.service';
 
 @Component({
   selector: 'app-consulta-saldo',
   templateUrl: './consulta-saldo.component.html',
   styleUrls: ['./consulta-saldo.component.scss']
 })
-export class ConsultaSaldoComponent extends FormBase implements OnInit, AfterViewInit {
+export class ConsultaSaldoComponent extends FormBase implements OnInit {
+
+  conta: Conta;
+  listaContas;
  
-  mostraSaldo = null;
 
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService,
     public router: Router
-  ) 
-  {
+  ) {
     super();
   }
 
   ngOnInit() {
     this.createFormGroup();
-    this.validateMessageError();
+    this.validateMensageError();
   }
 
-  private createFormGroup(){
+  createFormGroup() {
     this.form = this.formBuilder.group({
-      agencia: ['', Validators.required],
-      numeroConta: ['', Validators.required]
+      agencia:      ['', Validators.required],
+      numeroConta:  ['', Validators.required],
     });
   }
 
-  validateMessageError(){
+  /**
+   * Seta a mensagem de validação que irá ser exibida ao usuário
+   */
+  validateMensageError() {
     this.createValidateFieldMessage({
       agencia: {
         required: 'Agência obrigatória.',
@@ -47,34 +50,19 @@ export class ConsultaSaldoComponent extends FormBase implements OnInit, AfterVie
     });
   }
 
-  onSubmit(){
-    if(this.form.valid){
-      const obj = new Saldo(this.form.value);
-          this.saldo(obj);
-      }
-    }
-
-    private saldo(obj: Saldo){
-      this.contaService.saldo(obj).subscribe(
-        response => {
-          this.mostraSaldo = response.body;
-          SweetalertCustom.showAlertTimer('Saldo da conta: R$' + this.mostraSaldo, {type: 'success'}).then(
-            result => {
-              if(result.dismiss){
-                this.router.navigate(['conta/operacoes']);
-              }
-            }
-          );
-        },
-        erro => {
-          if(erro.error.detalhes){
-            SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], {type: 'error'});
-          } else{
-
-          } SweetalertCustom.showAlertConfirm('Falha na operação', {type: 'error'});
+  onSubmit() {
+    if (this.form.valid) {
+      const conta = new Conta(this.form.value);
+      this.contaService.saldo(conta).subscribe(
+        (response) => {
+          this.conta = new Conta({
+            agencia: conta.agencia,
+            numeroConta: conta.numeroConta,
+            valor: response.body
+          });
         }
-      )
-    };
+      );
+    }
   }
 
-
+}

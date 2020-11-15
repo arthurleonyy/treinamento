@@ -3,7 +3,6 @@ import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { Transferencia } from '../models/transferencia.model';
 import { ApiService } from './api.service';
-import { Saldo } from '../models/saldo.model';
 
 @Injectable({
   providedIn: 'root'
@@ -26,7 +25,7 @@ export class ContaService {
     return this.apiService.post(`${this.controller}/transferencia`, obj);
   }
 
-  saldo(obj: Saldo): Observable<any> {
+  saldo(obj: Conta){
     return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/${obj.numeroConta}`);
   }
 
