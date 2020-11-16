@@ -25,7 +25,7 @@ export class ContaService {
   }
 
   consultarSaldo(agencia: String, numeroConta: String){
-    return this.apiService.get(`${this.controller}/consultar-saldo/`+agencia+`/`+numeroConta);
+    return this.apiService.get(`${this.controller}/consultar-saldo/${agencia}/${numeroConta}`);
   }
 
 }

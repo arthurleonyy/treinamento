@@ -1,4 +1,3 @@
-</p>
 <div class="card mb-0 mt-4 rounded-0">
   <div class="card-header card-custom-top">
     <h5 class="align-middle text-dark">
@@ -17,7 +16,6 @@
             <small class="form-text text-red" *ngIf="displayMessage.agencia" [innerHTML]="displayMessage.agencia"></small>
           </div>
         </div>
-
         <div class="col-12 col-md-4">
           <div class="form-group">
             <label class="form-required">
@@ -27,7 +25,6 @@
             <small class="form-text text-red" *ngIf="displayMessage.numeroConta" [innerHTML]="displayMessage.numeroConta"></small>
           </div>
         </div>
-
       </div>
     </form>
   </div>
@@ -36,7 +33,7 @@
       <div class="col-12">
         <button type="submit" class="btn btn-danger float-right" [disabled]="form.invalid" (click)="onSubmit()">
           <i class="fa fa-check"></i>
-          Salvar
+          Pesquisar
         </button>
         <a [routerLink]="['/conta/operacoes']" class="btn btn-secondary float-right mr-1"> 
           <i class="fa fa-times"></i>
@@ -46,3 +43,15 @@
     </div>
   </div>
 </div>
+<div class="row" *ngIf="conta">
+  <div class="col-md-12">
+    <div class="info-box card-custom-left mt-3">
+      <span class="info-box-icon bg-default elevation-1"><i class="fas fa-hand-holding-usd"></i></span>
+      <div class="info-box-content mt-2">
+        <p class="info-box-text"><strong>Agência:</strong> {{conta.agencia}}</p>
+        <p class="info-box-text"><strong>Conta:</strong> {{conta.numeroConta}}</p>
+        <p class="info-box-text"><strong>Saldo:</strong> {{conta.valor | currency:'BRL'}}</p>
+      </div>
+    </div>
+  </div>
+</div> 

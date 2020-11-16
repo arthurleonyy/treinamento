@@ -15,6 +15,8 @@ import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
 })
 export class ConsultarSaldoComponent extends FormBase implements OnInit {
 
+  conta:Conta;
+
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService,
@@ -50,24 +52,17 @@ export class ConsultarSaldoComponent extends FormBase implements OnInit {
 
   onSubmit(){
     if (this.form.valid) {
-      const cs = new ConsultarSaldo(this.form.value);
+      const cs = new Conta(this.form.value);
       this.contaService.consultarSaldo(cs.agencia, cs.numeroConta).subscribe(
         response => {
-          SweetalertCustom.showAlertTimer('Operação realizada com sucesso.', {type: 'success'}).then(
-            result => {
-              if (result.dismiss) {
-                this.router.navigate(['conta/operacoes']);
-              }
-            }
-          );
-        },
-        erro => {
-          if (erro.error.detalhes) {
-            SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
-          } else {
-            SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
-          }
+          this.conta = new Conta({
+            agencia: cs.agencia,
+            numeroConta: cs.numeroConta,
+            valor: response.body
+          });
+          
         }
+        
       );
     }
   }
