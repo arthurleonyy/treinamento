@@ -10,6 +10,7 @@ import { ContaComponent } from './pages/conta.component';
 import { DepositarSacarComponent } from './pages/depositar-sacar/depositar-sacar.component';
 import { TransferenciaContaComponent } from './pages/transferencia-conta/transferencia-conta.component';
 import { OperacoesComponent } from './pages/operacoes/operacoes.component';
+import { ExtratoComponent } from './pages/extrato/extrato.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { OperacoesComponent } from './pages/operacoes/operacoes.component';
     DepositarSacarComponent,
     TransferenciaContaComponent,
     OperacoesComponent,
-    ConsultaSaldoComponent
+    ConsultaSaldoComponent,
+    ExtratoComponent
   ],
   imports: [
     CommonModule,
