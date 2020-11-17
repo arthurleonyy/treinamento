@@ -86,13 +86,6 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
           }
         );
       },
-      erro => {
-        if (erro.error.detalhes) {
-          SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
-        } else {
-          SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
-        }
-      }
     );
   }
 
@@ -107,13 +100,6 @@ export class DepositarSacarComponent extends FormBase implements OnInit, AfterVi
           }
         );
       },
-      erro => {
-        if (erro.error.detalhes) {
-          SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
-        } else {
-          SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
-        }
-      }
     );
   }
 

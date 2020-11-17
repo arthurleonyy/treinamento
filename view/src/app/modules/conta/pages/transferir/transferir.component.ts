@@ -6,7 +6,6 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { FormBase } from './../../../../core/classes/form-base';
 import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { ValidatorsCustom } from 'src/app/shared/utils/validators-custom';
-import { Conta } from 'src/app/core/models/conta.model';
 
 @Component({
   selector: 'app-transferir',
@@ -73,13 +72,6 @@ export class TransferirComponent extends FormBase implements OnInit, AfterViewIn
             }
           );
         },
-        erro => {
-          if (erro.error.detalhes) {
-            SweetalertCustom.showAlertConfirm(erro.error.detalhes[0], { type: 'error' });
-          } else {
-            SweetalertCustom.showAlertConfirm('Falha na operação.', { type: 'error' });
-          }
-        }
       );
     }
   }

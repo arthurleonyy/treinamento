@@ -24,4 +24,7 @@ export class ContaService {
     return this.apiService.post(`${this.controller}/transferencia`, obj);
   }
 
+  consultarSaldo(obj: Conta) {
+    return this.apiService.get(`${this.controller}/consultar-saldo/${obj.agencia}/${obj.numeroConta}`);
+  }
 }

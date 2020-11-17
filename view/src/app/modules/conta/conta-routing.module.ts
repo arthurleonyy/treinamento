@@ -1,3 +1,4 @@
+import { ConsultarSaldoComponent } from './pages/consultar-saldo/consultar-saldo.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { ContaComponent } from './pages/conta.component';
@@ -29,6 +30,10 @@ const routes: Routes = [
       {
         path: 'transferir',
         component: TransferirComponent
+      },
+      {
+        path: 'consultar-saldo',
+        component: ConsultarSaldoComponent
       },
     ]
   },
