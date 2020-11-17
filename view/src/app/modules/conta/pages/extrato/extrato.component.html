@@ -46,14 +46,14 @@
     <thead>
       <tr>
         <th>Operação</th>
-        <th>diaTransação</th>
+        <th>Data</th>
         <th>Cliente</th>
       </tr>
     </thead>
     <tbody>
       <tr *ngFor="let extrato of extratos">
         <td>{{extrato.tipoOperacao}}</td>
-        <td>{{extrato.diatransacao}}</td>
+        <td>{{extrato.diaTransacao | date :'long'}}</td>
         <td>{{extrato.conta.cliente.nome}}</td>
       </tr>
     </tbody>

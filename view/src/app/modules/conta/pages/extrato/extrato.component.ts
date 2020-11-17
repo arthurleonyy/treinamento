@@ -56,14 +56,15 @@ export class ExtratoComponent extends FormBase implements OnInit , AfterViewInit
       this.contaService.consultarExtrato(conta).subscribe(
           response => {
             this.extratos = response.body;
+            console.log(this.extratos);
             SweetalertCustom.showAlertConfirm('Operação realizada com sucesso.',{type: 'success'});
           },
           erro => {
             console.log(erro);
             if(erro.error.detalhes){
-              SweetalertCustom.showAlertConfirm(`Falha na Operação,${erro.error.detalhes[0]}.`,{ type: 'error'});
+              SweetalertCustom.showAlertConfirm(`Falha na Operação, ${erro.error.detalhes[0]}`,{ type: 'error'});
             } else {
-              SweetalertCustom.showAlertConfirm('Falha na Operação ',{ type: 'error'});
+              SweetalertCustom.showAlertConfirm('Falha na Operação.',{ type: 'error'});
             }
           }
       );
