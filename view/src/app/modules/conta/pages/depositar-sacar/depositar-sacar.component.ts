@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { DepositarSacarDTO } from 'src/app/core/models/conta.model';
+import { DepositarSacarDTO } from 'src/app/core/models/operacoes.model';
 import { OperacoesService } from 'src/app/core/services/operacoes.service';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 

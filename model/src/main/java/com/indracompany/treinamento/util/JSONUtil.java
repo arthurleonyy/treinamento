@@ -20,7 +20,7 @@ public class JSONUtil {
     try {
       final ObjectMapper mapper = new ObjectMapper();
       mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-      mapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+      mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
       return mapper.readValue(json, object);
     } catch (final Exception e) {
       throw new AplicacaoException(ExceptionValidacoes.ERRO_SERIALIZAR_JSON, e);
@@ -32,7 +32,7 @@ public class JSONUtil {
     try {
       final ObjectMapper mapper = new ObjectMapper();
       mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-      mapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+      mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
       return mapper.readValue(json, typeReference);
     } catch (final Exception e) {
       throw new AplicacaoException(ExceptionValidacoes.ERRO_SERIALIZAR_JSON, e);
@@ -44,7 +44,7 @@ public class JSONUtil {
     try {
       final ObjectMapper mapper = new ObjectMapper();
       mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-      mapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+      mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
       return mapper.readValue(src, valueType);
     } catch (final Exception e) {
       throw new AplicacaoException(ExceptionValidacoes.ERRO_SERIALIZAR_JSON, e);
@@ -57,7 +57,7 @@ public class JSONUtil {
       final ObjectMapper mapper = new ObjectMapper();
       mapper.setSerializationInclusion(JsonInclude.Include.NON_NULL);
       mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-      mapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+      mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
       return mapper.writeValueAsString(object);
     } catch (final Exception e) {
       throw new AplicacaoException(ExceptionValidacoes.ERRO_SERIALIZAR_JSON, e);
@@ -70,7 +70,7 @@ public class JSONUtil {
 
       final ObjectMapper mapper = new ObjectMapper();
       mapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);
-      mapper.setVisibilityChecker(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
+      mapper.setVisibility(VisibilityChecker.Std.defaultInstance().withFieldVisibility(JsonAutoDetect.Visibility.ANY));
       final FilterProvider filters =
           new SimpleFilterProvider().addFilter("filter properties by name", SimpleBeanPropertyFilter.serializeAllExcept(propertiesIgnore));
 

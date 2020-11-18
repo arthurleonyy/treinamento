@@ -23,39 +23,34 @@ import lombok.EqualsAndHashCode;
 @Table(name = "operacoes_financeiras")
 @Data
 @EqualsAndHashCode(callSuper = true)
-public class OperacaoFinanceira extends GenericEntity<Long>{
-	
-	private static final long serialVersionUID = 7713070352574093032L;
+public class OperacaoFinanceira extends GenericEntity<Long> {
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	private Long id;
-	
-	@Column(name = "cod_op_bancaria", 
-			nullable = false)
-	@Enumerated
-	private TipoOperacaoFinanceira tipoOperacaoFinanceira;
-	
-	@Column(name = "saldo_antes_op")
-	private Double saldoAntesOperacao;
-	
-	@Column(name = "valor_operacao")
-	private Double valorOperacao;
-	
-	@Column(name = "saldo_apos_op")
-	private Double saldoAposOperacao;
-	
-	@Column(name = "data_hora_op")
-	@JsonFormat(shape = JsonFormat.Shape.STRING,
-			pattern = "dd/MM/yyyy HH:mm:ss",
-			locale = "pt-BR",
-			timezone = "Brazil/East")
-	private Instant dataHoraOperacao;
+  private static final long serialVersionUID = 7713070352574093032L;
 
-	@JsonIgnore
-	@ManyToOne
-	@JoinColumn(name = "fk_conta_id", 
-			nullable = false)
-	private Conta conta;
-	
+  @Id
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  private Long id;
+
+  @Column(name = "cod_op_bancaria", nullable = false)
+  @Enumerated
+  private TipoOperacaoFinanceira tipoOperacaoFinanceira;
+
+  @Column(name = "saldo_antes_op")
+  private Double saldoAntesOperacao;
+
+  @Column(name = "valor_operacao")
+  private Double valorOperacao;
+
+  @Column(name = "saldo_apos_op")
+  private Double saldoAposOperacao;
+
+  @Column(name = "data_hora_op")
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy HH:mm:ss", locale = "pt-BR", timezone = "Brazil/East")
+  private Instant dataHoraOperacao;
+
+  @JsonIgnore
+  @ManyToOne
+  @JoinColumn(name = "fk_conta_id", nullable = false)
+  private Conta conta;
+
 }

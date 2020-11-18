@@ -1,6 +1,6 @@
 import { Conta } from '../models/conta.model';
 import { Injectable } from '@angular/core';
-import { DepositarSacarDTO, TransferirDTO } from '../models/conta.model';
+import { DepositarSacarDTO, TransferirDTO } from '../models/operacoes.model';
 import { ApiService } from './api.service';
 
 @Injectable({

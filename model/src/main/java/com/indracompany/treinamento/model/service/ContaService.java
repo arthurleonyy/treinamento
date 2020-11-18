@@ -3,21 +3,25 @@ package com.indracompany.treinamento.model.service;
 import java.util.List;
 import java.util.Random;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
 import com.indracompany.treinamento.exception.AplicacaoException;
 import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.model.entity.Cliente;
 import com.indracompany.treinamento.model.entity.Conta;
+import com.indracompany.treinamento.model.entity.OperacaoFinanceira;
 import com.indracompany.treinamento.model.repository.ContaRepository;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 @Service
 public class ContaService extends GenericCrudService<Conta, Long, ContaRepository>{
 
 	@Autowired
-	private ContaRepository contaRepository;
-	
+  private ContaRepository contaRepository;
+  
+  @Autowired
+	private OperacaoFinanceiraService operacaoFinanceiraService;
+
 	@Autowired
 	private ClienteService clienteService;
 	
@@ -32,11 +36,11 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 	}
 	
 	public double consultarSaldo(String agencia, String numeroConta) {
-		Conta conta = this.carregarPorAgenciaENumeroConta(agencia, numeroConta);
+		Conta conta = this.obterContaPorAgenciaENumeroConta(agencia, numeroConta);
 		return conta.getSaldo();
 	}
 	
-	public Conta carregarPorAgenciaENumeroConta(String agencia, String numeroConta) {
+	public Conta obterContaPorAgenciaENumeroConta(String agencia, String numeroConta) {
 		Conta conta = repository.findByAgenciaAndNumeroConta(agencia, numeroConta);
 		if (conta == null) {
 			throw new AplicacaoException(ExceptionValidacoes.ERRO_CONTA_INEXISTENTE);
@@ -50,6 +54,11 @@ public class ContaService extends GenericCrudService<Conta, Long, ContaRepositor
 			return contaRepository.findByCliente(cli);
 		}
 		return null;
+  }
+  
+  public List<OperacaoFinanceira> obterOperacoesPorAgenciaENumeroConta(String agencia, String numeroConta) {
+		Conta conta = obterContaPorAgenciaENumeroConta(agencia, numeroConta);
+		return operacaoFinanceiraService.consultarOperacoes(conta);
 	}
 	
 	private String gerarNumeroRandomicoEmString(int tamanho) {

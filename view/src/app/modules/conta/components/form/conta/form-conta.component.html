@@ -12,7 +12,8 @@
           class="form-control"
           formControlName="agencia"
           [ngClass]="{ 'is-invalid': displayMessage.agencia }"
-          (blur)="[emitFormAgencia(), emitIsFormContaInvalid()]"
+          (blur)="emitFormAgencia()"
+          (keyup)="emitIsFormContaInvalid()"
         />
         <small
           class="form-text text-red"
@@ -34,7 +35,8 @@
           class="form-control"
           formControlName="numeroConta"
           [ngClass]="{ 'is-invalid': displayMessage.numeroConta }"
-          (blur)="[emitFormNumeroConta(), emitIsFormContaInvalid()]"
+          (blur)="emitFormNumeroConta()"
+          (keyup)="emitIsFormContaInvalid()"
         />
         <small
           class="form-text text-red"

@@ -19,7 +19,6 @@ import com.indracompany.treinamento.exception.ExceptionValidacoes;
 import com.indracompany.treinamento.exception.ValidacaoCampos;
 import com.indracompany.treinamento.model.entity.GenericEntity;
 import com.indracompany.treinamento.model.repository.GenericCrudRepository;
-import com.indracompany.treinamento.util.CpfUtil;
 
 import lombok.extern.slf4j.Slf4j;
 

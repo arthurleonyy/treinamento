@@ -10,7 +10,8 @@
           class="form-control"
           formControlName="valor"
           [ngClass]="{ 'is-invalid': displayMessage.valor }"
-          (blur)="[emitFormValor(), emitIsFormValorInvalid()]"
+          (blur)="emitFormValor()"
+          (keyup)="emitIsFormValorInvalid()"
         />
         <small
           class="form-text text-red"

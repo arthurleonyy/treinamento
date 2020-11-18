@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
 import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
-import { TransferirDTO } from './../../../../core/models/conta.model';
+import { TransferirDTO } from './../../../../core/models/operacoes.model';
 import { OperacoesService } from '../../../../core/services/operacoes.service';
 
 @Component({
