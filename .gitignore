@@ -3,6 +3,7 @@ model\target
 model\bin
 controller\target
 controller\bin
+.vscode
 .settings
 .metadata
 .idea
