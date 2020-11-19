@@ -13,10 +13,12 @@ import { SweetalertCustom } from 'src/app/shared/utils/sweetalert-custom';
 })
 export class ConsultaSaldoComponent  extends FormBase implements OnInit, AfterViewInit {
 
+  conta: Conta;
+
   constructor(
     private formBuilder: FormBuilder,
     private contaService: ContaService,
-    public router: Router
+    public router: Router,
   ) {
     super();
   }
@@ -53,13 +55,12 @@ export class ConsultaSaldoComponent  extends FormBase implements OnInit, AfterVi
 
   public consultarSaldo(conta: Conta) {
     this.contaService.consultarSaldo(conta).subscribe(
-      response => {
-        SweetalertCustom.showAlertConfirm(`Saldo: R$ ${response.body}` , {type: 'success'})
-        .then(
-          redirect => {
-              this.router.navigate(['conta/operacoes']);
-          }
-        );
+      (response) => {
+        this.conta = new Conta({
+          agencia: conta.agencia,
+          numeroConta: conta.numeroConta,
+          valor: response.body
+        });
       },
       erro => {
         if (erro.error.detalhes) {
